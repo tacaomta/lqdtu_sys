@@ -1,0 +1,267 @@
+<div class="sidebar">
+
+    <!-- HEADER -->
+    <div class="filter-panel-header">
+
+        <h5 class="filter-panel-title">
+
+            Bộ lọc
+
+        </h5>
+
+        <button
+            type="button"
+            id="clear-all-btn"
+            class="filter-action-btn disabled"
+            onclick="clearAllFilters()">
+
+            <i class="bi bi-eraser-fill"></i>
+
+        </button>
+
+    </div>
+
+    <!-- FORM -->
+    <form method="GET">
+
+        <div class="filter-sidebar">
+
+            <!-- YEAR -->
+            <div class="filter-card {% if is_filtering_years %}active{% endif %}">
+
+                <!-- HEADER -->
+                <div class="filter-header">
+
+                    <span class="filter-title">
+
+                        Năm công bố
+
+                    </span>
+
+                    <button
+                        type="button"
+                        class="clear-btn {% if not is_filtering_years %}hidden{% endif %}"
+                        onclick="clearYears()"
+                        title="Clear filter">
+
+                        <i class="bi bi-eraser"></i>
+
+                    </button>
+
+                </div>
+
+                <!-- STATUS -->
+                <div class="filter-status">
+
+                    {% if not is_filtering_years %}
+                    All
+                    {% else %}
+                    {{ selected_years|length }} selected
+                    {% endif %}
+
+                </div>
+
+                <!-- CONTENT -->
+                <div class="year-grid">
+
+                    {% for y in years %}
+
+                    <button
+                        type="button"
+                        class="year-btn {% if y|stringformat:'s' in selected_years %}active{% endif %}"
+                        data-year="{{ y }}">
+
+                        {{ y }}
+
+                    </button>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <!-- FIELD -->
+            <div class="filter-card {% if is_filtering_fields %}active{% endif %}">
+
+                <div class="filter-header">
+
+                    <span class="filter-title">
+
+                        Ngành/Nhóm ngành
+
+                    </span>
+
+                    <button
+                        type="button"
+                        class="clear-btn {% if not is_filtering_fields %}hidden{% endif %}"
+                        onclick="clearFields()"
+                        title="Clear filter">
+
+                        <i class="bi bi-eraser"></i>
+
+                    </button>
+
+                </div>
+
+                <div class="filter-status">
+
+                    {% if not is_filtering_fields %}
+                    All
+                    {% else %}
+                    {{ selected_fields|length }} selected
+                    {% endif %}
+
+                </div>
+
+                <div class="field-list">
+
+                    {% for f in fields %}
+
+                    <button
+                        type="button"
+                        class="field-btn {% if f in selected_fields %}active{% endif %}"
+                        data-field="{{ f }}">
+
+                        {{ f }}
+
+                    </button>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <!-- ROLE -->
+            <div class="filter-card {% if is_filtering_roles %}active{% endif %}">
+
+                <div class="filter-header">
+
+                    <span class="filter-title">
+
+                        Vai trò tác giả
+
+                    </span>
+
+                    <button
+                        type="button"
+                        class="clear-btn {% if not is_filtering_roles %}hidden{% endif %}"
+                        onclick="clearRoles()">
+
+                        <i class="bi bi-eraser"></i>
+
+                    </button>
+
+                </div>
+
+                <div class="role-list">
+
+                    <label class="role-item">
+
+                        <input
+                            type="checkbox"
+                            id="first-checkbox"
+                            {% if first_selected %}checked="checked"{% endif %}>
+
+                        <span>
+
+                            Tác giả thứ nhất (LQD)
+
+                        </span>
+
+                    </label>
+
+                    <label class="role-item">
+
+                        <input
+                            type="checkbox"
+                            id="corresponding-checkbox"
+                            {% if corresponding_selected %}checked="checked"{% endif %}>
+
+                        <span>
+
+                            Tác giả liên hệ (LQD)
+
+                        </span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+            <!-- CITATION -->
+            <div class="filter-card {% if is_filtering_citations %}active{% endif %}">
+
+                <div class="filter-header">
+
+                    <span class="filter-title">
+
+                        Nhóm trích dẫn
+
+                    </span>
+
+                    <button
+                        type="button"
+                        class="clear-btn {% if not is_filtering_citations %}hidden{% endif %}"
+                        onclick="clearCitations()">
+
+                        <i class="bi bi-eraser"></i>
+
+                    </button>
+
+                </div>
+
+                <div class="field-list">
+
+                    {% for value, label in citation_groups %}
+
+                    <label class="field-item">
+
+                        <input
+                            type="checkbox"
+                            class="citation-checkbox"
+                            value="{{ value }}"
+                            {% if value in selected_citations %}checked="checked"{% endif %}>
+
+                        <span>
+
+                            {{ label }}
+
+                        </span>
+
+                    </label>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <!-- APPLY -->
+            <div class="apply-container">
+
+                <button
+                    type="button"
+                    id="apply-btn"
+                    class="apply-btn disabled"
+                    onclick="applyFilters()">
+
+                    <i class="bi bi-funnel-fill"></i>
+
+                    <span>
+
+                        Áp dụng
+
+                    </span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>

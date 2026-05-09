@@ -15,3 +15,6 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
+    
+    def has_role(self, role_name):
+        return self.roles.filter(name=role_name).exists()

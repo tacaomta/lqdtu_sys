@@ -1,0 +1,178 @@
+{% load static %}
+{% load role_tags %}
+
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+
+    <title>LQDTU Publications Dashboard</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'dashboard/css/style.css' %}" />
+
+    {% block extra_css %}
+
+    {% endblock %}
+  </head>
+
+  <body>
+    <!-- 🔷 HEADER -->
+    <div class="logo-bar d-flex justify-content-between align-items-center">
+      <div>🏫 LQDTU Publications Dashboard</div>
+
+      <div>
+        {% if request.user.is_authenticated %}
+          <span class="me-2">{{ request.user.username }}</span>
+
+          <a href="{% url 'logout' %}" class="btn btn-light btn-sm">Logout</a>
+        {% else %}
+          <a href="{% url 'login' %}" class="btn btn-light btn-sm">Login</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- 🔷 NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+      <div class="container-fluid">
+        <!-- MOBILE MENU -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"><span class="navbar-toggler-icon"></span></button>
+
+        <!-- MENU -->
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav w-100">
+            <!-- OVERVIEW -->
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.url_name == 'overview' %}active{% endif %}"
+                href="/{% if querystring %}?{{ querystring }}{% endif %}">
+                📊 Tổng quan
+              </a>
+            </li>
+
+            <!-- FIELDS -->
+            <li class="nav-item">
+              <a class="nav-link {% if '/fields/' in request.path %}active{% endif %}"
+                href="{% url 'fields' %}{% if querystring %}?{{ querystring }}{% endif %}">
+                🧪 Nghiên cứu theo ngành/nhóm ngành
+              </a>
+            </li>
+
+            <!-- CITATIONS -->
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.url_name == 'citations' %}active{% endif %}"
+                href="{% url 'citations' %}{% if querystring %}?{{ querystring }}{% endif %}">
+                📈 Trích dẫn nghiên cứu
+              </a>
+            </li>
+
+            <!-- ROLES -->
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.url_name == 'roles' %}active{% endif %}"
+                href="{% url 'roles' %}{% if querystring %}?{{ querystring }}{% endif %}">
+                👤 Vai trò tác giả
+              </a>
+            </li>
+
+            <!-- PERFORMANCE -->
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.url_name == 'performance' %}active{% endif %}"
+                href="{% url 'performance' %}{% if querystring %}?{{ querystring }}{% endif %}">
+                🚀 Hiệu suất nghiên cứu
+              </a>
+            </li>
+
+            <!-- COLLAB -->
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.url_name == 'collaboration' %}active{% endif %}"
+                href="{% url 'collaboration' %}{% if querystring %}?{{ querystring }}{% endif %}">
+                🌍 Hợp tác quốc tế
+              </a>
+            </li>
+
+            <!-- UPDATE -->
+            {% if request.user|has_role:'MANAGER' or request.user|has_role:'ADMIN' %}
+              <li class="nav-item">
+                <a class="nav-link upload {% if request.resolver_match.url_name == 'upload_csv' %}active{% endif %}" href="{% url 'upload_csv' %}{% if querystring %}?{{ querystring }}{% endif %}">⬆️ Update Data</a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 🔷 MOBILE FILTER BUTTON -->
+    <div class="mobile-filter-bar d-lg-none p-2">
+      <button class="btn btn-primary mobile-filter-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#filterSidebar">
+        <i class="bi bi-funnel-fill"></i>
+
+        <span>Bộ lọc</span>
+      </button>
+    </div>
+
+    <!-- 🔷 MAIN -->
+<div class="dashboard-layout">
+
+    <!-- SIDEBAR -->
+    <div
+        id="filterSidebar"
+        class="offcanvas offcanvas-lg offcanvas-start dashboard-sidebar"
+        tabindex="-1">
+
+        <!-- MOBILE HEADER -->
+        <div class="offcanvas-header d-lg-none">
+
+            <h5 class="offcanvas-title">
+
+                Bộ lọc
+
+            </h5>
+
+            <button
+                type="button"
+                class="btn-close"
+                aria-label="Close"
+                data-bs-dismiss="offcanvas">
+            </button>
+
+        </div>
+
+        <!-- FILTER BODY -->
+        <div class="offcanvas-body p-0">
+
+            {% include "dashboard/partials/filters.html" %}
+
+        </div>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div class="dashboard-content">
+
+        <div class="content-box">
+
+            {% block content %}
+            {% endblock %}
+
+        </div>
+
+    </div>
+
+</div>
+    {% include "dashboard/partials/footer.html" %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="{% static 'dashboard/js/myscript.js' %}"></script>
+
+    {% block extra_js %}
+
+    {% endblock %}
+
+     
+  </body>
+</html>
