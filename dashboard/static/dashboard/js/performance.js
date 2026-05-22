@@ -36,6 +36,8 @@ document.addEventListener(
 
             );
 
+            const lqdtuOnly = document.getElementById("publicationLQDTUOnly").checked;
+
 
             // =====================================
             // UPDATE LABEL
@@ -45,7 +47,11 @@ document.addEventListener(
 
                 "publicationThresholdLabel"
 
-            ).innerText = publicationThreshold;
+            ).innerText = lqdtuOnly ? `${publicationThreshold} (Chỉ tính LQDTU)` : publicationThreshold;
+
+            let filteredAuthors = authorsMetrics;
+
+            if (lqdtuOnly) { filteredAuthors = filteredAuthors.filter(x => x.is_lqdtu); }
 
 
             // =====================================
@@ -54,7 +60,7 @@ document.addEventListener(
 
             const authorsWithPublication =
 
-                authorsMetrics.filter(
+                filteredAuthors.filter(
 
                     x =>
 
@@ -98,7 +104,86 @@ document.addEventListener(
 
         );
 
+        function updateHindexThresholdKPI() {
+            const hindexThreshold = parseInt(document.getElementById("hindexThreshold").value);
+
+            const lqdtuOnly = document.getElementById("hindexLQDTUOnly").checked;
+
+            document.getElementById("hindexThresholdLabel").innerText = lqdtuOnly ? `${hindexThreshold} (Chỉ tính LQDTU)` : hindexThreshold;; 
+
+            let filteredAuthors = authorsMetrics;
+
+            if (lqdtuOnly) { filteredAuthors = filteredAuthors.filter(x => x.is_lqdtu); }
+
+            const authorsWithHindex = filteredAuthors.filter( x => x.h_index >= hindexThreshold ).length; 
+
+            document.getElementById("authorsWithHindexValue").innerText = authorsWithHindex;; 
+        }
+
+        
+
+
+        // =========================================
+        // EVENTS
+        // =========================================
+
+        document.getElementById(
+
+            "publicationThreshold"
+
+        ).addEventListener(
+
+            "input",
+
+            updateAuthorPerformanceKPIs
+
+        );
+
+
+        document.getElementById(
+
+            "hindexThreshold"
+
+        ).addEventListener(
+
+            "input",
+
+            updateHindexThresholdKPI
+
+        );
+
+        document.getElementById(
+
+            "publicationLQDTUOnly"
+
+        ).addEventListener(
+
+            "input",
+
+            updateAuthorPerformanceKPIs
+
+        );
+
+        document.getElementById(
+
+            "hindexLQDTUOnly"
+
+        ).addEventListener(
+
+            "input",
+
+            updateHindexThresholdKPI
+
+        );
+
+
+        // =========================================
+        // INITIAL RENDER
+        // =========================================
+
         updateAuthorPerformanceKPIs();
+        updateHindexThresholdKPI();
+
         
 
     }
