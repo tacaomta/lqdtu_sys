@@ -31,20 +31,3 @@ def get_fields():
         ]
 
     return fields
-
-def get_citation_groups():
-    CITATION_GROUPS = [
-
-    ("50+", "Trên 50 trích dẫn"),
-
-    ("21-50", "21–50 trích dẫn"),
-
-    ("11-20", "11–20 trích dẫn"),
-
-    ("6-10", "6–10 trích dẫn"),
-
-    ("1-5", "1–5 trích dẫn"),
-
-    ("0", "Chưa được trích dẫn"),
-]
-    return CITATION_GROUPS

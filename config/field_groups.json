@@ -1,0 +1,34 @@
+{
+    "Computer Science and Information Systems": {
+        "fields": [
+            "Computer Science"
+        ]
+    },
+    "Electrical and Electronic Engineering": {
+        "fields": [
+            "Engineering"
+        ],
+        "subfields": [
+            "Electrical and Electronic Engineering"
+        ]
+    },
+    "Materials Science": {
+        "fields": [
+            "Materials Science"
+        ]
+    },
+    "Chemistry": {
+        "fields": [
+            "Chemistry",
+            "Biochemistry, Genetics and Molecular Biology"
+        ]
+    },
+    "Engineering and Technology": {
+        "fields": [
+            "Engineering"
+        ]
+    },
+    "Others": {
+        "fields": []
+    }
+}

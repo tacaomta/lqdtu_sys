@@ -1,8 +1,17 @@
-# LQDTU Publications System
+# LQDTU Research Analytics System
 
-## Setup
+Academic publication analytics dashboard built with Django + Plotly.
 
-```bash
+## Features
+
+- Responsive dashboard
+- Advanced filtering
+- Citation analytics
+- Collaboration analysis
+- Author role analytics
+
+## Installation
+
 pip install -r requirements.txt
-python manage.py migrate
+
 python manage.py runserver

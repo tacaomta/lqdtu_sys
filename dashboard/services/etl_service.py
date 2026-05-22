@@ -1,4 +1,5 @@
-from dashboard.models import PublicationRaw, FactPublication
+from dashboard.models.raw import PublicationRaw
+from dashboard.models.fact import FactPublication
 from django.db import transaction
 
 

@@ -1,5 +1,16 @@
 from django.urls import path
-from .views import overview_view, fields_view, roles_view, citations_view, performance_view, collaboration_view, upload_csv
+from .views import (
+    overview_view, 
+    fields_view, 
+    roles_view, 
+    citations_view, 
+    performance_view, 
+    collaboration_view, 
+    upload_csv, 
+    transform_data, 
+    transform_dashboard, 
+    import_progress
+)
 
 urlpatterns = [
     path('', overview_view, name='overview'),
@@ -9,4 +20,7 @@ urlpatterns = [
     path('performance/', performance_view, name='performance'),
     path('collaboration/', collaboration_view, name='collaboration'),
     path('upload/', upload_csv, name='upload_csv'),
+    path("api/transform/", transform_data, name="transform_data"),
+    path("transform/", transform_dashboard, name="transform_dashboard"),
+    path("api/import-progress/<int:batch_id>/", import_progress, name="import_progress"),
 ]

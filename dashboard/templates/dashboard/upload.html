@@ -1,17 +1,163 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<h4>📂 Upload CSV Publication</h4>
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
+<div class="upload-page">
 
-    <div class="mb-3">
-        <input type="file" name="file" class="form-control" required>
+    <!-- HEADER -->
+    <div class="upload-header">
+
+        <h2 class="upload-title">
+            <i class="bi bi-cloud-upload-fill"></i>
+            Cập nhật dữ liệu CBKH
+        </h2>
+
+        <p class="upload-subtitle">
+            Tải file Excel/CSV chứa thông tin CBKH để cập nhật dữ liệu
+        </p>
+
     </div>
 
-    <button type="submit" class="btn btn-primary">
-        Upload
-    </button>
-</form>
+    <!-- CARD -->
+    <div class="upload-card">
+
+        <!-- FORM -->
+        <form
+            method="POST"
+            enctype="multipart/form-data"
+            id="upload-form">
+
+            {% csrf_token %}
+
+            <!-- FILE -->
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Chọn file dữ liệu
+                </label>
+
+                {{ form.file }}
+
+            </div>
+
+            <div class="mb-4">
+
+                <label class="form-label">
+
+                    Dữ liệu Scopus cập nhật đến ngày
+
+                </label>
+
+                <input
+                    type="date"
+                    name="data_updated_until"
+                    class="form-control"
+                    required
+                >
+
+            </div>
+
+            <!-- BUTTON -->
+            <button
+                type="submit"
+                class="btn btn-primary upload-btn"
+                id="upload-btn">
+
+                <i class="bi bi-upload"></i>
+
+                Tải & Xử lý
+
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- PROGRESS -->
+    <div
+        class="etl-card mt-4 d-none"
+        id="etl-progress-card">
+
+        <!-- STEP -->
+        <div class="etl-steps">
+
+            <div class="etl-step active" id="step-read">
+
+                <div class="step-circle">1</div>
+
+                <div class="step-label">
+                    Đọc dữ liệu từ file
+                </div>
+
+            </div>
+
+            <div class="etl-line"></div>
+
+            <div class="etl-step" id="step-clean">
+
+                <div class="step-circle">2</div>
+
+                <div class="step-label">
+                    Chuẩn hóa dữ liệu
+                </div>
+
+            </div>
+
+            <div class="etl-line"></div>
+
+            <div class="etl-step" id="step-enrich">
+
+                <div class="step-circle">3</div>
+
+                <div class="step-label">
+                    Lấy thông tin ngành, chuyên ngành
+                </div>
+
+            </div>
+
+            <div class="etl-line"></div>
+
+            <div class="etl-step" id="step-save">
+
+                <div class="step-circle">4</div>
+
+                <div class="step-label">
+                    Lưu dữ liệu vào hệ thống
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- BAR -->
+        <div class="progress mt-4">
+
+            <div
+                class="progress-bar progress-bar-striped progress-bar-animated"
+                id="etl-progress-bar"
+                style="width:0%">
+
+                0%
+
+            </div>
+
+        </div>
+
+        <!-- STATUS -->
+        <div
+            class="etl-status mt-3"
+            id="etl-status">
+
+            Waiting...
+
+        </div>
+
+    </div>
+</div>
+{% if result %}
+    {% include "dashboard/partials/upload_result.html" %}
+{% endif %}
+<script src="{% static 'dashboard/js/upload.js' %}"></script>
+
 {% endblock %}

@@ -71,6 +71,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "dashboard.context_processors.global_filters",
+                "dashboard.context_processors.global_scopus_info",
             ],
         },
     },
@@ -148,3 +149,7 @@ STATICFILES_DIRS = [
 ]
 
 LOGIN_REDIRECT_URL = 'overview'
+
+MEDIA_URL = "/media/"
+
+MEDIA_ROOT = BASE_DIR / "media"

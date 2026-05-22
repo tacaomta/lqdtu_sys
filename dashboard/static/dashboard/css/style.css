@@ -55,56 +55,6 @@ html, body{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 }
 
-/* NAV TAB STYLE - BUTTON LIKE */
-.nav-tabs {
-    border-bottom: none;
-    gap: 10px;
-    padding: 10px;
-}
-
-.nav-tabs .nav-link {
-    border: none;
-    border-radius: 10px;
-    background: #ffffff;
-    padding: 10px 18px;
-    font-weight: 500;
-    color: #333;
-
-    /* hiệu ứng nổi */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-    transition: all 0.2s ease;
-}
-
-/* hover: nổi lên */
-.nav-tabs .nav-link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
-    color: #0d6efd;
-}
-
-/* ACTIVE TAB (pressed effect) */
-.nav-tabs .nav-link.active {
-    background: #0d6efd;
-    color: white;
-
-    /* hiệu ứng "chìm xuống" */
-    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.2);
-    transform: translateY(2px);
-}
-
-.nav-tabs .nav-link.active::after {
-    content: "";
-    display: block;
-    height: 3px;
-    background: white;
-    margin-top: 5px;
-    border-radius: 2px;
-}
-
-.nav-tabs .nav-link.active {
-    background: linear-gradient(135deg, #0d6efd, #4dabf7);
-}
-
 .nav-link.upload {
     background: #757573;
     color: black;
@@ -492,11 +442,20 @@ html, body{
 
 .navbar .nav-link {
 
-    padding: 6px 20px;
-
-    border-radius: 15px;
-
+    border: none;
+    border-radius: 999px;
+    background: #ffffff;
+    padding: 0 18px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    color: #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
     transition: all 0.2s ease;
+    margin-top: 6px;
+    margin-bottom: 6px;
 
 }
 
@@ -783,3 +742,461 @@ html, body{
     }
 
 }
+/* =========================================
+UPLOAD PAGE
+========================================= */
+
+.upload-page {
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+}
+
+.upload-header {
+
+    margin-bottom: 24px;
+
+}
+
+.upload-title {
+
+    font-size: 28px;
+
+    font-weight: 700;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+.upload-subtitle {
+
+    color: #6b7280;
+
+    margin-top: 8px;
+
+}
+
+.upload-card,
+.etl-card {
+
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 24px;
+
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+
+}
+
+.upload-btn {
+
+    height: 35px;
+
+    border-radius: 6px;
+
+    font-weight: 600;
+
+    padding: 0 24px;
+
+}
+
+/* =========================================
+ETL STEPS
+========================================= */
+
+.etl-steps {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+}
+
+.etl-step {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 8px;
+
+    flex-shrink: 0;
+
+}
+
+.step-circle {
+
+    width: 42px;
+
+    height: 42px;
+
+    border-radius: 50%;
+
+    background: #d1d5db;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-weight: 700;
+
+}
+
+.etl-step.active .step-circle {
+
+    background: #0d6efd;
+
+}
+
+.etl-step.completed .step-circle {
+
+    background: #198754;
+
+}
+
+.step-label {
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+}
+
+.etl-line {
+
+    flex: 1;
+
+    height: 3px;
+
+    background: #e5e7eb;
+
+    margin: 0 10px;
+
+}
+
+/* =========================================
+SUMMARY
+========================================= */
+
+.summary-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+
+    gap: 16px;
+
+}
+
+.summary-item {
+
+    background: #f9fafb;
+
+    border-radius: 14px;
+
+    padding: 20px;
+
+    text-align: center;
+
+}
+
+.summary-value {
+
+    font-size: 28px;
+
+    font-weight: 700;
+
+    color: #0d6efd;
+
+}
+
+.summary-label {
+
+    margin-top: 8px;
+
+    color: #6b7280;
+
+}
+
+/* Preview CSS */
+
+.etl-logs {
+
+    background: #111827;
+
+    color: #e5e7eb;
+
+    border-radius: 14px;
+
+    padding: 20px;
+
+    max-height: 400px;
+
+    overflow-y: auto;
+
+    font-family: monospace;
+
+    font-size: 13px;
+
+}
+
+.etl-log-item {
+
+    margin-bottom: 8px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+}
+
+.etl-log-item i {
+
+    color: #22c55e;
+
+}
+
+
+.etl-menu-group {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 0px 10px;
+
+    height: 40px;
+
+    background: #edeeef;
+
+    border-radius: 999px;
+
+    margin-left: 12px;
+
+    margin-top: 6px;
+
+    margin-bottom: 6px;
+
+    border: #888 solid thin;
+
+}
+
+.etl-pill {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 0px 10px;
+
+    height: 32px;
+
+    border-radius: 999px;
+
+    background: rgb(189, 184, 184);
+
+    text-decoration: none;
+
+    color: #374151;
+
+    font-weight: 500;
+
+    transition: all 0.2s ease;
+
+}
+
+.etl-pill:hover {
+
+    background: rgba(13, 110, 253, 0.08);
+
+}
+
+.etl-pill.active {
+    background: #0d6efd !important;
+    
+    color: white !important;
+
+    font-weight: 600;
+
+    box-shadow: 0 2px 8px rgba(13, 110, 253, 0.2);
+}
+
+/* ========================================= SUMMARY COLORS ========================================= */
+.summary-item.success {
+    border-left: 4px solid #198754 !important;
+    border-right: 1px solid #198754 !important;
+    border-top: 1px solid #198754 !important;
+    border-bottom: 1px solid #198754 !important;
+}
+
+.summary-item.warning {
+    border-left: 4px solid #fd7e14 !important;
+    border-right: 1px solid #fd7e14 !important;
+    border-top: 1px solid #fd7e14 !important;
+    border-bottom: 1px solid #fd7e14 !important;
+}
+
+.summary-item.danger {
+    border-left: 4px solid #dc3545 !important;
+    border-right: 1px solid #dc3545 !important;
+    border-top: 1px solid #dc3545 !important;
+    border-bottom: 1px solid #dc3545 !important;
+}
+.summary-item.info
+{
+    border-left: 4px solid #0aa7eb !important;
+    border-right: 1px solid #0aa7eb !important;
+    border-top: 1px solid #0aa7eb !important;
+    border-bottom: 1px solid #0aa7eb !important;
+}
+/* ========================================= TERMINAL LOGS ========================================= */
+.terminal-style {
+    background: #0f172a;
+    border-radius: 12px;
+    padding: 16px;
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+.terminal-style .etl-log-item {
+    color: #d1fae5;
+    font-family: Consolas, monospace;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.updated-date-badge {
+
+    display: inline-block;
+
+    margin-left: 8px;
+
+    padding: 2px 14px;
+
+    border-radius: 5px;
+
+    background: linear-gradient(145deg,
+            #519154,
+            #688f6a);
+
+    /* border: 1px solid #1b5e20; */
+
+    color: #e8f5e9;
+
+    font-weight: 700;
+
+    letter-spacing: 0.4px;
+
+    font-size: 11px;
+
+    text-shadow:
+        0 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+/*Overview chart*/
+/*==============*/
+.dashboard-kpi-card {
+
+    background: white;
+
+    border-radius: 16px;
+
+    padding: 24px;
+
+    box-shadow:
+        0 2px 12px rgba(0, 0, 0, 0.08);
+
+    height: 100%;
+}
+
+.kpi-title {
+
+    font-size: 14px;
+
+    color: #6c757d;
+
+    margin-bottom: 10px;
+}
+
+.kpi-value {
+
+    font-size: 36px;
+
+    font-weight: 700;
+
+    color: #1e7eb9;
+}
+
+.dashboard-chart-card {
+
+    width: 100%;
+
+    background: white;
+
+    border-radius: 16px;
+
+    padding: 24px;
+
+    box-shadow:
+        0 2px 12px rgba(0, 0, 0, 0.08);
+}
+.chart-wrapper {
+    position: relative;
+    height: 320px;
+    width: 100%;
+}
+
+.chart-wrapper canvas {
+
+    width: 100% !important;
+
+    height: 100% !important;
+}
+
+
+
+/* ========================================= */
+/* KPI GROUP CARD */
+/* ========================================= */
+.kpi-group-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    height: 100%;
+}
+
+/* ========================================= */
+/* GROUP TITLE */
+/* ========================================= */
+.kpi-group-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e7eb9;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+

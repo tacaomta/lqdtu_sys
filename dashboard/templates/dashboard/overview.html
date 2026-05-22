@@ -1,24 +1,178 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block content %}
-<h3>📊 Overview Dashboard</h3>
 
-<div class="row mt-4">
+<div class="container-fluid mt-4 px-4">
 
-    <div class="col-md-3">
-        <div class="card p-3">
-            <h5>Total Publications</h5>
-            <h3>1,234</h3>
+    <!-- ============================== -->
+    <!-- ROW 1 -->
+    <!-- ============================== -->
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-4">
+
+            <div class="dashboard-kpi-card">
+
+                <div class="kpi-title">
+                    Tổng số CBKH
+                </div>
+
+                <div class="kpi-value">
+                    {{ total_publications }}
+                </div>
+
+            </div>
+
+        </div>        
+
+        <div class="col-md-4">
+
+            <div class="dashboard-kpi-card">
+
+                <div class="kpi-title">
+                    Số CBKH trung bình/năm
+                </div>
+
+                <div class="kpi-value">
+                    {{ publications_per_year }}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="dashboard-kpi-card">
+
+                <div class="kpi-title">
+                    Số CBKH năm nay
+                </div>
+
+                <div class="kpi-value">
+                    {{ publications_this_year }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- ============================== -->
+    <!-- ROW 2 -->
+    <!-- ============================== -->
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-4">
+
+            <div class="dashboard-kpi-card">
+
+                <div class="kpi-title">
+                    Tổng số trích dẫn
+                </div>
+
+                <div class="kpi-value">
+                    {{ total_citations }}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="dashboard-kpi-card">
+
+                <div class="kpi-title">
+                    Số trích dẫn trung bình/CBKH
+                </div>
+
+                <div class="kpi-value">
+                    {{ avg_citation }}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="dashboard-kpi-card">
+
+                <div class="kpi-title">
+                    H-index
+                </div>
+
+                <div class="kpi-value">
+                    {{ h_index }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ============================== -->
+    <!-- CHARTS -->
+    <!-- ============================== -->
+
+    <div class="row g-4 mb-4">
+        <div class="col-12">
+            <div class="dashboard-chart-card">
+
+                <h5>
+                    Số CBKH theo năm
+                </h5>
+                <div class="chart-wrapper">
+                    <canvas id="publicationChart"></canvas>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="col-md-3">
-        <div class="card p-3">
-            <h5>Total Authors</h5>
-            <h3>567</h3>
+    <div class="row g-4 mb-4">
+        <div class="col-12">
+            <div class="dashboard-chart-card">
+
+            <h5>
+                Tổng số trích dẫn tích lũy theo năm
+            </h5>
+            <div class="chart-wrapper">
+                <canvas id="citationChart"></canvas>
+            </div>
+        </div>
         </div>
     </div>
 
 </div>
+<!-- ===================================== -->
+<!-- JSON DATA -->
+<!-- ===================================== -->
+
+{{ publication_years|json_script:"publication-years" }}
+
+{{ publication_counts|json_script:"publication-counts" }}
+
+{{ citation_counts|json_script:"citation-counts" }}
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+<script src="{% static 'dashboard/js/dashboard_palette.js' %}"></script>
+
+<script src="{% static 'dashboard/js/dashboard_charts.js' %}"></script>
+
+<script src="{% static 'dashboard/js/overview.js' %}"></script>
 
 {% endblock %}

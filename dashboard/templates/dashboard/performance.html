@@ -1,12 +1,102 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<h3>📊 Hiệu suất nghiên cứu </h3>
 
-<div class="row mt-4">
+<div class="container-fluid mt-4 py-4">
 
-    Hell theo chuyên ngành
+    <!-- ===================================== -->
+    <!-- PAGE HEADER -->
+    <!-- ===================================== -->
 
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+
+            <div class="dashboard-kpi-card" style="padding-bottom: 0px;">
+
+                <!-- TITLE -->
+
+                <div class="kpi-title">
+
+                    Số tác giả có ≥ <strong
+                        id="publicationThresholdLabel"
+                    >
+
+                        10
+
+                </strong> CBKH
+
+                </div>
+
+                <!-- VALUE -->
+
+                <div
+
+                    class="kpi-value"
+
+                    id="authorsWithPublicationValue"
+
+                >
+
+                    0
+
+                </div>
+
+                <div class="mt-3 mb-0">
+
+                    <input
+
+                        type="range"
+
+                        class="form-range"
+
+                        id="publicationThreshold"
+
+                        min="1"
+
+                        max="50"
+
+                        value="10"
+
+                    >
+
+                </div>
+
+            </div>
+
+        </div>       
+
+        <div class="col-md-9">
+
+            <div class="dashboard-kpi-card">
+
+                <div class="kpi-title">
+                    Số trích dẫn trung bình/CBKH
+                </div>
+
+                <div class="kpi-value">
+                     {{ citation_per_publication }}
+                </div>
+
+            </div>
+
+        </div>
+    </div>
 </div>
+
+{{ authors_with_N_publications|json_script:"authors_with_N_publications" }}
+
+{% endblock %}
+{% block extra_js %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+<script src="{% static 'dashboard/js/dashboard_palette.js' %}"></script>
+
+<script src="{% static 'dashboard/js/dashboard_charts.js' %}"></script>
+
+<script src="{% static 'dashboard/js/performance.js' %}"></script>
 
 {% endblock %}

@@ -1,12 +1,379 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<h3>📊 Phân tích theo trích dẫn</h3>
 
-<div class="row mt-4">
+<div class="container-fluid mt-4 py-4">
 
-    Theo trích dẫn
+    <!-- ===================================== -->
+    <!-- PAGE HEADER -->
+    <!-- ===================================== -->
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-2">
+
+            <div class="dashboard-kpi-card">
+
+                <div class="kpi-title">
+                    Tổng số trích dẫn
+                </div>
+
+                <div class="kpi-value">
+                   {{ total_citations }}
+                </div>
+
+            </div>
+
+        </div>        
+
+        <div class="col-md-2">
+
+            <div class="dashboard-kpi-card">
+
+                <div class="kpi-title">
+                    Số trích dẫn trung bình/CBKH
+                </div>
+
+                <div class="kpi-value">
+                     {{ citation_per_publication }}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-2">
+
+            <div class="dashboard-kpi-card">
+
+                <div class="kpi-title">
+                    Trích dẫn cao nhất
+                </div>
+
+                <div class="kpi-value">
+                    {{ max_citation }}
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-md-2">
+
+            <div class="dashboard-kpi-card">
+
+                <div class="kpi-title">
+                    Top 10% CBKH có trích dẫn
+                </div>
+
+                <div class="kpi-value">
+                    {{ highly_cited_count }}
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-md-2">
+
+            <div class="dashboard-kpi-card">
+
+                <div class="kpi-title">
+                    Số CBKH chưa có trích dẫn
+                </div>
+
+                <div class="kpi-value">
+                    {{ uncited_count }}
+
+                        <span class="kpi-subtext">
+
+                            ({{ uncited_percentage }}%)
+
+                        </span>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-md-2">
+
+            <div class="dashboard-kpi-card">
+
+                <div class="kpi-title">
+                    Số trích dẫn trung bình/năm
+                </div>
+
+                <div class="kpi-value">
+                    {{ citation_per_year }}
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    
+
+    <!-- ===================================== -->
+    <!-- CHART PLACEHOLDER -->
+    <!-- ===================================== -->
+
+    <div class="row g-4">
+
+        <div class="col-12">
+
+            <div class="dashboard-chart-card mb-4">
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+
+                    <h5 class="mb-0">
+
+                        Xu hướng trích dẫn
+
+                    </h5>
+
+                    <div style="width: 240px;">
+
+                        <label class="form-label small">
+
+                            Cửa sổ trượt:
+                            <span id="windowSizeValue">
+
+                                1
+
+                            </span>
+                            năm
+
+                        </label>
+
+                        <input
+                            type="range"
+                            class="form-range"
+                            min="1"
+                            max="10"
+                            value="1"
+                            id="windowSizeSlider"
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="chart-wrapper">
+
+                    <canvas id="citationTrendChart">
+
+                    </canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row g-4 mt-4">
+
+        <!-- ================================= -->
+        <!-- STACKED BAR -->
+        <!-- ================================= -->
+
+        <div class="col-lg-8">
+
+            <div class="dashboard-chart-card h-100">
+
+                <h5 class="mb-4">
+
+                    CBKH phân loại theo nhóm trích dẫn trong từng nhóm ngành
+
+                </h5>
+
+                <div class="chart-wrapper">
+
+                    <canvas id="citationFieldStackedChart">
+
+                    </canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ================================= -->
+        <!-- PIE -->
+        <!-- ================================= -->
+
+        <div class="col-lg-4">
+
+            <div class="dashboard-chart-card h-100">
+
+                <h5 class="mb-4">
+
+                    % CBKH phân loại theo nhóm trích dẫn
+
+                </h5>
+
+                <div class="chart-wrapper">
+
+                    <canvas id="citationGroupPieChart">
+
+                    </canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row g-4 mt-4">
+
+        <div class="col-8">
+
+            <div class="dashboard-chart-card">
+
+                <h5 class="mb-4">
+
+                    Tổng số trích dẫn từ các CBKH được phân loại theo nhóm trích dẫn trong từng chuyên ngành
+
+                </h5>
+
+                <div class="chart-wrapper">
+
+                    <canvas id="citationContributionChart">
+
+                    </canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-4">
+
+            <div class="dashboard-chart-card">
+
+                <h5 class="mb-4">
+
+                    % Số trích dẫn theo các nhóm ngành
+
+                </h5>
+
+                <div class="chart-wrapper">
+
+                    <canvas id="citationContributionPieChart">
+
+                    </canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row g-4 mt-4 dashboard-chart-card" style="margin-left: 0px;">
+
+        <div class="col-6">
+
+            <h5 class="mb-4">
+
+                Tổng số trích dẫn từ loại hình CBKH trong từng chuyên ngành
+
+            </h5>
+
+            <div class="chart-wrapper">
+
+                <canvas id="documentCitationChart">
+
+                </canvas>
+
+            </div>
+
+        </div>
+
+        <div class="col-3">
+
+            <h5 class="mb-4">
+
+                % Trích dẫn từ Article trong từng nhóm ngành
+
+            </h5>
+
+            <div class="chart-wrapper">
+
+                <canvas id="articleCitationPercentageInField">
+
+                </canvas>
+
+            </div>
+
+        </div>
+
+        <div class="col-3">
+
+            <h5 class="mb-4">
+
+                % Trích dẫn từ các loại hình CBKH
+
+            </h5>
+
+            <div class="chart-wrapper">
+
+                <canvas id="percentageCitationByDocumentType">
+
+                </canvas>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
+{{ citation_years|json_script:"citation-years" }}
+
+{{ citation_values|json_script:"citation-values" }}
+
+{{ field_group_labels|json_script:"field-group-labels" }}
+
+{{ stacked_datasets|json_script:"stacked-datasets" }}
+
+{{ citation_group_labels|json_script:"citation_group_labels" }}
+
+{{ citation_group_values|json_script:"citation_group_values" }}
+
+{{ citation_sum_datasets|json_script:"citation-sum-datasets" }}
+
+{{ treemap_labels|json_script:"treemap-labels" }}
+
+{{ treemap_values|json_script:"treemap-values" }}
+
+{{ document_type_datasets|json_script:"document_type_datasets" }}
+
+{{ article_percentage_values|json_script:"article_percentage_values" }}
+
+{{ document_type_pie_labels|json_script:"document_type_pie_labels" }}
+
+{{ document_type_pie_values|json_script:"document_type_pie_values" }}
+
+
+{% endblock %}
+{% block extra_js %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+<script src="{% static 'dashboard/js/dashboard_palette.js' %}"></script>
+
+<script src="{% static 'dashboard/js/dashboard_charts.js' %}"></script>
+
+<script src="{% static 'dashboard/js/citations.js' %}"></script>
 
 {% endblock %}

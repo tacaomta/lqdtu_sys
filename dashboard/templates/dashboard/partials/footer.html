@@ -38,11 +38,27 @@
 
         </div>
 
-        <div class="footer-sub">
+        <div class="scopus-updated-badge">
 
-            Cập nhật đến ngày: 5/2026
+            <span class="footer-sub">Cập nhật đến ngày:</span>
+
+            <span class="updated-date-badge">
+
+                {% if latest_scopus_batch %}
+                <i class="bi bi-check"></i> {{ latest_scopus_batch.data_updated_until|date:"j/n/Y" }}
+                {% endif %}
+            </span>
 
         </div>
+
+{% comment %} 
+        <div class="footer-sub">
+            Cập nhật đến ngày:
+            {% if result %}
+             <strong>{{ result.data_updated_until|date:"j/n/Y" }} </strong>
+            {% endif %}
+
+        </div> {% endcomment %}
 
     </div>
 

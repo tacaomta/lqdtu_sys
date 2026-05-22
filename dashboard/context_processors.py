@@ -1,4 +1,15 @@
-from dashboard.services.filter_service import get_years, get_fields, get_citation_groups
+from dashboard.services.filter_service import get_years
+from dashboard.services.citation_service import (
+    get_citation_groups
+)
+from dashboard.services.field_group_service import(
+    get_field_groups
+)
+
+from dashboard.models.import_batch import (
+    ImportBatch
+)
+
 
 def global_filters(request):
     selected_years = request.GET.getlist("years")
@@ -10,7 +21,7 @@ def global_filters(request):
 
     return {
         "years": get_years(),
-        "fields": get_fields(),
+        "fields": get_field_groups(),
 
         # selected values
         "selected_years": selected_years,
@@ -35,4 +46,25 @@ def global_filters(request):
         "is_filtering_citations": bool(selected_citations),
         "querystring":
             request.GET.urlencode(),
+    }
+
+
+def global_scopus_info(request):
+
+    latest_batch = (
+
+        ImportBatch.objects
+
+        .filter(status="COMPLETED")
+
+        .order_by("-id")
+
+        .first()
+
+    )
+
+    return {
+
+        "latest_scopus_batch": latest_batch
+
     }
