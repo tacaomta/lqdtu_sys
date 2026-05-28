@@ -215,16 +215,9 @@ def extract_university(
     for segment in reversed(segments):
 
         lower = segment.lower()
-
-        if any(
-
-            keyword in lower
-
-            for keyword in UNIVERSITY_KEYWORDS
-
-        ):
-
-            return segment
+        for keyword in UNIVERSITY_KEYWORDS:
+            if keyword in lower:
+                return segment
 
     # =====================================================
     # FALLBACK

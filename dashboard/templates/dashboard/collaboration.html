@@ -1,12 +1,739 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<h3>📊 Phân tích hợp tác trong CBKH</h3>
+<div class="container-fluid mt-0 px-4">
+    <div class="mb-4">
 
-<div class="row mt-4">
+        <h2>
 
-    Hell theo chuyên ngành
+            PHÂN TÍCH HỢP TÁC TRONG NGHIÊN CỨU
+
+        </h2>
+
+    </div>
+     <div class="row g-4 mb-4">
+
+        <div class="col-md-3">
+                <div class="d-flex justify-content-between align-items-end dashboard-kpi-card">
+
+                    <div>
+
+                        <div class="kpi-subtitle">
+
+                            Số CBKH có tác giả toàn LQDTU
+
+                        </div>
+
+                        <div class="kpi-value">
+
+                            {{ internal_only_publication_count }}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="text-end">
+
+                        <div class="kpi-subtitle">
+
+                            H-index
+
+                        </div>
+
+                        <div class="kpi-value-secondary">
+
+                            {{ internal_hindex }}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+        </div> 
+
+        <div class="col-md-3">
+                <div class="d-flex justify-content-between align-items-end dashboard-kpi-card">
+
+                    <div>
+
+                        <div class="kpi-subtitle">
+
+                            Số CBKH có hợp tác ngoài LQDTU
+
+                        </div>
+
+                        <div class="kpi-value">
+
+                            {{ external_collaboration_count }}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="text-end">
+
+                        <div class="kpi-subtitle">
+
+                            H-index
+
+                        </div>
+
+                        <div class="kpi-value-secondary">
+
+                            {{ external_hindex }}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+        </div> 
+
+        <div class="col-md-3">
+                <div class="d-flex justify-content-between align-items-end dashboard-kpi-card">
+
+                    <div>
+
+                        <div class="kpi-subtitle">
+
+                            Số CBKH hợp tác trong nước
+
+                        </div>
+
+                        <div class="kpi-value">
+
+                            {{ domestic_collaboration_count }}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="text-end">
+
+                        <div class="kpi-subtitle">
+
+                            H-index
+
+                        </div>
+
+                        <div class="kpi-value-secondary">
+
+                            {{ domestic_hindex }}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+        </div> 
+
+        <div class="col-md-3">
+                <div class="d-flex justify-content-between align-items-end dashboard-kpi-card">
+
+                    <div>
+
+                        <div class="kpi-subtitle">
+
+                            Số CBKH hợp tác quốc tế
+
+                        </div>
+
+                        <div class="kpi-value">
+
+                            {{ international_collaboration_count }}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="text-end">
+
+                        <div class="kpi-subtitle">
+
+                            H-index
+
+                        </div>
+
+                        <div class="kpi-value-secondary">
+
+                            {{ international_hindex }}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+        </div> 
+        
+     </div>
+
+     <!--Row 2-->
+    <div class="row g-3">
+
+        <div class="col collaboration-kpi-col">
+
+            <div class="dashboard-kpi-card">
+
+                <div class="kpi-title">
+                    Tổng số tác giả trong nước ngoài LQDTU
+                </div>
+
+                <div class="kpi-value">
+                   {{ domestic_collaborator_count }}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col collaboration-kpi-col">
+
+            <div class="dashboard-kpi-card">
+
+                <div class="kpi-title">
+                    Tổng số tác giả ngoài nước
+                </div>
+
+                <div class="kpi-value">
+                   {{ international_collaborator_count }}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col collaboration-kpi-col">
+
+            <div class="dashboard-kpi-card">
+
+                <div class="kpi-title">
+                    Tổng số cơ sở trong nước
+                </div>
+
+                <div class="kpi-value">
+                   {{ domestic_partner_university_count }}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col collaboration-kpi-col">
+
+            <div class="dashboard-kpi-card">
+
+                <div class="kpi-title">
+                    Tổng số cơ sở quốc tế
+                </div>
+
+                <div class="kpi-value">
+                   {{ international_partner_university_count }}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col collaboration-kpi-col">
+
+            <div class="dashboard-kpi-card">
+
+                <div class="kpi-title">
+                    Tổng số quốc gia hợp tác
+                </div>
+
+                <div class="kpi-value">
+                   {{ partner_country_count }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row g-4 mt-4">
+
+        <div class="col-6">
+
+            <div class="dashboard-chart-card">
+
+                <h5 class="mb-4">
+
+                    Số CBKH theo hai nhóm CBKH có hợp tác bên ngoài và LQDTU
+
+                </h5>
+
+                <div class="chart-wrapper">
+
+                    <canvas id="fieldCollaborationChart">
+
+                    </canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-6">
+
+            <div class="dashboard-chart-card">
+
+                <h5 class="mb-4">
+
+                    H-index theo hai nhóm CBKH có tác giả có hợp tác bên ngoài và LQDTU
+
+                </h5>
+
+                <div class="chart-wrapper">
+
+                    <canvas id="fieldHindexChart">
+
+                    </canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row g-4 mt-4">
+
+        <div class="col-6">
+
+            <div class="dashboard-chart-card">
+
+                <h5 class="mb-4">
+
+                    CBKH hợp tác trong nước và quốc tế
+
+                </h5>
+
+                <div class="chart-wrapper">
+
+                    <canvas id="domesticInternationalChart">
+
+                    </canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-6">
+
+            <div class="dashboard-chart-card">
+
+                <h5 class="mb-4">
+
+                    H-index hợp tác trong nước và quốc tế
+
+                </h5>
+
+                <div class="chart-wrapper">
+
+                    <canvas id="domesticInternationalHindexChart">
+
+                    </canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row mb-1 mt-4 align-items-end dashboard-chart-card" style="margin-left: 0px;">
+
+    <!-- TOP N -->
+
+        <div class="col-md-3">
+
+            <label class="form-label">
+
+                Top N:
+
+                <span id="topNLabel">
+                    10
+                </span>
+
+            </label>
+
+            <input
+                type="range"
+                class="form-range"
+                id="topNSlider"
+                min="5"
+                max="20"
+                value="10"
+            >
+
+        </div>
+
+
+        <!-- VIEW MODE -->
+
+        <div class="col-md-3">
+
+            <div class="form-check form-switch">
+
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="chartViewSwitch"
+                >
+
+                <label class="form-check-label">
+
+                    Hiển thị dạng biểu đồ
+
+                </label>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row" id="rankingTablesContainer">
+
+    <!-- DOMESTIC -->
+
+        <div class="col-md-4">
+
+            <div class="dashboard-chart-card">
+
+                <h5 class="mb-4">
+
+                    Top các cơ sở nghiên cứu trong nước
+
+                </h5>
+
+
+                <div class="table-responsive">
+
+                    <table class="table table-sm">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>#</th>
+
+                                <th>Tên</th>
+
+                                <th>Số CBKH</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="domesticUniversityTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+        <!-- INTERNATIONAL -->
+
+        <div class="col-md-4">
+
+            <div class="dashboard-chart-card">
+
+                <h5 class="mb-4">
+
+                    Top các cơ sở nghiên cứu quốc tế
+
+                </h5>
+
+
+                <div class="table-responsive">
+
+                    <table class="table table-sm">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>#</th>
+
+                                <th>Tên</th>
+
+                                <th>Số CBKH</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="internationalUniversityTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+        <!-- COUNTRIES -->
+
+        <div class="col-md-4">
+
+            <div class="dashboard-chart-card">
+
+                <h5 class="mb-4">
+
+                    Top quốc gia có nhiều hợp tác nhất
+
+                </h5>
+
+
+                <div class="table-responsive">
+
+                    <table class="table table-sm">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>#</th>
+
+                                <th>Tên quốc gia</th>
+
+                                <th>Số CBKH</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="countryTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row d-none" id="rankingChartsContainer">
+
+        <div class="col-md-4">
+
+            <div
+                class="dashboard-chart-card"
+                style="height: 500px;"
+            >
+
+                <h5 class="mb-4">
+
+                    Top các cơ sở nghiên cứu trong nước
+
+                </h5>
+
+                <div class="chart-wrapper">
+                    <canvas
+                        id="domesticUniversityChart"
+                    ></canvas>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-md-4">
+
+            <div
+                class="dashboard-chart-card"
+                style="height: 500px;"
+            >
+
+                <h5 class="mb-4">
+
+                    Top các cơ sở nghiên cứu quốc tế
+                </h5>
+
+                <div class="chart-wrapper">
+                    <canvas
+                        id="internationalUniversityChart"
+                    ></canvas>
+                </div>
+
+            </div>
+
+        </div>
+         <div class="col-md-4">
+
+            <div
+                class="dashboard-chart-card"
+                style="height: 500px;"
+            >
+
+                <h5 class="mb-4">
+
+                    Top quốc gia có nhiều hợp tác nhất
+
+                </h5>
+
+                <div class="chart-wrapper">
+                    <canvas
+                        id="countryChart"
+                    ></canvas>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row mt-4">
+
+        <div class="col-md-6">
+
+            <div class="dashboard-chart-card" style="height: 900px;">
+
+                <h5 style="text-align: center;">
+
+                    Mạng lưới hợp tác nghiên cứu của LQDTU ở trong nước
+
+                </h5>
+                <div style="width: 40%;">
+
+                    <label class="form-label">
+
+                        Chỉ hiển thị những sự hợp tác có số CBKH >=
+
+                        <span id="networkThresholdLabel">
+
+                            30
+
+                        </span>
+
+                    </label>
+
+                    <input
+                        type="range"
+                        class="form-range"
+                        id="networkThresholdSlider"
+                        min="5"
+                        max="50"
+                        value="30"
+                    >
+
+                </div>
+
+                <div
+                    id="domesticCollaborationNetwork" style="height: 800px;" class="chart-wrapper"
+                ></div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="dashboard-chart-card" style="height: 900px;">
+
+                <h5 style="text-align: center;">
+
+                    Mạng lưới hợp tác nghiên cứu của LQDTU với quốc tế
+
+                </h5>
+                <div style="width: 40%;">
+
+                    <label class="form-label">
+
+                        Chỉ hiển thị những sự hợp tác có số CBKH >=
+
+                        <span id="networkThresholdLabel2">
+
+                            30
+
+                        </span>
+
+                    </label>
+
+                    <input
+                        type="range"
+                        class="form-range"
+                        id="networkThresholdSlider2"
+                        min="5"
+                        max="50"
+                        value="30"
+                    >
+
+                </div>
+
+                <div
+                    id="internaltionalCollaborationNetwork" style="height: 800px;" class="chart-wrapper"
+                ></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
 
 </div>
+
+{{ field_collaboration_labels|json_script:"field_collaboration_labels" }}
+{{ field_collaboration_datasets|json_script:"field_collaboration_datasets" }}
+{{ field_hindex_datasets|json_script:"field_hindex_datasets" }}
+
+{{ domestic_international_datasets|json_script:"domestic_international_datasets" }}
+{{ domestic_international_hindex_datasets|json_script:"domestic_international_hindex_datasets" }}
+
+{{ domestic_university_ranking|json_script:"domestic_university_ranking" }}
+{{ international_university_ranking|json_script:"international_university_ranking" }}
+{{ country_ranking|json_script:"country_ranking" }}
+
+{{ domestic_network_nodes|json_script:"domestic_network_nodes" }}
+{{ domestic_network_edges|json_script:"domestic_network_edges" }}
+
+{{ internaltional_network_nodes|json_script:"internaltional_network_nodes" }}
+{{ internaltional_network_edges|json_script:"internaltional_network_edges" }}
+
+
+{% endblock %}
+
+{% block extra_js %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+<script src="{% static 'dashboard/js/dashboard_palette.js' %}"></script>
+
+<script src="{% static 'dashboard/js/dashboard_charts.js' %}"></script>
+
+<script src="{% static 'dashboard/js/collaboration.js' %}"></script>
 
 {% endblock %}

@@ -26,4 +26,5 @@ const DASHBOARD_COLORS = [
     "#AC3B31", // Muted Red
     "#7E57C2",  // Soft Violet
     "#1e7eb9",
+    "#f38ed4"
 ];

@@ -3,7 +3,16 @@
 
 {% block content %}
 
-<div class="container-fluid mt-4 py-4">
+<div class="container-fluid mt-0 px-4">
+    <div class="mb-4">
+
+        <h2>
+
+            PHÂN TÍCH HIỆU SUẤT NGHIÊN CỨU
+
+        </h2>
+
+    </div>
 
     <!-- ===================================== -->
     <!-- PAGE HEADER -->
@@ -150,10 +159,284 @@
 
         </div>
     </div>
+
+    <div class="row mt-4">
+
+        <!-- ================================= -->
+        <!-- PUBLICATION HISTOGRAM -->
+        <!-- ================================= -->
+
+        <div class="col-6">
+            <div class="dashboard-chart-card">
+
+                <h5>
+                    Phân bố số tác giả theo số CBKH
+                </h5>
+                <div class="chart-wrapper">
+                    <canvas id="publicationHistogramChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="dashboard-chart-card">
+
+                <h5>
+
+                    Phân bố số tác giả theo số trích dẫn
+
+                </h5>
+                <div class="chart-wrapper">
+                    <canvas
+                        id="citationHistogramChart"
+                    ></canvas>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ===================================== -->
+    <!-- CONTROLS -->
+    <!-- ===================================== -->
+
+    <div class="row mb-1 mt-4 dashboard-chart-card" style="margin-left: 0px;">
+
+        <!-- TOP N -->
+
+        <div class="col-md-3">
+
+            <label class="form-label">
+
+                Top N danh mục tác giả:
+
+                <span id="topNLabel">
+
+                    10
+
+                </span>
+
+            </label>
+
+            <input
+
+                type="range"
+
+                class="form-range"
+
+                id="topNSlider"
+
+                min="5"
+
+                max="30"
+
+                value="10"
+
+            >
+
+        </div>
+
+
+        <!-- FIELD GROUP -->
+
+        <div class="col-md-3">
+
+            <label class="form-label">
+
+                Chuyên ngành
+
+            </label>
+
+            <select
+                class="form-select"
+                id="fieldGroupSelect"
+            >
+
+                {% for key, tables in field_author_tables.items %}
+
+                    <option value="{{ key }}">
+
+                        {{ key }}
+
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ===================================== -->
+    <!-- TABLES -->
+    <!-- ===================================== -->
+
+    <div class="row">
+
+        <!-- ================================ -->
+        <!-- PUBLICATION -->
+        <!-- ================================ -->
+
+        <div class="col-md-4">
+
+            <div class="dashboard-chart-card">
+
+                <h5 class="mb-4">
+
+                    Top tác giả theo số CBKH
+
+                </h5>
+
+                <div class="table-responsive">
+
+                    <table
+                        class="table table-sm"
+                    >
+
+                        <thead>
+
+                            <tr>
+
+                                <th>#</th>
+
+                                <th>Tên tác giả</th>
+
+                                <th>Số CBKH</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody
+                            id="publicationTable"
+                        ></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================================ -->
+        <!-- CITATION -->
+        <!-- ================================ -->
+
+        <div class="col-md-4">
+
+            <div class="dashboard-chart-card">
+
+                <h5 class="mb-4">
+
+                    Top tác giả theo số lượng trích dẫn
+
+                </h5>
+
+                <div class="table-responsive">
+
+                    <table
+                        class="table table-sm"
+                    >
+
+                        <thead>
+
+                            <tr>
+
+                                <th>#</th>
+
+                                <th>Tên tác giả</th>
+
+                                <th>Số trích dẫn</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody
+                            id="citationTable"
+                        ></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================================ -->
+        <!-- H-INDEX -->
+        <!-- ================================ -->
+
+        <div class="col-md-4">
+
+            <div class="dashboard-chart-card">
+
+                <h5 class="mb-4">
+
+                    Top tác giả theo chỉ số H-index
+
+                </h5>
+
+                <div class="table-responsive">
+
+                    <table
+                        class="table table-sm"
+                    >
+
+                        <thead>
+
+                            <tr>
+
+                                <th>#</th>
+
+                                <th>Tên tác giả</th>
+
+                                <th>H-index</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody
+                            id="hindexTable"
+                        ></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
 </div>
 
 {{ authors_with_N_publications|json_script:"authors_with_N_publications" }}
 {{ authors_hindex_values|json_script:"authors_hindex_values" }}
+
+{{ publication_bins|json_script:"publication_bins" }}
+{{ publication_bin_counts|json_script:"publication_bin_counts" }}
+{{ citation_bins|json_script:"citation_bins" }}
+{{ citation_bin_counts|json_script:"citation_bin_counts" }}
+
+{{ field_author_tables|json_script:"field_author_tables" }}
 
 {% endblock %}
 {% block extra_js %}

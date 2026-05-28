@@ -32,6 +32,191 @@ const DEFAULT_PLUGIN_OPTIONS = {
 
 };
 
+// ============================================
+// CLUSTERED BAR CHART
+// ============================================
+
+function createClusteredBarChart({
+
+    canvasId,
+    labels,
+    datasets,
+
+    horizontal = true,
+
+    custom_colors = [],
+
+    display_legend = true,
+
+    display_label = true,
+
+    minLabelValue = 0
+
+}) {
+
+    const ctx = document.getElementById(
+
+        canvasId
+
+    );
+
+
+    // ========================================
+    // COLORS
+    // ========================================
+
+    const chartColors =
+
+        custom_colors.length > 0
+
+        ? custom_colors
+
+        : DASHBOARD_COLORS;
+
+
+    // ========================================
+    // DATASETS
+    // ========================================
+
+    const processedDatasets = datasets.map(
+
+        (dataset, index) => ({
+
+            ...dataset,
+
+            backgroundColor:
+
+                dataset.backgroundColor ||
+
+                chartColors[
+                    index % chartColors.length
+                ],
+
+            borderColor:
+
+                dataset.borderColor ||
+
+                chartColors[
+                    index % chartColors.length
+                ],
+
+            borderWidth: 1,
+            borderRadius: 3
+
+        })
+
+    );
+
+
+    // ========================================
+    // CHART
+    // ========================================
+
+    return new Chart(
+
+        ctx,
+
+        {
+
+            type: "bar",
+
+            data: {
+
+                labels,
+
+                datasets:
+                    processedDatasets
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                indexAxis:
+
+                    horizontal ? "y" : "x",
+
+                scales: {
+
+                    x: {
+
+                        beginAtZero: true,
+
+                        stacked: false
+
+                    },
+
+                    y: {
+
+                        stacked: false
+
+                    }
+
+                },
+
+                plugins: {
+
+                    legend: {
+
+                        display:
+                            display_legend,
+
+                        position: "bottom"
+
+                    },
+
+                    tooltip: {
+
+                        enabled: true
+
+                    },
+
+                    datalabels: {
+
+                        display:
+                            display_label,
+
+                        anchor: "end",
+
+                        align:
+
+                            horizontal
+
+                            ? "right"
+
+                            : "top",
+
+                        formatter: function(value) {
+
+                            if (
+
+                                value < minLabelValue
+
+                            ) {
+
+                                return "";
+
+                            }
+
+                            return value;
+
+                        }
+
+                    }
+
+                }
+
+            },
+
+        }
+
+    );
+
+}
+
 
 function createBarChart({
 

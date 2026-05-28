@@ -184,7 +184,244 @@ document.addEventListener(
         updateAuthorPerformanceKPIs();
         updateHindexThresholdKPI();
 
-        
+        // =========================================
+        // DATA
+        // ========================================
+
+
+        const publicationBins = JSON.parse(
+
+            document.getElementById(
+                "publication_bins"
+            ).textContent
+
+        );
+
+        const publicationBinCounts = JSON.parse(
+
+            document.getElementById(
+                "publication_bin_counts"
+            ).textContent
+
+        );
+
+        const citationBins = JSON.parse(
+
+            document.getElementById(
+                "citation_bins"
+            ).textContent
+
+        );
+
+        const citationBinCounts = JSON.parse(
+
+            document.getElementById(
+                "citation_bin_counts"
+            ).textContent
+
+        );
+        // =========================================
+        // PUBLICATION HISTOGRAM
+        // =========================================
+
+        createBarChart({
+
+            canvasId: "publicationHistogramChart",
+            labels: publicationBins,
+            values: publicationBinCounts,
+            label:"Số tác giả",
+            horizontal:false,
+            custom_color: DASHBOARD_COLORS[0]
+        });
+
+        createBarChart({
+
+            canvasId: "citationHistogramChart",
+            labels: citationBins,
+            values: citationBinCounts,
+            label: "Số tác giả",
+            horizontal: false,
+            custom_color: DASHBOARD_COLORS[0]
+        });
+
+        // =========================================
+        // DATA
+        // =========================================
+        const fieldAuthorTables = JSON.parse(
+
+            document.getElementById(
+                "field_author_tables"
+            ).textContent
+
+        );
+
+        // =========================================
+        // RENDER TABLE
+        // =========================================
+
+        function renderTable({
+
+            tableId,
+            data,
+            metricKey,
+            topN
+
+        }) {
+
+            const tbody = document.getElementById(
+
+                tableId
+
+            );
+
+
+            tbody.innerHTML = "";
+
+
+            data.slice(0, topN).forEach(
+
+                (row, index) => {
+
+                    tbody.innerHTML += `
+
+                    <tr>
+
+                            <td>
+
+                                ${index + 1}
+
+                            </td>
+
+                            <td>
+
+                                ${row.author_name}
+
+                            </td>
+
+                            <td>
+
+                                ${row[metricKey]}
+
+                            </td>
+
+                        </tr>
+
+                    `;
+
+                }
+
+            );
+
+        }
+
+        function updateRankingTables() {
+
+            const topN = parseInt(
+
+                document.getElementById(
+
+                    "topNSlider"
+
+                ).value
+
+            );
+
+            document.getElementById(
+
+                "topNLabel"
+
+            ).innerText = topN;
+
+
+            const fieldGroup =
+
+                document.getElementById(
+
+                    "fieldGroupSelect"
+
+                ).value;
+
+
+            const tables =
+
+                fieldAuthorTables[fieldGroup];
+
+
+            renderTable({
+
+                tableId:
+                    "publicationTable",
+
+                data:
+                    tables.publication,
+
+                metricKey:
+                    "publication_count",
+
+                topN
+
+            });
+
+
+            renderTable({
+
+                tableId:
+                    "citationTable",
+
+                data:
+                    tables.citation,
+
+                metricKey:
+                    "citation_count",
+
+                topN
+
+            });
+
+
+            renderTable({
+
+                tableId:
+                    "hindexTable",
+
+                data:
+                    tables.hindex,
+
+                metricKey:
+                    "h_index",
+
+                topN
+
+            });
+
+        }
+
+        document.getElementById(
+
+            "topNSlider"
+
+        ).addEventListener(
+
+            "input",
+
+            updateRankingTables
+
+        );
+
+
+        document.getElementById(
+
+            "fieldGroupSelect"
+
+        ).addEventListener(
+
+            "change",
+
+            updateRankingTables
+
+        );
+
+        updateRankingTables();
 
     }
 
