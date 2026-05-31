@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 
 from django.contrib.auth.decorators import (
     login_required
@@ -70,6 +71,29 @@ def upload_csv(request):
             # =============================================
 
             file = request.FILES["file"]
+
+            extension = (
+
+                Path(
+
+                    file.name
+
+                )
+
+                .suffix
+
+                .lower()
+
+            )
+            allowed_extensions = {".csv", ".xlsx", ".xls"}
+            if extension not in allowed_extensions:
+                return JsonResponse({
+
+                "success": False,
+
+                "message": "Lỗi định dạng file"
+
+            })
 
             batch = ImportBatch.objects.create( filename=file.name, uploaded_file = file, status="PROCESSING", uploaded_by_id=request.user.id, 
                                                data_updated_until=request.POST.get("data_updated_until")

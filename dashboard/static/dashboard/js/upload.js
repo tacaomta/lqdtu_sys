@@ -65,6 +65,10 @@ document.addEventListener(
         const stepSave = document.getElementById(
             "step-save"
         );
+        const errorDiv = document.getElementById(
+            "upload-error"
+        );
+
 
         // =================================================
         // UPDATE PROGRESS
@@ -135,7 +139,6 @@ const data =
 if (!data.success) {
 
     clearInterval(interval);
-
     return;
 
 }
@@ -510,13 +513,25 @@ form.addEventListener(
             const data =
                 await response.json();
 
-            console.log(data);
+            //console.log(data);
 
             // =====================================
             // FAILED
             // =====================================
 
             if (!data.success) {
+                /// Có thể sửa chỗ này nếu không hiển thị lỗi đối với mỗi step upload
+                if (data.message=="Lỗi định dạng file")
+                {
+                    document
+                        .getElementById(
+                            "etl-progress-card"
+                        )
+                        .classList.add("d-none");
+                    errorDiv.innerText = "Định dạng file upload không đúng. Hệ thống chỉ hỗ trợ file csv, excel."
+                    errorDiv.style.display = "block";
+                    
+                }
 
                 statusText.innerHTML = `
 

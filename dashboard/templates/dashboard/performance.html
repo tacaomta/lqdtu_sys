@@ -4,323 +4,270 @@
 {% block content %}
 
 <div class="container-fluid mt-0 px-4">
-    <div class="mb-4">
+    {% if has_data %}
+        <div class="mb-4">
 
-        <h2>
+            <h2>
 
-            PHÂN TÍCH HIỆU SUẤT NGHIÊN CỨU
+                PHÂN TÍCH HIỆU SUẤT NGHIÊN CỨU
 
-        </h2>
+            </h2>
 
-    </div>
+        </div>
 
-    <!-- ===================================== -->
-    <!-- PAGE HEADER -->
-    <!-- ===================================== -->
+        <!-- ===================================== -->
+        <!-- PAGE HEADER -->
+        <!-- ===================================== -->
 
-    <div class="row g-4 mb-4">
-        <div class="col-md-3">
+        <div class="row g-4 mb-4">
+            <div class="col-md-3">
 
-            <div class="dashboard-kpi-card position-relative" style="padding-bottom: 0px;">
+                <div class="dashboard-kpi-card position-relative" style="padding-bottom: 0px;">
 
-                <div class="form-check position-absolute" style=" top: 8px; transform: translateX(-50%); left: 95%;" > 
-                    <input class="form-check-input" type="checkbox" id="publicationLQDTUOnly" title="Chỉ tính tác giả thuộc LQDTU">
-                    {% comment %} <label for="publicationLQDTUOnly" class="text-muted" style="font-size: small;">Chỉ tác giả LQDTU</label> {% endcomment %}
+                    <div class="form-check position-absolute" style=" top: 8px; transform: translateX(-50%); left: 95%;" > 
+                        <input class="form-check-input" type="checkbox" id="publicationLQDTUOnly" title="Chỉ tính tác giả thuộc LQDTU">
+                        {% comment %} <label for="publicationLQDTUOnly" class="text-muted" style="font-size: small;">Chỉ tác giả LQDTU</label> {% endcomment %}
+                    </div>
+
+                    <div class="kpi-title">
+
+                        Số tác giả có số CBKH ≥ <strong
+                            id="publicationThresholdLabel" style="font-size: large;"
+                        >
+
+                            10
+
+                    </strong>
+
+                    </div>
+
+                    <!-- VALUE -->
+
+                    <div
+
+                        class="kpi-value"
+
+                        id="authorsWithPublicationValue"
+
+                    >
+
+                        0
+
+                    </div>
+
+                    <div class="mt-3 mb-0">
+
+                        <input
+
+                            type="range"
+
+                            class="form-range"
+
+                            id="publicationThreshold"
+
+                            min="1"
+
+                            max="50"
+
+                            value="10"
+
+                        >
+
+                    </div>
+
                 </div>
 
-                <div class="kpi-title">
+            </div>       
 
-                    Số tác giả có số CBKH ≥ <strong
-                        id="publicationThresholdLabel" style="font-size: large;"
+            <div class="col-md-3">
+
+                <div class="dashboard-kpi-card">
+
+                    <div class="kpi-title">
+                        Số CBKH/ tác giả
+                    </div>
+
+                    <div class="kpi-value">
+                        {{ publication_per_author }}
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-md-3">
+
+                <div class="dashboard-kpi-card">
+
+                    <div class="kpi-title">
+                        Số trích dẫn/ tác giả
+                    </div>
+
+                    <div class="kpi-value">
+                        {{ citation_per_author }}
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-md-3">
+
+                <div class="dashboard-kpi-card position-relative" style="padding-bottom: 0px;">
+
+                    <div class="form-check position-absolute" style=" top: 8px; transform: translateX(-50%); left: 95%; " > 
+                        <input class="form-check-input" type="checkbox" id="hindexLQDTUOnly" title="Chỉ tính tác giả thuộc LQDTU"> 
+                        {% comment %} <label for="hindexLQDTUOnly" class="text-muted" style="font-size: small;">Chỉ tác giả LQDTU</label> {% endcomment %}
+                    </div>
+
+                    <div class="kpi-title">
+
+                        Số tác giả có H-index ≥ <strong id="hindexThresholdLabel" style="font-size: large;">5</strong>
+
+                    </div>
+
+                    <div
+
+                        class="kpi-value"
+
+                        id="authorsWithHindexValue"
+
                     >
+
+                        0
+
+                    </div>
+
+                    <div class="mt-3">
+
+                        <input
+
+                            type="range"
+
+                            class="form-range"
+
+                            id="hindexThreshold"
+
+                            min="1"
+
+                            max="20"
+
+                            value="5"
+
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row mt-4">
+
+            <!-- ================================= -->
+            <!-- PUBLICATION HISTOGRAM -->
+            <!-- ================================= -->
+
+            <div class="col-6">
+                <div class="dashboard-chart-card">
+
+                    <h5>
+                        Phân bố số tác giả theo số CBKH
+                    </h5>
+                    <div class="chart-wrapper">
+                        <canvas id="publicationHistogramChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="dashboard-chart-card">
+
+                    <h5>
+
+                        Phân bố số tác giả theo số trích dẫn
+
+                    </h5>
+                    <div class="chart-wrapper">
+                        <canvas
+                            id="citationHistogramChart"
+                        ></canvas>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ===================================== -->
+        <!-- CONTROLS -->
+        <!-- ===================================== -->
+
+        <div class="row mb-1 mt-4 dashboard-chart-card" style="margin-left: 0px;">
+
+            <!-- TOP N -->
+
+            <div class="col-md-3">
+
+                <label class="form-label">
+
+                    Top N danh mục tác giả:
+
+                    <span id="topNLabel">
 
                         10
 
-                </strong>
+                    </span>
 
-                </div>
+                </label>
 
-                <!-- VALUE -->
+                <input
 
-                <div
+                    type="range"
 
-                    class="kpi-value"
+                    class="form-range"
 
-                    id="authorsWithPublicationValue"
+                    id="topNSlider"
 
-                >
+                    min="5"
 
-                    0
+                    max="30"
 
-                </div>
-
-                <div class="mt-3 mb-0">
-
-                    <input
-
-                        type="range"
-
-                        class="form-range"
-
-                        id="publicationThreshold"
-
-                        min="1"
-
-                        max="50"
-
-                        value="10"
-
-                    >
-
-                </div>
-
-            </div>
-
-        </div>       
-
-        <div class="col-md-3">
-
-            <div class="dashboard-kpi-card">
-
-                <div class="kpi-title">
-                    Số CBKH/ tác giả
-                </div>
-
-                <div class="kpi-value">
-                     {{ publication_per_author }}
-                </div>
-
-            </div>
-
-        </div>
-        <div class="col-md-3">
-
-            <div class="dashboard-kpi-card">
-
-                <div class="kpi-title">
-                    Số trích dẫn/ tác giả
-                </div>
-
-                <div class="kpi-value">
-                     {{ citation_per_author }}
-                </div>
-
-            </div>
-
-        </div>
-        <div class="col-md-3">
-
-            <div class="dashboard-kpi-card position-relative" style="padding-bottom: 0px;">
-
-                <div class="form-check position-absolute" style=" top: 8px; transform: translateX(-50%); left: 95%; " > 
-                    <input class="form-check-input" type="checkbox" id="hindexLQDTUOnly" title="Chỉ tính tác giả thuộc LQDTU"> 
-                    {% comment %} <label for="hindexLQDTUOnly" class="text-muted" style="font-size: small;">Chỉ tác giả LQDTU</label> {% endcomment %}
-                </div>
-
-                <div class="kpi-title">
-
-                    Số tác giả có H-index ≥ <strong id="hindexThresholdLabel" style="font-size: large;">5</strong>
-
-                </div>
-
-                <div
-
-                    class="kpi-value"
-
-                    id="authorsWithHindexValue"
+                    value="10"
 
                 >
 
-                    0
-
-                </div>
-
-                <div class="mt-3">
-
-                    <input
-
-                        type="range"
-
-                        class="form-range"
-
-                        id="hindexThreshold"
-
-                        min="1"
-
-                        max="20"
-
-                        value="5"
-
-                    >
-
-                </div>
-
             </div>
 
-        </div>
-    </div>
 
-    <div class="row mt-4">
+            <!-- FIELD GROUP -->
 
-        <!-- ================================= -->
-        <!-- PUBLICATION HISTOGRAM -->
-        <!-- ================================= -->
+            <div class="col-md-3">
 
-        <div class="col-6">
-            <div class="dashboard-chart-card">
+                <label class="form-label">
 
-                <h5>
-                    Phân bố số tác giả theo số CBKH
-                </h5>
-                <div class="chart-wrapper">
-                    <canvas id="publicationHistogramChart"></canvas>
-                </div>
-            </div>
-        </div>
+                    Chuyên ngành
 
-        <div class="col-md-6">
+                </label>
 
-            <div class="dashboard-chart-card">
+                <select
+                    class="form-select"
+                    id="fieldGroupSelect"
+                >
 
-                <h5>
+                    {% for key, tables in field_author_tables.items %}
 
-                    Phân bố số tác giả theo số trích dẫn
+                        <option value="{{ key }}">
 
-                </h5>
-                <div class="chart-wrapper">
-                    <canvas
-                        id="citationHistogramChart"
-                    ></canvas>
-                </div>
+                            {{ key }}
 
-            </div>
+                        </option>
 
-        </div>
+                    {% endfor %}
 
-    </div>
+                </select>
 
-    <!-- ===================================== -->
-    <!-- CONTROLS -->
-    <!-- ===================================== -->
-
-    <div class="row mb-1 mt-4 dashboard-chart-card" style="margin-left: 0px;">
-
-        <!-- TOP N -->
-
-        <div class="col-md-3">
-
-            <label class="form-label">
-
-                Top N danh mục tác giả:
-
-                <span id="topNLabel">
-
-                    10
-
-                </span>
-
-            </label>
-
-            <input
-
-                type="range"
-
-                class="form-range"
-
-                id="topNSlider"
-
-                min="5"
-
-                max="30"
-
-                value="10"
-
-            >
-
-        </div>
-
-
-        <!-- FIELD GROUP -->
-
-        <div class="col-md-3">
-
-            <label class="form-label">
-
-                Chuyên ngành
-
-            </label>
-
-            <select
-                class="form-select"
-                id="fieldGroupSelect"
-            >
-
-                {% for key, tables in field_author_tables.items %}
-
-                    <option value="{{ key }}">
-
-                        {{ key }}
-
-                    </option>
-
-                {% endfor %}
-
-            </select>
-
-
-        </div>
-
-    </div>
-
-
-
-    <!-- ===================================== -->
-    <!-- TABLES -->
-    <!-- ===================================== -->
-
-    <div class="row">
-
-        <!-- ================================ -->
-        <!-- PUBLICATION -->
-        <!-- ================================ -->
-
-        <div class="col-md-4">
-
-            <div class="dashboard-chart-card">
-
-                <h5 class="mb-4">
-
-                    Top tác giả theo số CBKH
-
-                </h5>
-
-                <div class="table-responsive">
-
-                    <table
-                        class="table table-sm"
-                    >
-
-                        <thead>
-
-                            <tr>
-
-                                <th>#</th>
-
-                                <th>Tên tác giả</th>
-
-                                <th>Số CBKH</th>
-
-                            </tr>
-
-                        </thead>
-
-                        <tbody
-                            id="publicationTable"
-                        ></tbody>
-
-                    </table>
-
-                </div>
 
             </div>
 
@@ -328,101 +275,168 @@
 
 
 
-        <!-- ================================ -->
-        <!-- CITATION -->
-        <!-- ================================ -->
+        <!-- ===================================== -->
+        <!-- TABLES -->
+        <!-- ===================================== -->
 
-        <div class="col-md-4">
+        <div class="row">
 
-            <div class="dashboard-chart-card">
+            <!-- ================================ -->
+            <!-- PUBLICATION -->
+            <!-- ================================ -->
 
-                <h5 class="mb-4">
+            <div class="col-md-4">
 
-                    Top tác giả theo số lượng trích dẫn
+                <div class="dashboard-chart-card">
 
-                </h5>
+                    <h5 class="mb-4">
 
-                <div class="table-responsive">
+                        Top tác giả theo số CBKH
 
-                    <table
-                        class="table table-sm"
-                    >
+                    </h5>
 
-                        <thead>
+                    <div class="table-responsive">
 
-                            <tr>
+                        <table
+                            class="table table-sm"
+                        >
 
-                                <th>#</th>
+                            <thead>
 
-                                <th>Tên tác giả</th>
+                                <tr>
 
-                                <th>Số trích dẫn</th>
+                                    <th>#</th>
 
-                            </tr>
+                                    <th>Tên tác giả</th>
 
-                        </thead>
+                                    <th>Số CBKH</th>
 
-                        <tbody
-                            id="citationTable"
-                        ></tbody>
+                                </tr>
 
-                    </table>
+                            </thead>
+
+                            <tbody
+                                id="publicationTable"
+                            ></tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================ -->
+            <!-- CITATION -->
+            <!-- ================================ -->
+
+            <div class="col-md-4">
+
+                <div class="dashboard-chart-card">
+
+                    <h5 class="mb-4">
+
+                        Top tác giả theo số lượng trích dẫn
+
+                    </h5>
+
+                    <div class="table-responsive">
+
+                        <table
+                            class="table table-sm"
+                        >
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>#</th>
+
+                                    <th>Tên tác giả</th>
+
+                                    <th>Số trích dẫn</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody
+                                id="citationTable"
+                            ></tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================ -->
+            <!-- H-INDEX -->
+            <!-- ================================ -->
+
+            <div class="col-md-4">
+
+                <div class="dashboard-chart-card">
+
+                    <h5 class="mb-4">
+
+                        Top tác giả theo chỉ số H-index
+
+                    </h5>
+
+                    <div class="table-responsive">
+
+                        <table
+                            class="table table-sm"
+                        >
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>#</th>
+
+                                    <th>Tên tác giả</th>
+
+                                    <th>H-index</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody
+                                id="hindexTable"
+                            ></tbody>
+
+                        </table>
+
+                    </div>
 
                 </div>
 
             </div>
 
         </div>
+    {% else %}
+        <div class="dashboard-empty-page">
 
+            <i class="bi bi-folder2-open"></i>
 
+            <h4>PHÂN TÍCH HIỆU SUẤT NGHIÊN CỨU</h4>
 
-        <!-- ================================ -->
-        <!-- H-INDEX -->
-        <!-- ================================ -->
-
-        <div class="col-md-4">
-
-            <div class="dashboard-chart-card">
-
-                <h5 class="mb-4">
-
-                    Top tác giả theo chỉ số H-index
-
-                </h5>
-
-                <div class="table-responsive">
-
-                    <table
-                        class="table table-sm"
-                    >
-
-                        <thead>
-
-                            <tr>
-
-                                <th>#</th>
-
-                                <th>Tên tác giả</th>
-
-                                <th>H-index</th>
-
-                            </tr>
-
-                        </thead>
-
-                        <tbody
-                            id="hindexTable"
-                        ></tbody>
-
-                    </table>
-
-                </div>
-
-            </div>
+            <p>
+                Không tìm thấy dữ liệu phù hợp với bộ lọc hiện tại.
+            </p>
 
         </div>
-
-    </div>
+    {% endif %}
 
 
 
@@ -448,7 +462,7 @@
 <script src="{% static 'dashboard/js/dashboard_palette.js' %}"></script>
 
 <script src="{% static 'dashboard/js/dashboard_charts.js' %}"></script>
-
+{% if has_data %}
 <script src="{% static 'dashboard/js/performance.js' %}"></script>
-
+{% endif %}
 {% endblock %}

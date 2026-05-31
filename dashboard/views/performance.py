@@ -27,6 +27,11 @@ def performance_view(request):
 
     qs, FIELD_GROUP_ORDER, CITATION_GROUP_ORDER = apply_dashboard_filters(request, qs)
 
+    has_data = qs.exists()
+
+    if not has_data:
+        return render(request, "dashboard/performance.html", context= {"has_data": has_data})
+
     author_metrics = get_author_metrics(qs=qs)
 
     publication_per_author, citation_per_author = get_author_kpis(qs, author_metrics)
@@ -42,6 +47,8 @@ def performance_view(request):
     field_author_tables = get_ranking_tables(qs, author_metrics, FIELD_GROUP_ORDER)
     
     context = { 
+        "has_data": has_data,
+
         "authors_with_N_publications": 
         author_metrics ,
 

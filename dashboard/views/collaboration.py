@@ -21,6 +21,10 @@ def collaboration_view(request):
     qs = FactPublication.objects.all()
 
     qs, FIELD_GROUP_ORDER, CITATION_GROUP_ORDER = apply_dashboard_filters(request, qs)
+    has_data = qs.exists()
+
+    if not has_data:
+        return render(request, "dashboard/collaboration.html", context= {"has_data": has_data})
 
     publication_ids = qs.values_list(
 
@@ -84,6 +88,7 @@ def collaboration_view(request):
    # domestic_university_ranking, international_university_ranking, country_ranking = get_rankings_list(publication_ids, publication_university_country_map)
     
     context = {
+        "has_data": has_data,
 
         # =====================================
         # PUBLICATIONS

@@ -8,6 +8,29 @@ body {
 html, body{
     width: 100%;
 }
+.dropdown-menu {
+
+    border-radius: 12px;
+
+    border: none;
+
+}
+
+
+.dropdown-item {
+
+    padding-top: 10px;
+
+    padding-bottom: 10px;
+
+}
+
+
+.dropdown-item:hover {
+
+    background-color: #f5f7fa;
+
+}
 
 .sidebar {
     margin-top: 10px;
@@ -1222,6 +1245,41 @@ SUMMARY
 .collaboration-kpi-col {
 
     min-width: 220px;
+
+}
+
+
+.dashboard-empty-page {
+
+    min-height: 600px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    color: #6c757d;
+
+}
+
+
+.dashboard-empty-page i {
+
+    font-size: 96px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.dashboard-empty-page h4 {
+
+    margin-bottom: 10px;
 
 }
 

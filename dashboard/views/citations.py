@@ -27,6 +27,11 @@ def citations_view(request):
 
     qs, FIELD_GROUP_ORDER, CITATION_GROUP_ORDER = apply_dashboard_filters(request, qs)
 
+    has_data = qs.exists()
+
+    if not has_data:
+        return render(request, "dashboard/citations.html", context= {"has_data": has_data})
+
     total_citations = (qs.aggregate(total=Sum("cited_by"))["total"]or 0)
 
     total_publications = qs.count()
@@ -44,8 +49,8 @@ def citations_view(request):
 
     # Top 10% cited publication
     sorted_citations = list(
-
-        qs.values_list(
+        qs.filter(cited_by__gt=0)
+        .values_list(
 
             "cited_by",
 
@@ -530,6 +535,7 @@ def citations_view(request):
 
 
     context = {
+        "has_data": has_data,
 
         "total_citations":
             total_citations,

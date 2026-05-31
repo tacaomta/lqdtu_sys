@@ -24,17 +24,94 @@
   <body>
     <!-- 🔷 HEADER -->
     <div class="logo-bar d-flex justify-content-between align-items-center">
-      <div>🏫 LQDTU Publications Dashboard</div>
+      <div><i class="bi bi-bank me-2"></i> Hệ thống thu thập, lưu trữ, phân tích CBKH thuộc CSDL WoS/Scopus của Trường Đại học Kỹ thuật LÊ QUÝ ĐÔN</div>
+        <div class="dropdown">
 
-      <div>
-        {% if request.user.is_authenticated %}
-          <span class="me-2">{{ request.user.username }}</span>
+            {% if request.user.is_authenticated %}
+                <a
+                    class="btn btn-light dropdown-toggle d-flex align-items-center"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                >
+                    <i class="bi bi-person-circle me-2"></i>
 
-          <a href="{% url 'logout' %}" class="btn btn-light btn-sm">Logout</a>
-        {% else %}
-          <a href="{% url 'login' %}" class="btn btn-light btn-sm">Login</a>
-        {% endif %}
-      </div>
+                    {{ request.user.username }}
+
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+
+                    <li>
+
+                        <a
+                            class="dropdown-item"
+                            href="#"
+                        >
+
+                            <i class="bi bi-person me-2"></i>
+
+                            Thông tin người dùng
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a
+                            class="dropdown-item"
+                            href="#"
+                        >
+
+                            <i class="bi bi-key me-2"></i>
+
+                            Đổi mật khẩu
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <hr class="dropdown-divider">
+
+                    </li>
+
+                    <li>
+
+                        <a
+                            class="dropdown-item text-danger"
+                            href="{% url 'logout' %}"
+                        >
+
+                            <i class="bi bi-box-arrow-right me-2"></i>
+
+                            Logout
+
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            {% else %}
+
+                <a
+                    href="{% url 'login' %}"
+                    class="btn btn-light btn-sm"
+                >
+
+                    <i class="bi bi-box-arrow-in-right me-2"></i>
+
+                    Login
+
+                </a>
+
+            {% endif %}
+
+        </div>
     </div>
 
     <!-- 🔷 NAVBAR -->
@@ -50,7 +127,7 @@
             <li class="nav-item">
               <a class="nav-link {% if request.resolver_match.url_name == 'overview' %}active{% endif %}"
                 href="/{% if querystring %}?{{ querystring }}{% endif %}">
-                📊 Tổng quan
+                <i class="bi bi-speedometer2 me-2"></i> Tổng quan
               </a>
             </li>
 
@@ -58,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link {% if '/fields/' in request.path %}active{% endif %}"
                 href="{% url 'fields' %}{% if querystring %}?{{ querystring }}{% endif %}">
-                🧪 Nghiên cứu theo ngành/nhóm ngành
+                <i class="bi bi-grid-3x3-gap me-2"></i> Nghiên cứu theo ngành/nhóm ngành
               </a>
             </li>
 
@@ -66,7 +143,7 @@
             <li class="nav-item">
               <a class="nav-link {% if request.resolver_match.url_name == 'citations' %}active{% endif %}"
                 href="{% url 'citations' %}{% if querystring %}?{{ querystring }}{% endif %}">
-                📈 Trích dẫn nghiên cứu
+                <i class="bi bi-bar-chart-line me-2"></i> Trích dẫn nghiên cứu
               </a>
             </li>
 
@@ -74,7 +151,7 @@
             <li class="nav-item">
               <a class="nav-link {% if request.resolver_match.url_name == 'roles' %}active{% endif %}"
                 href="{% url 'roles' %}{% if querystring %}?{{ querystring }}{% endif %}">
-                👤 Vai trò tác giả
+                <i class="bi bi-people me-2"></i> Vai trò tác giả
               </a>
             </li>
 
@@ -82,7 +159,7 @@
             <li class="nav-item">
               <a class="nav-link {% if request.resolver_match.url_name == 'performance' %}active{% endif %}"
                 href="{% url 'performance' %}{% if querystring %}?{{ querystring }}{% endif %}">
-                🚀 Hiệu suất nghiên cứu
+                <i class="bi bi-graph-up-arrow me-2"></i> Hiệu suất nghiên cứu
               </a>
             </li>
 
@@ -90,7 +167,7 @@
             <li class="nav-item">
               <a class="nav-link {% if request.resolver_match.url_name == 'collaboration' %}active{% endif %}"
                 href="{% url 'collaboration' %}{% if querystring %}?{{ querystring }}{% endif %}">
-                🌍 Hợp tác nghiên cứu
+                <i class="bi bi-diagram-3 me-2"></i> Hợp tác nghiên cứu
               </a>
             </li>
 

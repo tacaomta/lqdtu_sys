@@ -30,6 +30,10 @@ def overview_view(request):
     qs = FactPublication.objects.all()
     qs, FIELD_GROUP_ORDER, CITATION_GROUP_ORDER = apply_dashboard_filters(request, qs)
 
+    has_data = qs.exists()
+
+    if not has_data:
+        return render(request, "dashboard/overview.html", context= {"has_data": has_data})
     # ======================================
     # KPI
     # ======================================
@@ -127,7 +131,7 @@ def overview_view(request):
     ]
 
     context = {
-
+        "has_data": has_data,
         # KPI
         "total_publications": total_publications,
 

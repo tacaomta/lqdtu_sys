@@ -4,121 +4,36 @@
 {% block content %}
 
 <div class="container-fluid mt-0 px-4">
-    <div class="mb-4">
+    {% if has_data %}
+        <div class="mb-4">
 
-        <h2>
+            <h2>
 
-            PHÂN TÍCH VAI TRÒ CỦA TÁC GIẢ LQDTU
+                PHÂN TÍCH VAI TRÒ CỦA TÁC GIẢ LQDTU
 
-        </h2>
-
-    </div>
-
-    <!-- ========================================= -->
-    <!-- AUTHOR ROLE GROUPS -->
-    <!-- ========================================= -->
-
-    <div class="row g-4">
-
-        <div class="col-2">
-
-            <div class="kpi-group-card">
-
-                <div class="kpi-title">
-
-                    Tổng số tác giả LQDTU
-
-                </div>
-
-                <div class="kpi-value">
-
-                    {{ total_lqdtu_authors }}
-
-                </div>
-
-            </div>
+            </h2>
 
         </div>
 
-        <!-- ===================================== -->
-        <!-- FIRST AUTHOR -->
-        <!-- ===================================== -->
+        <!-- ========================================= -->
+        <!-- AUTHOR ROLE GROUPS -->
+        <!-- ========================================= -->
 
-        <div class="col-5">
+        <div class="row g-4">
 
-            <div class="kpi-group-card">
+            <div class="col-2">
 
-                <div class="kpi-group-title">
+                <div class="kpi-group-card">
 
-                    Tác giả thứ nhất (LQDTU)
+                    <div class="kpi-title">
 
-                </div>
-
-                <div class="row g-3">
-
-                    <!-- Publications -->
-
-                    <div class="col-md-5">
-
-                        <div class="dashboard-kpi-card">
-
-                            <div class="kpi-title">
-
-                                Số CBKH
-
-                            </div>
-
-                            <div class="kpi-value">
-
-                                {{ first_author_publications }} ({{first_author_pub_percentage}} %)
-
-                            </div>
-
-                        </div>
+                        Tổng số tác giả LQDTU
 
                     </div>
 
-                    <!-- Citations -->
+                    <div class="kpi-value">
 
-                    <div class="col-md-5">
-
-                        <div class="dashboard-kpi-card">
-
-                            <div class="kpi-title">
-
-                                Tổng trích dẫn
-
-                            </div>
-
-                            <div class="kpi-value">
-
-                                {{ first_author_citations }} ({{first_author_citation_percentage}} %)
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <!-- H-index -->
-
-                    <div class="col-md-2">
-
-                        <div class="dashboard-kpi-card">
-
-                            <div class="kpi-title">
-
-                                H-index
-
-                            </div>
-
-                            <div class="kpi-value">
-
-                                {{ first_author_h_index }}
-
-                            </div>
-
-                        </div>
+                        {{ total_lqdtu_authors }}
 
                     </div>
 
@@ -126,84 +41,83 @@
 
             </div>
 
-        </div>
+            <!-- ===================================== -->
+            <!-- FIRST AUTHOR -->
+            <!-- ===================================== -->
 
+            <div class="col-5">
 
-        <!-- ===================================== -->
-        <!-- CORRESPONDING AUTHOR -->
-        <!-- ===================================== -->
+                <div class="kpi-group-card">
 
-        <div class="col-5">
+                    <div class="kpi-group-title">
 
-            <div class="kpi-group-card">
+                        Tác giả thứ nhất (LQDTU)
 
-                <div class="kpi-group-title">
+                    </div>
 
-                    Tác giả liên hệ (LQDTU)
+                    <div class="row g-3">
 
-                </div>
+                        <!-- Publications -->
 
-                <div class="row g-3">
+                        <div class="col-md-5">
 
-                    <!-- Publications -->
+                            <div class="dashboard-kpi-card">
 
-                    <div class="col-md-5">
+                                <div class="kpi-title">
 
-                        <div class="dashboard-kpi-card">
+                                    Số CBKH
 
-                            <div class="kpi-title">
+                                </div>
 
-                                Số CBKH
+                                <div class="kpi-value">
 
-                            </div>
+                                    {{ first_author_publications }} ({{first_author_pub_percentage}} %)
 
-                            <div class="kpi-value">
-
-                                {{ corresponding_publications }} ({{ corresponding_pub_percentage }} %)
+                                </div>
 
                             </div>
 
                         </div>
 
-                    </div>
+                        <!-- Citations -->
 
-                    <!-- Citations -->
+                        <div class="col-md-5">
 
-                    <div class="col-md-5">
+                            <div class="dashboard-kpi-card">
 
-                        <div class="dashboard-kpi-card">
+                                <div class="kpi-title">
 
-                            <div class="kpi-title">
+                                    Tổng trích dẫn
 
-                                Tổng trích dẫn
+                                </div>
 
-                            </div>
+                                <div class="kpi-value">
 
-                            <div class="kpi-value">
+                                    {{ first_author_citations }} ({{first_author_citation_percentage}} %)
 
-                                {{ corresponding_citations }} ({{ corresponding_citation_percentage }} %)
+                                </div>
 
                             </div>
 
                         </div>
 
-                    </div>
+                        <!-- H-index -->
 
-                    <!-- H-index -->
+                        <div class="col-md-2">
 
-                    <div class="col-md-2">
+                            <div class="dashboard-kpi-card">
 
-                        <div class="dashboard-kpi-card">
+                                <div class="kpi-title">
 
-                            <div class="kpi-title">
+                                    H-index
 
-                                H-index
+                                </div>
 
-                            </div>
+                                <div class="kpi-value">
 
-                            <div class="kpi-value">
+                                    {{ first_author_h_index }}
 
-                                {{ corresponding_h_index }}
+                                </div>
 
                             </div>
 
@@ -215,211 +129,311 @@
 
             </div>
 
-        </div>
 
-    </div>
+            <!-- ===================================== -->
+            <!-- CORRESPONDING AUTHOR -->
+            <!-- ===================================== -->
 
+            <div class="col-5">
 
-    <div class="row g-4 mt-2 dashboard-chart-card" style="margin: 0px;">
+                <div class="kpi-group-card">
 
-        <!-- ===================================== -->
-        <!-- STACKED BAR -->
-        <!-- ===================================== -->
+                    <div class="kpi-group-title">
 
-        <div class="col-lg-8">
+                        Tác giả liên hệ (LQDTU)
 
-            <h5 class="mb-4">
+                    </div>
 
-                CBKH có tác giả thứ nhất thuộc LQDTU theo nhóm ngành
+                    <div class="row g-3">
 
-            </h5>
+                        <!-- Publications -->
 
-            <div class="chart-wrapper">
+                        <div class="col-md-5">
 
-                <canvas
-                    id="firstAuthorFieldChart">
-                </canvas>
+                            <div class="dashboard-kpi-card">
 
-            </div>
+                                <div class="kpi-title">
 
-        </div>
+                                    Số CBKH
 
+                                </div>
 
-        <!-- ===================================== -->
-        <!-- PERCENTAGE BAR -->
-        <!-- ===================================== -->
+                                <div class="kpi-value">
 
-        <div class="col-lg-4">
+                                    {{ corresponding_publications }} ({{ corresponding_pub_percentage }} %)
 
+                                </div>
 
-            <h5 class="mb-4">
+                            </div>
 
-                % CBKH có tác giả thứ nhất là LQDTU
+                        </div>
 
-            </h5>
+                        <!-- Citations -->
 
-            <div class="chart-wrapper">
+                        <div class="col-md-5">
 
-                <canvas
-                    id="firstAuthorPercentageChart">
-                </canvas>
+                            <div class="dashboard-kpi-card">
 
-            </div>
+                                <div class="kpi-title">
 
+                                    Tổng trích dẫn
 
-        </div>
+                                </div>
 
-    </div>
+                                <div class="kpi-value">
 
-    <div class="row g-4 mt-2 dashboard-chart-card" style="margin: 0px;">
+                                    {{ corresponding_citations }} ({{ corresponding_citation_percentage }} %)
 
-        <!-- ===================================== -->
-        <!-- STACKED BAR -->
-        <!-- ===================================== -->
+                                </div>
 
-        <div class="col-lg-8">
+                            </div>
 
+                        </div>
 
-            <h5 class="mb-4">
+                        <!-- H-index -->
 
-                Trích dẫn từ CBKH có tác giả thứ nhất thuộc LQDTU theo nhóm ngành
+                        <div class="col-md-2">
 
-            </h5>
+                            <div class="dashboard-kpi-card">
 
-            <div class="chart-wrapper">
+                                <div class="kpi-title">
 
-                <canvas
-                    id="firstAuthorCitationByFieldChart">
-                </canvas>
+                                    H-index
 
-            </div>
+                                </div>
 
+                                <div class="kpi-value">
 
-        </div>
+                                    {{ corresponding_h_index }}
 
+                                </div>
 
-        <!-- ===================================== -->
-        <!-- PERCENTAGE BAR -->
-        <!-- ===================================== -->
+                            </div>
 
-        <div class="col-lg-4">
+                        </div>
 
-            <h5 class="mb-4">
+                    </div>
 
-                % Trích dẫn từ CBKH có tác giả thứ nhất thuộc LQDTU
-
-            </h5>
-
-            <div class="chart-wrapper">
-
-                <canvas
-                    id="firstAuthorCitationPercentageByFieldChart">
-                </canvas>
+                </div>
 
             </div>
 
         </div>
 
-    </div>
 
-    <div class="row g-4 mt-2 dashboard-chart-card" style="margin: 0px;">
+        <div class="row g-4 mt-2 dashboard-chart-card" style="margin: 0px;">
 
-        <!-- ===================================== -->
-        <!-- STACKED BAR -->
-        <!-- ===================================== -->
+            <!-- ===================================== -->
+            <!-- STACKED BAR -->
+            <!-- ===================================== -->
 
-        <div class="col-lg-8">
+            <div class="col-lg-8">
 
-            <h5 class="mb-4">
+                <h5 class="mb-4">
 
-                CBKH có tác giả liên hệ thuộc LQDTU theo nhóm ngành
+                    CBKH có tác giả thứ nhất thuộc LQDTU theo nhóm ngành
 
-            </h5>
+                </h5>
 
-            <div class="chart-wrapper">
+                <div class="chart-wrapper">
 
-                <canvas
-                    id="correspondingAuthorFieldChart">
-                </canvas>
+                    <canvas
+                        id="firstAuthorFieldChart">
+                    </canvas>
 
-            </div>
-        </div>
-
-
-        <!-- ===================================== -->
-        <!-- PERCENTAGE BAR -->
-        <!-- ===================================== -->
-
-        <div class="col-lg-4">
-
-            <h5 class="mb-4">
-
-                % CBKH có tác giả liên hệ
-                là LQDTU
-
-            </h5>
-
-            <div class="chart-wrapper">
-
-                <canvas
-                    id="correspondingAuthorPercentageChart">
-                </canvas>
+                </div>
 
             </div>
 
-        </div>
 
-    </div>
+            <!-- ===================================== -->
+            <!-- PERCENTAGE BAR -->
+            <!-- ===================================== -->
 
-    <div class="row g-4 mt-2 dashboard-chart-card" style="margin: 0px;">
+            <div class="col-lg-4">
 
-        <!-- ===================================== -->
-        <!-- STACKED BAR -->
-        <!-- ===================================== -->
 
-        <div class="col-lg-8">
+                <h5 class="mb-4">
 
-            <h5 class="mb-4">
+                    % CBKH có tác giả thứ nhất là LQDTU
 
-                Trích dẫn từ CBKH có tác giả liên hệ thuộc LQDTU theo nhóm ngành
+                </h5>
 
-            </h5>
+                <div class="chart-wrapper">
 
-            <div class="chart-wrapper">
+                    <canvas
+                        id="firstAuthorPercentageChart">
+                    </canvas>
 
-                <canvas
-                    id="corrAuthorCitationByFieldChart">
-                </canvas>
+                </div>
+
 
             </div>
 
         </div>
 
+        <div class="row g-4 mt-2 dashboard-chart-card" style="margin: 0px;">
 
-        <!-- ===================================== -->
-        <!-- PERCENTAGE BAR -->
-        <!-- ===================================== -->
+            <!-- ===================================== -->
+            <!-- STACKED BAR -->
+            <!-- ===================================== -->
 
-        <div class="col-lg-4">
+            <div class="col-lg-8">
 
 
-            <h5 class="mb-4">
+                <h5 class="mb-4">
 
-                % Trích dẫn từ CBKH có tác giả liên hệ thuộc LQDTU
+                    Trích dẫn từ CBKH có tác giả thứ nhất thuộc LQDTU theo nhóm ngành
 
-            </h5>
+                </h5>
 
-            <div class="chart-wrapper">
+                <div class="chart-wrapper">
 
-                <canvas
-                    id="corrAuthorCitationPercentageByFieldChart">
-                </canvas>
+                    <canvas
+                        id="firstAuthorCitationByFieldChart">
+                    </canvas>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ===================================== -->
+            <!-- PERCENTAGE BAR -->
+            <!-- ===================================== -->
+
+            <div class="col-lg-4">
+
+                <h5 class="mb-4">
+
+                    % Trích dẫn từ CBKH có tác giả thứ nhất thuộc LQDTU
+
+                </h5>
+
+                <div class="chart-wrapper">
+
+                    <canvas
+                        id="firstAuthorCitationPercentageByFieldChart">
+                    </canvas>
+
+                </div>
 
             </div>
 
         </div>
 
-    </div>
+        <div class="row g-4 mt-2 dashboard-chart-card" style="margin: 0px;">
+
+            <!-- ===================================== -->
+            <!-- STACKED BAR -->
+            <!-- ===================================== -->
+
+            <div class="col-lg-8">
+
+                <h5 class="mb-4">
+
+                    CBKH có tác giả liên hệ thuộc LQDTU theo nhóm ngành
+
+                </h5>
+
+                <div class="chart-wrapper">
+
+                    <canvas
+                        id="correspondingAuthorFieldChart">
+                    </canvas>
+
+                </div>
+            </div>
+
+
+            <!-- ===================================== -->
+            <!-- PERCENTAGE BAR -->
+            <!-- ===================================== -->
+
+            <div class="col-lg-4">
+
+                <h5 class="mb-4">
+
+                    % CBKH có tác giả liên hệ
+                    là LQDTU
+
+                </h5>
+
+                <div class="chart-wrapper">
+
+                    <canvas
+                        id="correspondingAuthorPercentageChart">
+                    </canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row g-4 mt-2 dashboard-chart-card" style="margin: 0px;">
+
+            <!-- ===================================== -->
+            <!-- STACKED BAR -->
+            <!-- ===================================== -->
+
+            <div class="col-lg-8">
+
+                <h5 class="mb-4">
+
+                    Trích dẫn từ CBKH có tác giả liên hệ thuộc LQDTU theo nhóm ngành
+
+                </h5>
+
+                <div class="chart-wrapper">
+
+                    <canvas
+                        id="corrAuthorCitationByFieldChart">
+                    </canvas>
+
+                </div>
+
+            </div>
+
+
+            <!-- ===================================== -->
+            <!-- PERCENTAGE BAR -->
+            <!-- ===================================== -->
+
+            <div class="col-lg-4">
+
+
+                <h5 class="mb-4">
+
+                    % Trích dẫn từ CBKH có tác giả liên hệ thuộc LQDTU
+
+                </h5>
+
+                <div class="chart-wrapper">
+
+                    <canvas
+                        id="corrAuthorCitationPercentageByFieldChart">
+                    </canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+    {% else %}
+        <div class="dashboard-empty-page">
+
+            <i class="bi bi-folder2-open"></i>
+
+            <h4>PHÂN TÍCH VAI TRÒ CỦA TÁC GIẢ LQDTU</h4>
+
+            <p>
+                Không tìm thấy dữ liệu phù hợp với bộ lọc hiện tại.
+            </p>
+
+        </div>
+    {% endif %}
 
 </div>
 
@@ -455,7 +469,7 @@
 <script src="{% static 'dashboard/js/dashboard_palette.js' %}"></script>
 
 <script src="{% static 'dashboard/js/dashboard_charts.js' %}"></script>
-
+{% if has_data %}
 <script src="{% static 'dashboard/js/roles.js' %}"></script>
-
+{% endif %}
 {% endblock %}

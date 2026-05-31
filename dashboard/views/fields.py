@@ -21,7 +21,10 @@ from dashboard.services.metrics_service import (
 def fields_view(request):
     qs = FactPublication.objects.all()
     qs, FIELD_GROUP_ORDER, CITATION_GROUP_ORDER = apply_dashboard_filters(request, qs)
+    has_data = qs.exists()
 
+    if not has_data:
+        return render(request, "dashboard/fields.html", context= {"has_data": has_data})
 
     field_chart = build_chart_dataset(qs=qs, group_field="field_group", custom_order=FIELD_GROUP_ORDER)
 
@@ -151,6 +154,7 @@ def fields_view(request):
 
 
     context = {
+        "has_data": has_data,
 
         "field_labels":
             field_chart["labels"],
