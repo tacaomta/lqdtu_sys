@@ -5,7 +5,9 @@ window.DashboardCharts = {
     createPieChart,
     createLineChart,
     createAreaChart,
-    createDualAxisChart
+    createDualAxisChart,
+    setupChartTableSwitcher,
+    switchChart_Table_view
 };
 
 const DEFAULT_PLUGIN_OPTIONS = {
@@ -941,4 +943,170 @@ function createDualAxisChart({
 
     );
 
+}
+
+function setupChartTableSwitcher(prefix, chart_show=true) 
+{
+
+    const chartBtn =
+
+        document.getElementById(
+
+            `${prefix}-chart-view`
+
+        );
+
+    const tableBtn =
+
+        document.getElementById(
+
+            `${prefix}-table-view`
+
+        );
+
+    const chartContainer =
+
+        document.getElementById(
+
+            `${prefix}-chart-container`
+
+        );
+
+    const tableContainer =
+
+        document.getElementById(
+
+            `${prefix}-table-container`
+
+        );
+
+
+    function showChart() {
+
+        chartContainer.style.display =
+
+            "block";
+
+        tableContainer.style.display =
+
+            "none";
+
+
+        chartBtn.classList.remove(
+
+            "btn-outline-primary"
+
+        );
+
+        chartBtn.classList.add(
+
+            "btn-primary"
+
+        );
+
+
+        tableBtn.classList.remove(
+
+            "btn-primary"
+
+        );
+
+        tableBtn.classList.add(
+
+            "btn-outline-primary"
+
+        );
+
+    }
+
+
+    function showTable() {
+
+        chartContainer.style.display =
+
+            "none";
+
+        tableContainer.style.display =
+
+            "block";
+
+
+        tableBtn.classList.remove(
+
+            "btn-outline-primary"
+
+        );
+
+        tableBtn.classList.add(
+
+            "btn-primary"
+
+        );
+
+
+        chartBtn.classList.remove(
+
+            "btn-primary"
+
+        );
+
+        chartBtn.classList.add(
+
+            "btn-outline-primary"
+
+        );
+
+    }
+
+
+    chartBtn.addEventListener(
+
+        "click",
+
+        showChart
+
+    );
+
+
+    tableBtn.addEventListener(
+
+        "click",
+
+        showTable
+
+    );
+    if (chart_show){
+        showChart();
+    }
+    else{
+        showTable()
+    } 
+}
+
+function switchChart_Table_view(btn_chart_mode, btn_tbl_mode, chart_container, tbl_container){
+    const document_type_chart_btn = document.getElementById(btn_chart_mode);
+    const document_type_table_btn = document.getElementById(btn_tbl_mode);
+
+    document_type_chart_btn.addEventListener("click", function () {
+        document.getElementById(chart_container).style.display = "flex";
+        document.getElementById(tbl_container).style.display = "none";
+
+        document_type_chart_btn.classList.remove("btn-outline-primary");
+        document_type_chart_btn.classList.add("btn-primary");
+
+        document_type_table_btn.classList.remove("btn-primary");
+        document_type_table_btn.classList.add("btn-outline-primary");
+    });
+
+
+    document_type_table_btn.addEventListener("click", function () {
+        document.getElementById(chart_container).style.display = "none";
+        document.getElementById(tbl_container).style.display = "block";
+
+        document_type_table_btn.classList.remove("btn-outline-primary");
+        document_type_table_btn.classList.add("btn-primary");
+
+        document_type_chart_btn.classList.remove("btn-primary");
+        document_type_chart_btn.classList.add("btn-outline-primary");
+    });
 }

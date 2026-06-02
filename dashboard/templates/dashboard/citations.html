@@ -191,20 +191,121 @@
             <!-- ================================= -->
 
             <div class="col-lg-8">
+                <div class="card mb-4 double-view-chart-card h-100">
 
-                <div class="dashboard-chart-card h-100">
+                    <div class="card-header">
 
-                    <h5 class="mb-4">
+                        <div class="d-flex justify-content-between">
 
-                        CBKH phân loại theo nhóm trích dẫn trong từng nhóm ngành
+                            <h5>
 
-                    </h5>
+                                CBKH phân loại theo nhóm trích dẫn trong từng nhóm ngành
 
-                    <div class="chart-wrapper">
+                            </h5>
 
-                        <canvas id="citationFieldStackedChart">
+                            <div class="btn-group">
 
-                        </canvas>
+                                <button
+                                    id="cbkh-by-cf-chart-btn"
+                                    class="btn btn-primary btn-sm"
+                                >
+                                    <i class="bi bi-bar-chart"></i>
+                                    Biểu đồ
+                                </button>
+
+                                <button
+                                    id="cbkh-by-cf-table-btn"
+                                    class="btn btn-outline-primary btn-sm"
+                                >
+                                    <i class="bi bi-table"></i>
+                                    Bảng
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <div
+                            class="row"
+                            id="cbkh-by-cf-chart-row"
+                        >
+
+                            <div class="chart-wrapper">
+                                    <canvas
+                                        id="citationFieldStackedChart"
+                                    ></canvas>
+                            </div>
+
+                        </div>
+
+                        <div
+                            id="cbkh-by-cf-table-container"
+                            style="display:none;"
+                        >
+
+                            <table
+                                class="table table-bordered table-hover"
+                            >
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>
+
+                                            Ngành/ Nhóm ngành
+
+                                        </th>
+
+                                        {% for col in citation_group_labels %}
+
+                                            <th>
+
+                                                {{ col }}
+
+                                            </th>
+
+                                        {% endfor %}
+
+                                    </tr>
+
+                                </thead>
+
+                                <tbody>
+
+                                    {% for row in cbkh_table_row %}
+
+                                        <tr>
+
+                                            <td>
+
+                                                {{ row.group }}
+
+                                            </td>
+
+                                            {% for value in row.values %}
+
+                                                <td>
+
+                                                    {{ value }}
+
+                                                </td>
+
+                                            {% endfor %}
+
+                                        </tr>
+
+                                    {% endfor %}
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
 
                     </div>
 

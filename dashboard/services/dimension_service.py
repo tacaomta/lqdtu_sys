@@ -1,4 +1,5 @@
 import json
+import re
 
 from pathlib import Path
 
@@ -179,51 +180,22 @@ def extract_university(
 
 ):
 
-    """
-    Extract university name from affiliation.
-
-    Strategy:
-    - Scan from RIGHT to LEFT
-    - Prioritize institution nearest country
-
-    Example:
-
-    University of Guilan ... Iran ...
-    Universiteit Antwerpen ... Belgium
-
-    => return Universiteit Antwerpen
-    """
-
-    if not institution_text:
-
+    if institution_text is None:
         return None
-
-    segments = [
-
-        s.strip()
-
-        for s in institution_text.split(",")
-
-        if s.strip()
-
-    ]
-
-    # =====================================================
-    # SCAN FROM RIGHT TO LEFT
-    # =====================================================
-
-    for segment in reversed(segments):
-
-        lower = segment.lower()
-        for keyword in UNIVERSITY_KEYWORDS:
-            if keyword in lower:
-                return segment
-
-    # =====================================================
-    # FALLBACK
-    # =====================================================
-
-    return segments[-1] if segments else None
+    
+    
+    parts = [p.strip() for p in institution_text.split(',') if p.strip()]
+    patterns = [
+    rf"\b{re.escape(keyword)}\w*"
+    for keyword in UNIVERSITY_KEYWORDS
+]
+    # duyệt ngược
+    for p in reversed(parts):
+        p_lower = p.lower()
+        if any(re.search(pattern, p_lower) for pattern in patterns):
+            return p
+    
+    return None
 
 # =========================================================
 # GET OR CREATE COUNTRY

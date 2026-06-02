@@ -1,7 +1,6 @@
 from collections import defaultdict
 
 from dashboard.models import (
-    FactPublication,
     PublicationAuthor,
     Author
 )

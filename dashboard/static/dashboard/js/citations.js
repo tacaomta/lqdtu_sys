@@ -421,7 +421,7 @@ document.addEventListener(
             doughnut: true
 
         }); 
-        
-    }
 
+        switchChart_Table_view("cbkh-by-cf-chart-btn", "cbkh-by-cf-table-btn", "cbkh-by-cf-chart-row", "cbkh-by-cf-table-container");
+    }
 );

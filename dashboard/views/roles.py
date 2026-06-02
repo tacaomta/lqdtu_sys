@@ -23,6 +23,11 @@ def roles_view(request):
 
     qs, FIELD_GROUP_ORDER, CITATION_GROUP_ORDER = apply_dashboard_filters(request, qs)
 
+    has_data = qs.exists()
+
+    if not has_data:
+        return render(request, "dashboard/roles.html", context= {"has_data": has_data})
+
     # ==================================================
     # LQDTU AUTHORS
     # ==================================================
@@ -207,6 +212,7 @@ def roles_view(request):
     # ==================================================
 
     context = {
+        "has_data": has_data,
 
         # TOTAL AUTHORS
 

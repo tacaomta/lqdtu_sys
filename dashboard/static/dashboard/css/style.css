@@ -1184,9 +1184,22 @@ SUMMARY
     box-shadow:
         0 2px 12px rgba(0, 0, 0, 0.08);
 }
+
+.double-view-chart-card {
+
+    width: 100%;
+
+    background: white;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
 .chart-wrapper {
     position: relative;
-    height: 320px;
+    height: 350px;
     width: 100%;
 }
 

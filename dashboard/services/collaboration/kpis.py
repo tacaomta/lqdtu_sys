@@ -5,6 +5,10 @@ import networkx as nx
 from dashboard.models import (
     PublicationAuthor
 )
+from dashboard.services.collaboration_service import(
+    contains_lqdtu,
+    contains_vietnam
+)
 from dashboard.services.metrics_service import compute_publication_h_index
 import math
 
@@ -92,26 +96,22 @@ def get_collaboration_kpis_info(publication_ids, publication_university_country_
 
         for affiliation in affiliations:
             universities_each_publication.add(affiliation["university"])
-            if affiliation["country"] == "Viet Nam" and affiliation["university"] != "Le Quy Don Technical University":
+            if contains_vietnam(affiliation["country"]) and not contains_lqdtu(affiliation["university"]):
+           # if contains_vietnam affiliation["country"] == "Viet Nam" and affiliation["university"] != "Le Quy Don Technical University":
                 has_domestic = True
                 domestic_authors.add(affiliation["author_id"])
                 domestic_universities.add(affiliation["university"])
                 domestic_universities_each_publication.add(affiliation["university"])
 
 
-            if affiliation["country"] != "Viet Nam":
+            if not contains_vietnam(affiliation["country"]):
                 has_international = True
                 international_authors.add(affiliation["author_id"])
                 international_universities.add(affiliation["university"])
                 countries.add(affiliation["country"])
                 international_universities_each_publication.add(affiliation["university"])
         
-        if universities_each_publication == {
-
-            "Le Quy Don Technical University"
-
-        }:
-
+        if len(universities_each_publication)==1 and contains_lqdtu(list(universities_each_publication)[0]):
             internal_only_publication_ids.append(publication_id)
         else:
             external_collaboration_ids.append(publication_ids)

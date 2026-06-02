@@ -219,11 +219,60 @@ def build_stacked_chart_dataset(
             "data": data
 
         })
+    
+    table_data = []
+
+    for x_label in x_labels:
+
+        row = {
+
+            "group": x_label
+
+        }
+
+        for stack_label in stack_labels:
+
+            row[stack_label] = lookup.get(
+
+                (x_label, stack_label),
+
+                0
+
+            )
+
+        table_data.append(row)
+
+    table_rows = []
+
+    for row in table_data:
+        total = 0
+        values = []
+        for stack_label in stack_labels:
+            values.append(row.get(stack_label,0))
+            total +=row.get(stack_label,0)
+    
+        percentage_article = round(row.get("Article", 0)*100/total, 1) if total!=0 else 0
+        values.append(percentage_article)
+
+        table_rows.append({
+
+            "group":
+
+                row["group"],
+
+            "values": values
+        })
+    
+    stack_labels.append("% Article")
 
     return {
 
         "labels": x_labels,
 
-        "datasets": datasets
+        "datasets": datasets,
+
+        "table_rows": table_rows,
+
+        "stack_labels": stack_labels
 
     }

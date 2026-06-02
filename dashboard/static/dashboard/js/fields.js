@@ -11,6 +11,7 @@ document.addEventListener(
             ChartDataLabels
         );
 
+
         const fieldLabels = JSON.parse(
 
             document.getElementById(
@@ -145,6 +146,9 @@ document.addEventListener(
             label: "H-index",
             horizontal: true
         });
+
+        //setupChartTableSwitcher('document-type');
+        switchChart_Table_view("document-type-chart-btn", "document-type-table-btn", "document-type-chart-row", "document-type-table-container");
 
     }
 

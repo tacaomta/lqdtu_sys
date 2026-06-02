@@ -15,6 +15,10 @@ from dashboard.models import (
     ImportBatch
 )
 
+from dashboard.services.citation.cbkh_by_field_citation_groups import(
+    get_cbkh_by_field_citation_groups
+)
+
 from dashboard.services.dashboard_filter import(
     apply_dashboard_filters
 )
@@ -134,66 +138,8 @@ def citations_view(request):
     )
     raw_values = [citation_lookup.get(year, 0) for year in all_years]
 
-    ## Biểu đồ stacked số CBKH theo nhóm trích dẫn
-
-
-
-    field_citation_qs = (
-
-        qs.values("field_group", "citation_group")
-
-        .annotate(
-
-            total=Count("id")
-
-        )
-
-    )
-
-    stacked_lookup = {}
-
-    for item in field_citation_qs:
-
-        field_group = item["field_group"]
-
-        citation_group = item["citation_group"]
-
-        total = item["total"]
-
-        if field_group not in stacked_lookup:
-
-            stacked_lookup[field_group] = {}
-
-        stacked_lookup[field_group][citation_group] = total
-    
-
-        stacked_datasets = []
-
-        for citation_group in CITATION_GROUP_ORDER:
-
-            data = []
-
-            for field_group in FIELD_GROUP_ORDER:
-
-                value = (
-
-                    stacked_lookup
-
-                    .get(field_group, {})
-
-                    .get(citation_group, 0)
-
-                )
-
-                data.append(value)
-
-            stacked_datasets.append({
-
-                "label": citation_group,
-
-                "data": data
-
-            })
+    ## Biểu đồ + dữ liệu dạng bảng stacked số CBKH theo nhóm trích dẫn
+    stacked_datasets, tb_CBKH_field_citation_group_rows = get_cbkh_by_field_citation_groups(qs, CITATION_GROUP_ORDER, FIELD_GROUP_ORDER)
 
     # Pie chart
     # ==========================================
@@ -228,13 +174,13 @@ def citations_view(request):
     # ORDERED LABELS
     # ==========================================
 
-    citation_group_labels = [
+    # citation_group_labels = [
 
-        group
+    #     group
 
-        for group in CITATION_GROUP_ORDER
+    #     for group in CITATION_GROUP_ORDER
 
-    ]
+    # ]
 
     # ==========================================
     # ORDERED VALUES
@@ -247,7 +193,7 @@ def citations_view(request):
             0
         )
 
-        for group in citation_group_labels
+        for group in CITATION_GROUP_ORDER
 
     ]
 
@@ -567,7 +513,9 @@ def citations_view(request):
         "field_group_labels": FIELD_GROUP_ORDER, 
         "stacked_datasets": stacked_datasets,
 
-        "citation_group_labels":citation_group_labels,
+        "cbkh_table_row": tb_CBKH_field_citation_group_rows,
+
+        "citation_group_labels":CITATION_GROUP_ORDER,
 
         "citation_group_values": citation_group_values,
 

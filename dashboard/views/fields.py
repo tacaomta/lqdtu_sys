@@ -152,7 +152,6 @@ def fields_view(request):
     hindex_values = [field_hindex_lookup[label] for label in hindex_labels]
 
 
-
     context = {
         "has_data": has_data,
 
@@ -165,6 +164,10 @@ def fields_view(request):
         "stacked_labels": stacked_chart["labels"], 
         
         "stacked_datasets": stacked_chart["datasets"],
+
+        "table_rows": stacked_chart["table_rows"],
+
+        "stack_labels": stacked_chart["stack_labels"],
 
         "article_labels": article_labels, 
         
