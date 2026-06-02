@@ -1091,11 +1091,11 @@ function switchChart_Table_view(btn_chart_mode, btn_tbl_mode, chart_container, t
         document.getElementById(chart_container).style.display = "flex";
         document.getElementById(tbl_container).style.display = "none";
 
-        document_type_chart_btn.classList.remove("btn-outline-primary");
-        document_type_chart_btn.classList.add("btn-primary");
+        document_type_chart_btn.classList.remove("btn-outline-secondary");
+        document_type_chart_btn.classList.add("btn-secondary");
 
-        document_type_table_btn.classList.remove("btn-primary");
-        document_type_table_btn.classList.add("btn-outline-primary");
+        document_type_table_btn.classList.remove("btn-secondary");
+        document_type_table_btn.classList.add("btn-outline-secondary");
     });
 
 
@@ -1103,10 +1103,10 @@ function switchChart_Table_view(btn_chart_mode, btn_tbl_mode, chart_container, t
         document.getElementById(chart_container).style.display = "none";
         document.getElementById(tbl_container).style.display = "block";
 
-        document_type_table_btn.classList.remove("btn-outline-primary");
-        document_type_table_btn.classList.add("btn-primary");
+        document_type_table_btn.classList.remove("btn-outline-secondary");
+        document_type_table_btn.classList.add("btn-secondary");
 
-        document_type_chart_btn.classList.remove("btn-primary");
-        document_type_chart_btn.classList.add("btn-outline-primary");
+        document_type_chart_btn.classList.remove("btn-secondary");
+        document_type_chart_btn.classList.add("btn-outline-secondary");
     });
 }

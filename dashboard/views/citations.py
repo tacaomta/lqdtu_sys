@@ -22,6 +22,10 @@ from dashboard.services.citation.cbkh_by_field_citation_groups import(
 from dashboard.services.dashboard_filter import(
     apply_dashboard_filters
 )
+from dashboard.services.citation.citation_by_field_citation_groups import(
+    get_total_citation_by_field_citation_groups,
+    get_citation_by_field_document_type
+)
 
 
 @login_required
@@ -170,22 +174,6 @@ def citations_view(request):
 
     }
 
-    # ==========================================
-    # ORDERED LABELS
-    # ==========================================
-
-    # citation_group_labels = [
-
-    #     group
-
-    #     for group in CITATION_GROUP_ORDER
-
-    # ]
-
-    # ==========================================
-    # ORDERED VALUES
-    # ==========================================
-
     citation_group_values = [
 
         citation_group_lookup.get(
@@ -198,76 +186,9 @@ def citations_view(request):
     ]
 
     #Row 3
-    field_citation_sum_qs = (
-
-        qs.values(
-
-            "field_group",
-            "citation_group"
-
-        )
-
-        .annotate(
-
-            total_citations=Sum("cited_by")
-
-        )
-
-    )
-
-    citation_sum_lookup = {}
-
-    for item in field_citation_sum_qs:
-
-        field_group = item["field_group"]
-
-        citation_group = item["citation_group"]
-
-        total_citations_field = (
-
-            item["total_citations"]
-
-            or 0
-
-        )
-
-        if field_group not in citation_sum_lookup:
-
-            citation_sum_lookup[field_group] = {}
-
-        citation_sum_lookup[
-
-            field_group
-
-        ][citation_group] = total_citations_field
-
-    citation_sum_datasets = []
-
-    for citation_group in CITATION_GROUP_ORDER:
-
-        data = []
-
-        for field_group in FIELD_GROUP_ORDER:
-
-            value = (
-
-                citation_sum_lookup
-
-                .get(field_group, {})
-
-                .get(citation_group, 0)
-
-            )
-
-            data.append(value)
-
-        citation_sum_datasets.append({
-
-            "label": citation_group,
-
-            "data": data
-
-        })
+    citation_sum_datasets, tb_total_citation_field_citation_group_rows = get_total_citation_by_field_citation_groups(qs, CITATION_GROUP_ORDER, FIELD_GROUP_ORDER)
+    
+    # Dữ liệu dạng bảng
 
     ## Tree map
     field_total_citation_qs = (
@@ -299,148 +220,7 @@ def citations_view(request):
     # CITATION BY DOCUMENT TYPE IN FIELD GROUP
     # ==========================================
 
-    document_citation_qs = (
-
-        qs.values(
-
-            "field_group",
-            "document_type"
-
-        )
-
-        .annotate(
-
-            total_citations=Sum(
-                "cited_by"
-            )
-
-        )
-
-    )
-
-    document_types = list(
-
-        qs.values_list(
-
-            "document_type",
-            flat=True
-
-        )
-
-        .distinct()
-
-    )
-
-    # ==========================================
-    # BUILD MATRIX
-    # ==========================================
-
-    document_type_datasets = []
-    
-
-    for document_type in document_types:
-
-        values = []
-
-        for field_group in FIELD_GROUP_ORDER:
-
-            item = next(
-
-                (
-
-                    x for x in document_citation_qs
-
-                    if (
-
-                        x["field_group"]
-                        == field_group
-
-                        and
-
-                        x["document_type"]
-                        == document_type
-
-                    )
-
-                ),
-
-                None
-
-            )
-
-            values.append(
-
-                item["total_citations"]
-
-                if item else 0
-
-            )
-
-        document_type_datasets.append({
-
-            "label": document_type,
-
-            "data": values
-
-        })
-    # ==========================================
-    # ARTICLE CITATION PERCENTAGE
-    # ==========================================
-
-    article_percentage_values = []
-
-    for field_group in FIELD_GROUP_ORDER:
-
-        group_items = [
-
-            x for x in document_citation_qs
-
-            if x["field_group"] == field_group
-
-        ]
-
-        total_citations_each_field = sum(
-
-            x["total_citations"]
-            or 0
-
-            for x in group_items
-
-        )
-
-        article_citations = sum(
-
-            x["total_citations"]
-            or 0
-
-            for x in group_items
-
-            if x["document_type"] == "Article"
-
-        )
-
-        percentage = (
-
-            round(
-
-                article_citations
-                / total_citations_each_field
-                * 100,
-
-                2
-
-            )
-
-            if total_citations_each_field > 0
-
-            else 0
-
-        )
-
-        article_percentage_values.append(
-            percentage
-        )
-
+    document_type_datasets, article_percentage_values, citation_by_field_document_type_table_rows, document_type_labels = get_citation_by_field_document_type(qs, FIELD_GROUP_ORDER)
     # ==========================================
     # DOCUMENT TYPE CITATION PIE CHART
     # ==========================================
@@ -521,11 +301,16 @@ def citations_view(request):
 
         "citation_sum_datasets": citation_sum_datasets,
 
+        "citation_by_groupcited_table_row": tb_total_citation_field_citation_group_rows,
+
         "treemap_labels":treemap_labels,
         
         "treemap_values":treemap_values,
 
         "document_type_datasets": document_type_datasets,
+
+        "citation_by_dt_fields":citation_by_field_document_type_table_rows,
+        "document_type_labels": document_type_labels,
 
         "article_percentage_values": article_percentage_values,
 

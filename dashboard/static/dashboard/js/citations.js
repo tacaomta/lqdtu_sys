@@ -423,5 +423,7 @@ document.addEventListener(
         }); 
 
         switchChart_Table_view("cbkh-by-cf-chart-btn", "cbkh-by-cf-table-btn", "cbkh-by-cf-chart-row", "cbkh-by-cf-table-container");
+        switchChart_Table_view("citation-by-cf-chart-btn", "citation-by-cf-table-btn", "citation-by-cf-chart-row", "citation-by-cf-table-container");
+        switchChart_Table_view("citation-by-df-chart-btn", "citation-by-df-table-btn", "citation-by-df-chart-row", "citation-by-df-table-container");
     }
 );
