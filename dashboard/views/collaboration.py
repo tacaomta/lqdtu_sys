@@ -69,12 +69,7 @@ def collaboration_view(request):
     domestic_network,
     international_network
         ) = get_collaboration_kpis_info(publication_ids, publication_university_country_map, publication_citation_map)
-    # Các chỉ số KPI tính toàn bộ dữ liệu
-    # internal_publication_count, internal_h_index = get_internal_only_publications_info(publication_ids, publication_university_country_map, publication_citation_map)
-    # external_publication_count, external_h_index = get_external_publication_info(publication_ids, publication_university_country_map, publication_citation_map)
-    # domestic_publication_count, domestic_h_index, domestic_collaborator_count, domestic_university_count = get_domestic_publications_info(publication_ids, publication_university_country_map, publication_citation_map)
-    # international_publication_count, international_h_index, international_collaborator_count, international_univeristy_count, country_count = get_international_publications_info(publication_ids, publication_university_country_map, publication_citation_map)
-    # Các đồ thị dữ liệu được tính theo nhóm ngành
+
     (
     field_collaboration_in_ex_datasets, 
     field_in_ex_hindex_datasets, 

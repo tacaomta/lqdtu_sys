@@ -1,11 +1,8 @@
-import json
-
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
 from django.db.models import (
     Sum,
-    Avg,
     Max,
     Count
 )
@@ -24,7 +21,11 @@ from dashboard.services.dashboard_filter import(
 )
 from dashboard.services.citation.citation_by_field_citation_groups import(
     get_total_citation_by_field_citation_groups,
-    get_citation_by_field_document_type
+    get_citation_by_field_document_type,
+    get_percentage_citation_by_fields
+)
+from dashboard.services.metrics_service import(
+    format_number
 )
 
 
@@ -50,7 +51,7 @@ def citations_view(request):
         citation_per_publication = round(
             total_citations
             / total_publications,
-            2
+            1
         )
 
     max_citation = (qs.aggregate(max_value=Max("cited_by"))["max_value"]or 0)
@@ -76,7 +77,7 @@ def citations_view(request):
 
     if total_publications > 0:
 
-        uncited_percentage = round(uncited_count/ total_publications * 100, 2)
+        uncited_percentage = round(uncited_count/ total_publications * 100, 1)
 
     first_year = qs.order_by("year").values_list("year",flat=True).first()
 
@@ -106,7 +107,7 @@ def citations_view(request):
             1
 
         )
-    citation_per_year = round(total_citations/ year_span,2)
+    citation_per_year = round(total_citations/ year_span, 1)
     
     # Đồ thị
     citation_by_year_qs = (
@@ -188,7 +189,6 @@ def citations_view(request):
     #Row 3
     citation_sum_datasets, tb_total_citation_field_citation_group_rows = get_total_citation_by_field_citation_groups(qs, CITATION_GROUP_ORDER, FIELD_GROUP_ORDER)
     
-    # Dữ liệu dạng bảng
 
     ## Tree map
     field_total_citation_qs = (
@@ -225,46 +225,14 @@ def citations_view(request):
     # DOCUMENT TYPE CITATION PIE CHART
     # ==========================================
 
-    document_type_pie_qs = (
-
-        qs.values(
-
-            "document_type"
-
-        )
-
-        .annotate(
-
-            total_citations=Sum(
-                "cited_by"
-            )
-
-        )
-
-        .order_by(
-
-            "-total_citations"
-
-        )
-
-    )
-
-    document_type_pie_labels = [ x["document_type"] for x in document_type_pie_qs ]
-
-    document_type_pie_values = [
-
-        x["total_citations"]
-
-        for x in document_type_pie_qs
-
-    ]
+    document_type_pie_values, document_type_pie_labels = get_percentage_citation_by_fields(qs)
 
 
     context = {
         "has_data": has_data,
 
         "total_citations":
-            total_citations,
+            format_number(total_citations),
 
         "citation_per_publication":
             citation_per_publication,
@@ -282,7 +250,7 @@ def citations_view(request):
             uncited_percentage,
 
         "citation_per_year":
-            citation_per_year,
+            format_number(citation_per_year),
 
         "citation_years":
         all_years,

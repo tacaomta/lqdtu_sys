@@ -114,7 +114,7 @@ def get_collaboration_kpis_info(publication_ids, publication_university_country_
         if len(universities_each_publication)==1 and contains_lqdtu(list(universities_each_publication)[0]):
             internal_only_publication_ids.append(publication_id)
         else:
-            external_collaboration_ids.append(publication_ids)
+            external_collaboration_ids.append(publication_id)
         
         if has_domestic:
             domestic_collaboration_ids.append(publication_id)
@@ -179,6 +179,7 @@ def get_collaboration_kpis_info(publication_ids, publication_university_country_
 
     external_publication_count = len(external_collaboration_ids)
     external_hindex = compute_publication_h_index(external_collaboration_ids, publication_citation_map)
+    
 
     domestic_publication_count = len(domestic_collaboration_ids)
     domestic_hindex = compute_publication_h_index(domestic_collaboration_ids, publication_citation_map)
@@ -190,7 +191,6 @@ def get_collaboration_kpis_info(publication_ids, publication_university_country_
     international_collaborator_count = len(international_authors)
     international_partner_university_count = len(international_universities)
     partner_country_count = len(countries)
-    print(internal_publication_count)
     return (
         internal_publication_count,
         internal_hindex,

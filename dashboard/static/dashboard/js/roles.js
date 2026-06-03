@@ -179,7 +179,10 @@ document.addEventListener(
             custom_color: DASHBOARD_COLORS[14]
         });
 
-
+        switchChart_Table_view("role-first-cbkh-chart-btn", "role-first-cbkh-table-btn", "role-first-cbkh-chart-row", "role-first-cbkh-table-container");
+        switchChart_Table_view("role-first-citation-chart-btn", "role-first-citation-table-btn", "role-first-citation-chart-row", "role-first-citation-table-container");
+        switchChart_Table_view("role-corr-cbkh-chart-btn", "role-corr-cbkh-table-btn", "role-corr-cbkh-chart-row", "role-corr-cbkh-table-container");
+        switchChart_Table_view("role-corr-citation-chart-btn", "role-corr-citation-table-btn", "role-corr-citation-chart-row", "role-corr-citation-table-container");
         
 
 

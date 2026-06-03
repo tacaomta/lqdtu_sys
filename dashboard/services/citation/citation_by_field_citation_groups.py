@@ -291,3 +291,42 @@ def get_citation_by_field_document_type(qs, FIELD_GROUP_ORDER):
     document_types.append("% Trích dẫn từ Article")
     
     return document_type_datasets, article_percentage_values, table_rows, document_types
+
+
+def get_percentage_citation_by_fields(qs):
+    
+    document_type_pie_qs = (
+
+        qs.values(
+
+            "document_type"
+
+        )
+
+        .annotate(
+
+            total_citations=Sum(
+                "cited_by"
+            )
+
+        )
+
+        .order_by(
+
+            "-total_citations"
+
+        )
+
+    )
+
+    document_type_pie_labels = [ x["document_type"] for x in document_type_pie_qs ]
+
+    document_type_pie_values = [
+
+        x["total_citations"]
+
+        for x in document_type_pie_qs
+
+    ]
+
+    return document_type_pie_values, document_type_pie_labels

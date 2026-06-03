@@ -7,7 +7,8 @@ from dashboard.models import (
     Author
 )
 from dashboard.services.metrics_service import (
-    compute_h_index
+    compute_h_index,
+    format_number
 )
 
 from dashboard.services.author_role_service import(
@@ -196,14 +197,14 @@ def roles_view(request):
         )
     )
 
-    first_author_datasets, first_author_percentage_values = get_author_dataset_groupby_field(qs, FIELD_GROUP_ORDER, author_role="first_author")
+    first_author_datasets, first_author_percentage_values, first_cbkh_table_rows, col_labels = get_author_dataset_groupby_field(qs, FIELD_GROUP_ORDER, author_role="first_author")
 
-    corr_author_datasets, corr_author_percentage_values = get_author_dataset_groupby_field(qs, FIELD_GROUP_ORDER, author_role="corresponding_author")
+    corr_author_datasets, corr_author_percentage_values, corr_cbkh_table_rows, _ = get_author_dataset_groupby_field(qs, FIELD_GROUP_ORDER, author_role="corresponding_author")
 
-    first_author_citation_datasets, first_author_citation_percentage_field = get_author_citation_groupby_field(
+    first_author_citation_datasets, first_author_citation_percentage_field, first_citation_table_rows = get_author_citation_groupby_field(
         qs, FIELD_GROUP_ORDER, author_role="first_author"
     )
-    corr_author_citation_datasets, corr_author_citation_percentage_field = get_author_citation_groupby_field(
+    corr_author_citation_datasets, corr_author_citation_percentage_field, corr_citation_table_rows = get_author_citation_groupby_field(
         qs, FIELD_GROUP_ORDER, author_role="corresponding_author"
     )
 
@@ -217,15 +218,15 @@ def roles_view(request):
         # TOTAL AUTHORS
 
         "total_lqdtu_authors":
-            total_lqdtu_authors,
+            format_number(total_lqdtu_authors),
 
         # FIRST AUTHOR
 
         "first_author_publications":
-            first_author_publications,
+            format_number(first_author_publications),
 
         "first_author_citations":
-            first_author_citations,
+            format_number(first_author_citations),
 
         "first_author_pub_percentage":
             first_author_pub_percentage,
@@ -239,10 +240,10 @@ def roles_view(request):
         # CORRESPONDING AUTHOR
 
         "corresponding_publications":
-            corresponding_publications,
+            format_number(corresponding_publications),
 
         "corresponding_citations":
-            corresponding_citations,
+            format_number(corresponding_citations),
 
         "corresponding_pub_percentage":
             corresponding_pub_percentage,
@@ -258,24 +259,30 @@ def roles_view(request):
 
         "first_author_datasets":
             first_author_datasets,
+        "first_cbkh_table_rows": first_cbkh_table_rows,
+        "col_labels":col_labels,
 
         "first_author_percentage_values":
             first_author_percentage_values,
 
         "corr_author_datasets":
             corr_author_datasets,
+        "corr_cbkh_table_rows":corr_cbkh_table_rows,
 
         "corr_author_percentage_values":              
             corr_author_percentage_values,
 
         "first_author_citation_datasets":
             first_author_citation_datasets,
+        
+        "first_citation_table_rows":first_citation_table_rows,
 
         "first_author_citation_percentage_field":              
             first_author_citation_percentage_field,
         
         "corr_author_citation_datasets":
             corr_author_citation_datasets,
+        "corr_citation_table_rows":corr_citation_table_rows,
 
         "corr_author_citation_percentage_field":              
             corr_author_citation_percentage_field,

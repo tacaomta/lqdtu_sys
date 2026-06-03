@@ -16,7 +16,8 @@ from dashboard.services.dashboard_filter import(
 )
 
 from dashboard.services.metrics_service import (
-    compute_h_index
+    compute_h_index,
+    format_number
 )
 
 from datetime import datetime
@@ -133,13 +134,13 @@ def overview_view(request):
     context = {
         "has_data": has_data,
         # KPI
-        "total_publications": total_publications,
+        "total_publications": format_number(total_publications),
 
         "publications_this_year": publications_this_year,
 
         "publications_per_year": publications_per_year,
 
-        "total_citations": total_citations,
+        "total_citations": format_number(total_citations),
 
         "avg_citation": avg_citation,
 

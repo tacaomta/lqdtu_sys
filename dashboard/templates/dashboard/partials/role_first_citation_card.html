@@ -1,0 +1,141 @@
+<div class="card mt-4 mb-4">
+
+    <div class="card-header">
+
+        <div class="d-flex justify-content-between">
+
+            <h5>
+
+                Trích dẫn từ CBKH có tác giả thứ nhất thuộc LQDTU theo nhóm ngành
+
+            </h5>
+
+            <div class="btn-group">
+
+                <button
+                    id="role-first-citation-chart-btn"
+                    class="btn btn-secondary btn-sm"
+                >
+                    <i class="bi bi-bar-chart"></i>
+                    Biểu đồ
+                </button>
+
+                <button
+                    id="role-first-citation-table-btn"
+                    class="btn btn-outline-secondary btn-sm"
+                >
+                    <i class="bi bi-table"></i>
+                    Bảng
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="card-body">
+
+        <div
+            class="row"
+            id="role-first-citation-chart-row"
+        >
+
+            <div class="col-9">
+                <p class="mb-4" style="text-align: center;">
+
+                    Số trích dẫn
+
+                </p>
+                <div class="chart-wrapper">
+                    <canvas
+                        id="firstAuthorCitationByFieldChart"
+                    ></canvas>
+                </div>
+
+            </div>
+
+            <div class="col-3">
+                <p class="mb-4">
+
+                    % Trích dẫn từ CBKH có tác giả thứ nhất là LQDTU
+
+                </p>
+                <div class="chart-wrapper">
+                    <canvas
+                        id="firstAuthorCitationPercentageByFieldChart"
+                    ></canvas>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div
+            id="role-first-citation-table-container"
+            style="display:none;"
+        >
+
+            <table
+                class="table table-bordered table-hover"
+            >
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+
+                            Ngành/ Nhóm ngành
+
+                        </th>
+
+                        {% for col in col_labels %}
+
+                            <th>
+
+                                {{ col }}
+
+                            </th>
+
+                        {% endfor %}
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for row in first_citation_table_rows %}
+
+                        <tr>
+
+                            <td>
+
+                                {{ row.group }}
+
+                            </td>
+
+                            {% for value in row.values %}
+
+                                <td>
+
+                                    {{ value }}
+
+                                </td>
+
+                            {% endfor %}
+
+                        </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

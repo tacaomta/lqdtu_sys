@@ -7,6 +7,8 @@ def get_author_dataset_groupby_field(qs, field_group_order, author_role="first_a
     author_non_lqd_values = []
 
     author_percentage_values = []
+    table_rows= []
+
     for field_group in field_group_order:
         if author_role=="first_author":
 
@@ -45,23 +47,7 @@ def get_author_dataset_groupby_field(qs, field_group_order, author_role="first_a
                 non_lqd_count
             )
 
-            percentage = (
-
-                round(
-
-                    lqd_count
-                    / total_count
-                    * 100,
-
-                    2
-
-                )
-
-                if total_count > 0
-
-                else 0
-
-            )
+            percentage = (round(lqd_count/ total_count* 100, 1) if total_count > 0 else 0)
         else:
             field_qs = qs.filter(
 
@@ -106,7 +92,7 @@ def get_author_dataset_groupby_field(qs, field_group_order, author_role="first_a
                     / total_count
                     * 100,
 
-                    2
+                    1
 
                 )
 
@@ -127,6 +113,25 @@ def get_author_dataset_groupby_field(qs, field_group_order, author_role="first_a
         author_percentage_values.append(
             percentage
         )
+
+        table_rows.append({
+
+            "group":
+
+                field_group,
+
+            "values": [
+
+                lqd_count,
+
+                non_lqd_count,
+                percentage
+
+            ]
+
+        })
+    
+    col_labels = ["LQDTU", "Không thuộc LQDTU", '% LQDTU']
 
 
     author_datasets = [
@@ -152,7 +157,7 @@ def get_author_dataset_groupby_field(qs, field_group_order, author_role="first_a
         }
 
     ]
-    return author_datasets, author_percentage_values
+    return author_datasets, author_percentage_values, table_rows, col_labels
 
 
 def get_author_citation_groupby_field(qs, field_group_order, author_role="first_author"):
@@ -162,6 +167,8 @@ def get_author_citation_groupby_field(qs, field_group_order, author_role="first_
     author_non_lqd_citations = []
 
     author_citation_percentage = []
+
+    table_rows = []
 
     for field_group in field_group_order:
 
@@ -224,7 +231,7 @@ def get_author_citation_groupby_field(qs, field_group_order, author_role="first_
                     / total_citations
                     * 100,
 
-                    2
+                    1
 
                 )
 
@@ -291,7 +298,7 @@ def get_author_citation_groupby_field(qs, field_group_order, author_role="first_
                     / total_citations
                     * 100,
 
-                    2
+                    1
 
                 )
 
@@ -312,6 +319,23 @@ def get_author_citation_groupby_field(qs, field_group_order, author_role="first_
         author_citation_percentage.append(
             percentage
         )
+    
+        table_rows.append({
+
+                "group":
+
+                    field_group,
+
+                "values": [
+
+                    lqd_citations,
+
+                    non_lqd_citations,
+                    percentage
+
+                ]
+
+            })
 
 
     author_citation_datasets = [
@@ -337,4 +361,4 @@ def get_author_citation_groupby_field(qs, field_group_order, author_role="first_
         }
 
     ]
-    return author_citation_datasets, author_citation_percentage
+    return author_citation_datasets, author_citation_percentage, table_rows

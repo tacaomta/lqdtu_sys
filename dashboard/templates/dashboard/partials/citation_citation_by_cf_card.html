@@ -1,0 +1,147 @@
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card mb-4 double-view-chart-card h-100">
+
+            <div class="card-header">
+
+                <div class="d-flex justify-content-between">
+
+                    <h5>
+
+                        Trích dẫn từ các CBKH được phân loại theo nhóm trích dẫn trong từng chuyên ngành
+
+                    </h5>
+
+                    <div class="btn-group">
+
+                        <button
+                            id="citation-by-cf-chart-btn"
+                            class="btn btn-secondary btn-sm"
+                        >
+                            <i class="bi bi-bar-chart"></i>
+                            Biểu đồ
+                        </button>
+
+                        <button
+                            id="citation-by-cf-table-btn"
+                            class="btn btn-outline-secondary btn-sm"
+                        >
+                            <i class="bi bi-table"></i>
+                            Bảng
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="card-body">
+
+                <div
+                    class="row"
+                    id="citation-by-cf-chart-row"
+                >
+
+                    <div class="chart-wrapper">
+                            <canvas
+                                id="citationContributionChart"
+                            ></canvas>
+                    </div>
+
+                </div>
+
+                <div
+                    id="citation-by-cf-table-container"
+                    style="display:none;"
+                >
+
+                    <table
+                        class="table table-bordered table-hover"
+                    >
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+
+                                    Ngành/ Nhóm ngành
+
+                                </th>
+
+                                {% for col in citation_group_labels %}
+
+                                    <th>
+
+                                        {{ col }}
+
+                                    </th>
+
+                                {% endfor %}
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            {% for row in citation_by_groupcited_table_row %}
+
+                                <tr>
+
+                                    <td>
+
+                                        {{ row.group }}
+
+                                    </td>
+
+                                    {% for value in row.values %}
+
+                                        <td>
+
+                                            {{ value }}
+
+                                        </td>
+
+                                    {% endfor %}
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-4">
+
+        <div class="dashboard-chart-card h-100">
+
+            <h5 class="mb-4">
+
+                % Số trích dẫn theo các nhóm ngành
+
+            </h5>
+
+            <div class="chart-wrapper">
+
+                <canvas id="citationContributionPieChart">
+
+                </canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
