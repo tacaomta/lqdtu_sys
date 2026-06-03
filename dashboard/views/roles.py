@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from dashboard.services.dashboard_filter import apply_dashboard_filters
-from django.db.models import ( Sum, Count, Q ) 
+from django.db.models import ( Sum) 
 from dashboard.models import (
     FactPublication,
     Author

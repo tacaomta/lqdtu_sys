@@ -1,0 +1,99 @@
+<div
+    class="modal fade"
+    id="fieldGroupModal"
+    tabindex="-1"
+>
+
+    <div class="modal-dialog modal-xl">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5
+                    class="modal-title"
+                    id="fieldGroupModalTitle"
+                >
+
+                    Chỉnh sửa nhóm ngành
+
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                ></button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <input
+                    type="hidden"
+                    id="groupName"
+                >
+
+                <div class="mb-3">
+
+                    <label
+                        class="form-label"
+                    >
+
+                        Fields
+
+                    </label>
+
+                    <select
+                        id="fieldSelect"
+                        multiple
+                    ></select>
+
+                </div>
+
+                <div class="mb-3" id="subfieldContainer">
+
+                    <label
+                        class="form-label"
+                    >
+
+                        Subfields
+
+                    </label>
+
+                    <select
+                        id="subfieldSelect"
+                        multiple
+                    ></select>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                >
+
+                    Hủy
+
+                </button>
+
+                <button
+                    id="saveFieldGroupBtn"
+                    class="btn btn-primary"
+                >
+
+                    Lưu
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

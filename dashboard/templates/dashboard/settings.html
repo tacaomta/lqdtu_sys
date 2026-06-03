@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid mt-0 px-4">
+    <h2>
+
+    <i class="bi bi-gear"></i>
+
+    Cấu hình hệ thống
+
+    </h2>
+
+    <p class="text-muted" style="padding-left: 2px;">
+
+        Quản lý các cấu hình và quy tắc phân tích dữ liệu.
+
+    </p>
+    <div class="card shadow-sm mb-4">
+
+        <div class="card-header">
+
+            <div
+                class="d-flex justify-content-between align-items-center"
+            >
+
+                <h5 class="mb-0">
+
+                    <i class="bi bi-diagram-3"></i>
+
+                    Phân nhóm ngành
+
+                </h5>
+
+                <button
+                    class="btn btn-primary btn-sm"
+                >
+
+                    <i class="bi bi-plus-circle"></i>
+
+                    Thêm nhóm
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="card-body">
+
+            <p class="text-muted">
+
+                Quản lý việc ánh xạ các Subject Area
+                vào các nhóm ngành của hệ thống.
+
+            </p>
+
+            <div class="row">
+
+                {% for group in groups %}
+
+                    <div class="col-md-4 mb-4">
+
+                        <div class="card h-100">
+
+                            <div class="card-header">
+
+                                <div
+                                    class="d-flex justify-content-between"
+                                >
+
+                                    <strong>
+
+                                        {{ group.name }}
+
+                                    </strong>
+
+                                    {% if group.editable %}
+
+                                        <button
+                                            class="btn btn-outline-primary btn-sm edit-field-group-btn"
+                                            data-group="{{ group.name }}"
+                                        >
+
+                                            <i class="bi bi-pencil"></i>
+
+                                            Chỉnh sửa
+
+                                        </button>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                            <div class="card-body">
+
+                                <p>
+
+                                    <strong>
+                                        {% if group.editable %}
+                                            Fields ({{group.fields|length}})
+                                        {% else %}
+                                            Fields
+                                        {% endif %}
+
+                                    </strong>
+
+                                </p>
+                                {% if group.editable %}
+                                    {% for field in group.fields %}
+
+                                        <span
+                                            class="badge bg-info me-1 mb-1"
+                                        >
+
+                                            {{ field }}
+
+                                        </span>
+
+                                    {% empty %}
+
+                                        <span
+                                            class="text-muted"
+                                        >
+
+                                            None
+
+                                        </span>
+
+                                    {% endfor %}
+                                {% else %}
+                                        <span
+                                            class="text-muted"
+                                        >
+
+                                            Tất cả chuyên ngành còn lại
+
+                                        </span>
+                                {% endif %}
+
+
+                                <hr>
+
+
+                                <p>
+
+                                    <strong>
+                                        {% if group.editable %}
+                                        Subfields ({{ group.subfields|length }})
+                                        {% else %}
+                                        Subfields
+                                        {% endif %}
+
+                                    </strong>
+
+                                </p>
+                                {% if group.editable %}
+                                    {% for subfield in group.subfields %}
+
+                                        <span
+                                            class="badge bg-secondary me-1 mb-1"
+                                        >
+
+                                            {{ subfield }}
+
+                                        </span>
+
+                                    {% empty %}
+
+                                        <span
+                                            class="text-muted"
+                                        >
+
+                                            None
+
+                                        </span>
+
+                                    {% endfor %}
+                                {% else %}
+                                    <span
+                                            class="text-muted"
+                                        >
+
+                                            Tất cả chuyên ngành hẹp còn lại
+
+                                        </span>
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% include "dashboard/partials/modal_field_group.html" %}
+{% endblock %}
+
+{% block extra_js %}
+
+{% comment %} <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+<script src="{% static 'dashboard/js/dashboard_palette.js' %}"></script> {% endcomment %}
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.4.3/dist/js/tom-select.complete.min.js"></script>
+
+<script src="{% static 'dashboard/js/settings.js' %}"></script>
+{% endblock %}

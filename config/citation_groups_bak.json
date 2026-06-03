@@ -1,0 +1,38 @@
+[
+    {
+        "code": "50+",
+        "label": "Trên 50 trích dẫn",
+        "min": 51,
+        "max": null
+    },
+    {
+        "code": "21-50",
+        "label": "21–50 trích dẫn",
+        "min": 21,
+        "max": 50
+    },
+    {
+        "code": "11-20",
+        "label": "11–20 trích dẫn",
+        "min": 11,
+        "max": 20
+    },
+    {
+        "code": "6-10",
+        "label": "6–10 trích dẫn",
+        "min": 6,
+        "max": 10
+    },
+    {
+        "code": "1-5",
+        "label": "1–5 trích dẫn",
+        "min": 1,
+        "max": 5
+    },
+    {
+        "code": "0",
+        "label": "Chưa được trích dẫn",
+        "min": 0,
+        "max": 0
+    }
+]
