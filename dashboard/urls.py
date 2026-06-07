@@ -12,7 +12,9 @@ from .views import (
     import_progress,
     settings_view,
     field_group_detail,
-    save_field_group
+    save_field_group,
+    apply_config,
+    save_citation_groups
 )
 
 urlpatterns = [
@@ -29,5 +31,7 @@ urlpatterns = [
     path("api/import-progress/<int:batch_id>/", import_progress, name="import_progress"),
     path('settings/', settings_view, name='settings_view'),
     path("settings/field-group/detail/<str:group_name>/", field_group_detail,name="field_group_detail"),
-    path("settings/field-group/save/", save_field_group, name="save_field_group")
+    path("settings/field-group/save/", save_field_group, name="save_field_group"),
+    path("settings/apply-config/", apply_config, name="apply_config"),
+    path("settings/citation-group/save/", save_citation_groups, name="save_citation_groups")
 ]

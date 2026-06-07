@@ -27,6 +27,7 @@ from dashboard.services.citation.citation_by_field_citation_groups import(
 from dashboard.services.metrics_service import(
     format_number
 )
+from dashboard.services.config_service import is_dirty
 
 
 @login_required
@@ -230,6 +231,8 @@ def citations_view(request):
 
     context = {
         "has_data": has_data,
+
+        "config_dirty": is_dirty(),
 
         "total_citations":
             format_number(total_citations),

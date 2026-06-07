@@ -26,6 +26,8 @@ from dashboard.models import ImportBatch
 
 import threading
 
+from dashboard.services.config_service import is_dirty
+
 
 # =========================================================
 # UPLOAD CSV / EXCEL
@@ -350,7 +352,9 @@ def upload_csv(request):
 
             "form": form,
 
-            "result": result
+            "result": result,
+
+            "config_dirty": is_dirty(),
 
         }
 

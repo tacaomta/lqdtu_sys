@@ -28,93 +28,7 @@
     <!-- 🔷 HEADER -->
     <div class="logo-bar d-flex justify-content-between align-items-center">
       <div><i class="bi bi-bank me-2"></i> Hệ thống thu thập, lưu trữ, phân tích CBKH thuộc CSDL WoS/Scopus của Trường Đại học Kỹ thuật LÊ QUÝ ĐÔN</div>
-        <div class="dropdown">
-
-            {% if request.user.is_authenticated %}
-                <a
-                    class="btn btn-light dropdown-toggle d-flex align-items-center"
-                    href="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                >
-                    <i class="bi bi-person-circle me-2"></i>
-
-                    {{ request.user.username }}
-
-                </a>
-
-                <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-
-                    <li>
-
-                        <a
-                            class="dropdown-item"
-                            href="#"
-                        >
-
-                            <i class="bi bi-person me-2"></i>
-
-                            Thông tin người dùng
-
-                        </a>
-
-                    </li>
-
-                    <li>
-
-                        <a
-                            class="dropdown-item"
-                            href="#"
-                        >
-
-                            <i class="bi bi-key me-2"></i>
-
-                            Đổi mật khẩu
-
-                        </a>
-
-                    </li>
-
-                    <li>
-
-                        <hr class="dropdown-divider">
-
-                    </li>
-
-                    <li>
-
-                        <a
-                            class="dropdown-item text-danger"
-                            href="{% url 'logout' %}"
-                        >
-
-                            <i class="bi bi-box-arrow-right me-2"></i>
-
-                            Logout
-
-                        </a>
-
-                    </li>
-
-                </ul>
-
-            {% else %}
-
-                <a
-                    href="{% url 'login' %}"
-                    class="btn btn-light btn-sm"
-                >
-
-                    <i class="bi bi-box-arrow-in-right me-2"></i>
-
-                    Login
-
-                </a>
-
-            {% endif %}
-
-        </div>
+        {% include "dashboard/partials/user_context_menu.html" %}
     </div>
 
     <!-- 🔷 NAVBAR -->
@@ -174,7 +88,7 @@
               </a>
             </li>
 
-            {% if request.user|has_role:'MANAGER' or request.user|has_role:'ADMIN' %}
+            {% if request.user|has_role:'Manager' or request.user|has_role:'Admin' %}
             <div class="etl-menu-group">
 
                 <!-- Upload RAW -->
@@ -215,6 +129,9 @@
               <a class="nav-link {% if request.resolver_match.url_name == 'settings_view' %}active{% endif %}"
                 href="{% url 'settings_view' %}{% if querystring %}?{{ querystring }}{% endif %}">
                 <i class="bi bi-gear-fill me-2"></i> Cấu hình hệ thống
+                {% if config_dirty %}
+                    <span class="badge bg-danger rounded-pill" title="Đã có thay đổi cấu hình chưa được áp dụng">!</span>
+                {% endif %}
               </a>
             </li>
 

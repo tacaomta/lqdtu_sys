@@ -1,8 +1,7 @@
 from django.db import models
-from django.contrib.auth import get_user_model
+from django.conf import settings
 
 
-User = get_user_model()
 
 
 class ImportBatch(models.Model):
@@ -111,7 +110,7 @@ class ImportBatch(models.Model):
     # =====================================================
 
     uploaded_by = models.ForeignKey(
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

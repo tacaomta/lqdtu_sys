@@ -1,0 +1,121 @@
+<div class="card shadow-sm border-0 mb-4">
+
+    <div class="card-header bg-white">
+
+        <h5 class="mb-0">
+
+            <i class="bi bi-shield-lock me-2"></i>
+
+            Thông tin tài khoản
+
+        </h5>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <div class="text-muted small">
+
+                    Tên đăng nhập
+
+                </div>
+
+                <div class="fw-semibold">
+
+                    {{ request.user.username }}
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="text-muted small">
+
+                    Email
+
+                </div>
+
+                <div class="fw-semibold">
+
+                    {{ request.user.email|default:"Chưa cập nhật" }}
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="text-muted small">
+
+                    Vai trò
+
+                </div>
+
+                <div>
+
+                    <span class="badge bg-primary">
+
+                        {{ roles }}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <div class="text-muted small">
+
+                    Ngày tạo tài khoản
+
+                </div>
+
+                <div>
+
+                    {{ request.user.date_joined|date:"d/m/Y H:i" }}
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="text-muted small">
+
+                    Đăng nhập gần nhất
+
+                </div>
+
+                <div>
+
+                    {% if request.user.last_login %}
+
+                        {{ request.user.last_login|date:"d/m/Y H:i" }}
+
+                    {% else %}
+
+                        Chưa có dữ liệu
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

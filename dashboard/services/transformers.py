@@ -136,11 +136,13 @@ def transform_publications(
         # CLEAR DIMENSIONS
         # =================================================
 
-        Author.objects.all().delete()
+        # Cập nhật lại không xóa các bảng này
 
-        University.objects.all().delete()
+        #Author.objects.all().delete()
 
-        Country.objects.all().delete()
+        #University.objects.all().delete()
+
+        #Country.objects.all().delete()
 
         PublicationRaw.objects.update(
             processed=False,
@@ -258,6 +260,15 @@ def transform_publications(
 
                     "document_type": (
                         raw.document_type
+                    ),
+                    "field": (
+                        raw.field
+                    ),
+                    "subfield": (
+                        raw.subfield
+                    ),
+                    "eid": (
+                        raw.eid
                     ),
 
                     # =============================

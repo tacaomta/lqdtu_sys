@@ -14,6 +14,7 @@ from dashboard.services.collaboration.kpis import(
 from dashboard.services.collaboration.field_collaboration_chart import(
     get_field_collaboration_chart_data
 )
+from dashboard.services.config_service import is_dirty
 
 @login_required
 def collaboration_view(request):
@@ -84,6 +85,8 @@ def collaboration_view(request):
     
     context = {
         "has_data": has_data,
+
+        "config_dirty": is_dirty(),
 
         # =====================================
         # PUBLICATIONS

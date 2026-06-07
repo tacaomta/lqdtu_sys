@@ -10,6 +10,6 @@ class RoleAdmin(admin.ModelAdmin):
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     list_display = ("username", "email", "is_staff", "is_active")
-    filter_horizontal = ("roles",)
+    #filter_horizontal = ("roles",)
 
 # Register your models here.

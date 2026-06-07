@@ -16,6 +16,8 @@ from dashboard.services.author_role_service import(
     get_author_citation_groupby_field
 )
 
+from dashboard.services.config_service import is_dirty
+
 
 @login_required
 def roles_view(request):
@@ -214,6 +216,8 @@ def roles_view(request):
 
     context = {
         "has_data": has_data,
+
+        "config_dirty": is_dirty,
 
         # TOTAL AUTHORS
 

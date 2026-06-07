@@ -4,8 +4,7 @@ from django.shortcuts import render
 
 from django.db.models import (
     Count,
-    Sum,
-    Avg
+    Sum
 )
 
 from dashboard.models.fact import (
@@ -15,10 +14,16 @@ from dashboard.services.dashboard_filter import(
     apply_dashboard_filters
 )
 
+from dashboard.services.overview.data_info import(
+    get_data_info
+)
+
 from dashboard.services.metrics_service import (
     compute_h_index,
     format_number
 )
+
+from dashboard.services.config_service import is_dirty
 
 from datetime import datetime
 
@@ -60,7 +65,7 @@ def overview_view(request):
 
     publications_per_year = round(
         total_publications / year_count,
-        2
+        1
     )
 
 
@@ -70,7 +75,7 @@ def overview_view(request):
 
     avg_citation = round(
         total_citations / total_publications,
-        2
+        1
     ) if total_publications else 0
 
     citations = list(
@@ -131,8 +136,16 @@ def overview_view(request):
         for x in citation_by_year
     ]
 
+    # ======================================
+    # DATA INFO
+    # ======================================
+
+    data_quality = get_data_info()
+
     context = {
         "has_data": has_data,
+
+        "config_dirty": is_dirty(),
         # KPI
         "total_publications": format_number(total_publications),
 
@@ -153,6 +166,7 @@ def overview_view(request):
 
         "citation_counts": citation_counts,
 
+        "data_quality": data_quality
     }
 
     return render(

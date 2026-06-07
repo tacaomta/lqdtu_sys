@@ -64,6 +64,13 @@ class PublicationRaw(models.Model):
         db_index=True
     )
 
+    eid = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        db_index=True
+    )
+
     openalex_id = models.CharField(
         max_length=255,
         null=True,

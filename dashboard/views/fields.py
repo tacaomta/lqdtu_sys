@@ -16,6 +16,8 @@ from dashboard.services.metrics_service import (
     compute_h_index
 )
 
+from dashboard.services.config_service import is_dirty
+
 
 @login_required
 def fields_view(request):
@@ -154,6 +156,8 @@ def fields_view(request):
 
     context = {
         "has_data": has_data,
+
+        "config_dirty": is_dirty,
 
         "field_labels":
             field_chart["labels"],

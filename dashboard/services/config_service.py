@@ -2,6 +2,10 @@ import json
 
 from pathlib import Path
 
+from dashboard.models.syssetting import(
+    SystemSetting
+)
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -35,4 +39,51 @@ def get_required_columns():
 
     return load_json_config(
         "required_columns.json"
+    )
+
+
+def set_dirty():
+
+    SystemSetting.objects.update_or_create(
+
+        key="config_dirty",
+
+        defaults={
+
+            "value": "True"
+
+        }
+
+    )
+
+def clear_dirty():
+
+    SystemSetting.objects.update_or_create(
+
+        key="config_dirty",
+
+        defaults={
+
+            "value": "False"
+
+        }
+
+    )
+
+def is_dirty():
+
+    obj = SystemSetting.objects.filter(
+
+        key="config_dirty"
+
+    ).first()
+
+    return (
+
+        obj
+
+        and
+
+        obj.value == "True"
+
     )

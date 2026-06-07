@@ -1,0 +1,101 @@
+<div class="card shadow-sm">
+
+    <div class="card-header">
+        
+
+        <h5 class="mb-0"> <i class="bi bi-person-circle me-2"></i>
+
+            Hồ sơ cá nhân
+
+        </h5>
+
+    </div>
+
+    <div class="card-body">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show">
+
+                    {{ message }}
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert"
+                    ></button>
+
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="mb-3">
+
+                <label class="form-label">
+
+                    Họ và tên
+
+                </label>
+
+                {{ form.fullname }}
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+
+                    Đơn vị
+
+                </label>
+
+                {{ form.department }}
+
+            </div>
+
+            <div class="border-top pt-3 mt-4">
+
+                <div class="text-muted small">
+
+                    <p class="mb-1">
+
+                        Ngày tạo:
+
+                        {{ profile.created_at|date:"d/m/Y H:i" }}
+
+                    </p>
+
+                    <p class="mb-0">
+
+                        Cập nhật lần cuối:
+
+                        {{ profile.updated_at|date:"d/m/Y H:i" }}
+
+                    </p>
+
+                </div>
+            </div>
+
+            <div class="mt-4 text-end">
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+
+                    <i class="bi bi-save"></i>
+
+                    Lưu thay đổi
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

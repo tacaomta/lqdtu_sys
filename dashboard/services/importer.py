@@ -455,6 +455,8 @@ def import_publications(batch_id):
 
                     doi=doi,
 
+                    eid = row.get("EID"),
+
                     author_affiliations=row.get(
                         "Authors with affiliations"
                     ),

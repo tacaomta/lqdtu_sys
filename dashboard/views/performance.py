@@ -19,6 +19,7 @@ from dashboard.services.performance.rankings import(
     get_ranking_tables
 )
 
+from dashboard.services.config_service import is_dirty
 
 @login_required
 def performance_view(request):
@@ -48,6 +49,8 @@ def performance_view(request):
     
     context = { 
         "has_data": has_data,
+
+        "config_dirty": is_dirty,
 
         "authors_with_N_publications": 
         author_metrics ,

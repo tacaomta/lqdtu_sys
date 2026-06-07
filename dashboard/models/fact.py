@@ -49,6 +49,27 @@ class FactPublication(models.Model):
 
     )
 
+    field = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        db_index=True
+    )
+
+    subfield = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        db_index=True
+    )
+
+    eid = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        db_index=True
+    )
+
     # =====================================================
     # BUSINESS CLASSIFICATION
     # =====================================================

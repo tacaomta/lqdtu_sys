@@ -19,6 +19,8 @@ from dashboard.services.transformers import (
     transform_publications
 )
 
+from dashboard.services.config_service import is_dirty
+
 
 # =========================================================
 # TRANSFORM DASHBOARD
@@ -60,6 +62,7 @@ def transform_dashboard(request):
     # =====================================================
 
     context = {
+        "config_dirty": is_dirty(),
 
         "total_raw": total_raw,
 

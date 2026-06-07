@@ -342,6 +342,312 @@ document.addEventListener(
         }
 
 
+        const applyBtn = document.getElementById("apply-config-btn");
+        if (applyBtn)
+        {
+
+            applyBtn.addEventListener(
+
+                "click",
+
+                async function () {
+
+                    if (
+
+                        !confirm(
+
+                            "Áp dụng cấu hình mới?"
+
+                        )
+
+                    ) {
+
+                        return;
+
+                    }
+
+                    const response =
+
+                        await fetch(
+
+                            "/settings/apply-config/",
+
+                            {
+
+                                method: "POST",
+
+                                headers: {
+
+                                    "X-CSRFToken":
+
+                                        getCSRFToken()
+
+                                }
+
+                            }
+
+                        );
+
+                    const result =
+
+                        await response.json();
+
+                    if (
+
+                        result.success
+
+                    ) {
+
+                        location.reload();
+                        alert(
+
+                            `Đã cập nhật ${result.updated}/${result.total} CBKH`
+
+                        );
+
+                    }
+
+                }
+
+        )};
+        
+        const histogram_labels = JSON.parse(
+
+            document.getElementById(
+                "histogram_labels"
+            ).textContent
+
+        );
+
+        const histogram_values = JSON.parse(
+
+            document.getElementById(
+                "histogram_values"
+            ).textContent
+
+        );
+
+
+        createBarChart({
+
+            canvasId: "citationHistogramChartSetting",
+            labels: histogram_labels,
+            values: histogram_values,
+            label: "Số CBKH",
+            horizontal: false,
+            custom_color: DASHBOARD_COLORS[0]
+        });
+
+
+        document
+
+            .getElementById(
+
+                "add-citation-group-row"
+
+            )
+
+            .addEventListener(
+
+                "click",
+
+                function () {
+
+                    const tbody =
+
+                        document.querySelector(
+
+                            "#citation-group-table tbody"
+
+                        );
+
+                    tbody.insertAdjacentHTML(
+
+                        "beforeend",
+
+                        `
+            <tr>
+                <td> </td>
+                <td> </td>
+
+                <td>
+
+                    <input
+                        type="number"
+                        class="form-control citation-min"
+                    >
+
+                </td>
+
+                <td>
+
+                    <input
+                        type="number"
+                        class="form-control citation-max"
+                    >
+
+                </td>
+
+                <td>
+
+                    <button
+                        class="btn btn-danger btn-sm delete-row"
+                    >
+
+                        <i class="bi bi-trash"></i>
+
+                    </button>
+
+                </td>
+
+            </tr>
+            `
+
+                    );
+
+                }
+
+            );
+
+        document
+
+            .addEventListener(
+
+                "click",
+
+                function (e) {
+
+                    if (
+
+                        e.target.closest(
+
+                            ".delete-row"
+
+                        )
+
+                    ) {
+
+                        e.target
+
+                            .closest("tr")
+
+                            .remove();
+
+                    }
+
+                }
+
+            );
+
+        document
+
+            .getElementById(
+                "save-citation-group-btn"
+            )
+
+            .addEventListener(
+
+                "click",
+
+                async function () {
+
+                    const rows = document.querySelectorAll(
+
+                        "#citation-group-table tbody tr"
+
+                    );
+
+                    const groups = [];
+
+                    rows.forEach(row => {
+
+                        const minInput = row.querySelector(
+
+                            ".citation-min"
+
+                        );
+
+                        const maxInput = row.querySelector(
+
+                            ".citation-max"
+
+                        );
+
+                        const minValue = parseInt(
+
+                            minInput.value
+
+                        );
+
+                        const maxValue = maxInput.value.trim()
+
+                            ? parseInt(
+
+                                maxInput.value
+
+                            )
+
+                            : null;
+
+                        groups.push({
+
+                            min: minValue,
+
+                            max: maxValue
+
+                        });
+
+                    });
+                    console.log(groups);
+
+                    const response = await fetch(
+
+                        "/settings/citation-group/save/",
+
+                        {
+
+                            method: "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json",
+
+                                "X-CSRFToken":
+                                    getCSRFToken()
+
+                            },
+
+                            body: JSON.stringify({
+
+                                groups: groups
+
+                            })
+
+                        }
+
+                    );
+
+                    const result = await response.json();
+                    if (
+
+                        result.success
+
+                    ) {
+
+                        location.reload();
+
+                    }
+                    else {
+                        alert(result.message);
+
+                    }
+
+                }
+
+            );
+
+
 
     }
 );

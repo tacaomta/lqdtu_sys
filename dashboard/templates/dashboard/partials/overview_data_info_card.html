@@ -1,0 +1,180 @@
+<div class="card mt-4 mb-4">
+
+    <div class="card-header">
+
+            <h5>
+                <i class="bi bi-database"></i>
+                Thông tin dữ liệu
+
+            </h5>
+
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+        <table
+                class="table table-sm"
+            >
+
+                <tbody>
+
+                    <tr>
+
+                        <td>
+
+                            Tổng số CBKH
+
+                        </td>
+
+                        <td class="text-start">
+
+                            {{ data_quality.total_publications }}
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>
+
+                            Thiếu thông tin ngành/chuyên ngành
+
+                        </td>
+
+                        <td class="text-start">
+
+                            {{ data_quality.missing_field_count }}
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>
+
+                            Tỷ lệ thiếu ngành/ chuyên ngành
+
+                        </td>
+
+                        <td class="text-start">
+
+                            {{ data_quality.missing_field_percent }}%
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>
+
+                            Số lượng ngành trong dữ liệu Scopus
+
+                        </td>
+
+                        <td class="text-start">
+
+                            {{ data_quality.field_count }}
+
+                        </td>
+
+                    </tr>
+                    <tr>
+
+                        <td>
+
+                            Số lượng chuyên ngành trong dữ liệu Scopus
+
+                        </td>
+
+                        <td class="text-start">
+
+                            {{ data_quality.subfield_count }}
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>
+
+                            Số lượng loại hình CBKH
+
+                        </td>
+
+                        <td class="text-start">
+
+                            {{ data_quality.document_type_count }}
+
+                        </td>
+
+                    </tr>
+                    <tr>
+
+                        <td>
+
+                            Số lượng năm công bố
+
+                        </td>
+
+                        <td class="text-start">
+
+                            {{ data_quality.year_count }}
+
+                        </td>
+
+                    </tr>
+                    <tr>
+
+                        <td>
+
+                            Số lượng CBKH được phân vào nhóm khác (Others)
+
+                        </td>
+
+                        <td class="text-start">
+
+                            {{ data_quality.other_count }}
+
+                        </td>
+
+                    </tr>
+                    <tr>
+
+                        <td>
+
+                            Tỷ lệ nhóm Others
+
+                        </td>
+
+                        <td class="text-start">
+
+                            {{ data_quality.other_percent }}%
+
+                        </td>
+
+                    </tr>
+                    <tr>
+
+                        <td>
+
+                            Ngày xuất dữ liệu từ Scopus
+
+                        </td>
+
+                        <td class="text-start">
+
+                            {{ latest_scopus_batch.data_updated_until|date:"j/n/Y"}}
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
