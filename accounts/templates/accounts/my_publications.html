@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid mt-4">
+    {% include "accounts/partials/author_link_card.html" %}
+
+    {% include "accounts/partials/my_publication_table.html" %}
+
+    {% include "accounts/partials/publication_pagination.html" %}
+</div>
+{% endblock %}
+
+ {% comment %} {% block extra_js %}
+<script src="{% static 'accounts/js/author_link_request_list.js' %}"></script>
+ {% endblock %} {% endcomment %}

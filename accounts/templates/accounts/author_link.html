@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 
@@ -102,6 +103,11 @@
                                     Ngày gửi
 
                                 </th>
+                                <th class="text-center" style="width: 130px;">
+
+                                    Thao tác
+
+                                </th>
 
                             </tr>
 
@@ -109,30 +115,87 @@
 
                         <tbody>
 
-                            {% for request in requests %}
+                            {% for req in requests %}
 
                             <tr>
 
                                 <td>
 
-                                    {{ request.author.name }}
+                                    {{ req.author.name }}
 
                                 </td>
 
                                 <td>
 
-                                    {{ request.status }}
+                                    {% if req.status == "PENDING" %}
+
+                                    <span
+                                        class="badge bg-warning"
+                                    >
+
+                                        Pending
+
+                                    </span>
+
+                                    {% elif req.status == "APPROVED" %}
+
+                                    <span
+                                        class="badge bg-success"
+                                    >
+
+                                        Approved
+
+                                    </span>
+
+                                    {% elif req.status == "REJECTED" %}
+
+                                    <span
+                                        class="badge bg-danger"
+                                    >
+
+                                        Rejected
+
+                                    </span>
+
+                                    {% else %}
+
+                                    <span
+                                        class="badge bg-secondary"
+                                    >
+
+                                        Cancelled
+
+                                    </span>
+
+                                    {% endif %}
 
                                 </td>
 
                                 <td>
 
-                                    {{ request.created_at|date:"d/m/Y H:i" }}
+                                    {{ req.created_at|date:"d/m/Y H:i" }}
+
+                                </td>
+                                <td class="text-end">
+                                     {% if req.status == "PENDING" %}
+                                        <button type="button" class="btn btn-outline-danger btn-sm cancel-request-btn" data-request-id="{{ req.id }}"><i class="bi bi-x-circle"></i> Hủy yêu cầu</button>
+                                     {% endif %}
+                                </td>
+
+                            </tr>
+                            {% empty %}
+                            <tr>
+
+                                <td
+                                    colspan="3"
+                                    class="text-center text-muted"
+                                >
+
+                                    Không có dữ liệu
 
                                 </td>
 
                             </tr>
-
                             {% endfor %}
 
                         </tbody>
@@ -149,4 +212,10 @@
 
 </div>
 
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.4.3/dist/js/tom-select.complete.min.js"></script>
+
+<script src="{% static 'accounts/js/author_link.js' %}"></script>
 {% endblock %}

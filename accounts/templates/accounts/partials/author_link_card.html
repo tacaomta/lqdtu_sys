@@ -1,0 +1,141 @@
+{% if author %}
+
+<div class="card shadow-sm border-0 mb-4">
+
+    <div class="card-header bg-white">
+
+        <div class="small text-muted">
+
+            Tác giả liên kết
+
+        </div>
+
+        <h5 class="mb-0 fw-bold">
+            <i class="bi bi-person-badge"></i>
+
+            {{ author.name }}
+
+        </h5>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="row text-center align-items-center">
+
+            <div class="col-md-4 text-md-start">
+
+                <div class="fw-semibold">
+
+                    {% if request.user.profile %}
+
+                        {{ request.user.profile.fullname }}
+                    {% else %}
+                        Chưa cập nhật
+                    {% endif %}
+
+                </div>
+
+                <div class="text-muted small">
+                    {% if request.user.profile %}
+                    <i class="bi bi-building"></i>
+                    {{ request.user.profile.department.name }}
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <div class="col-md-2">
+
+                <div class="h4 fw-bold text-primary">
+
+                    {{ pubs_count }}
+
+                </div>
+
+                <div class="small text-muted">
+
+                    <i class="bi bi-journal-richtext"></i>
+                    CBKH
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="h4 fw-bold text-success">
+
+                    {{ citation_count }}
+
+                </div>
+
+                <div class="small text-muted">
+                    <i class="bi bi-quote"></i>
+
+                    Tổng trích dẫn
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="h4 fw-bold text-danger">
+
+                    {{ h_index }}
+
+                </div>
+
+                <div class="small text-muted">
+                    <i class="bi bi-award"></i>
+
+                    H-index
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% else %}
+
+<div class="card border-warning">
+
+    <div class="card-body text-center">
+
+        <h5>
+
+            Bạn chưa liên kết với tác giả nào
+
+        </h5>
+
+        <p class="text-muted">
+
+            Gửi yêu cầu liên kết để xem
+            danh mục công bố khoa học.
+
+        </p>
+
+        <a
+
+            href="{% url 'author_link_request_list' %}"
+
+            class="btn btn-primary"
+
+        >
+
+            Liên kết tác giả
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endif %}

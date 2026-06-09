@@ -31,8 +31,27 @@ function updateActionButtons() {
     const clearAllBtn =
         document.getElementById('clear-all-btn');
 
+    const paramsForFilter =
+
+        new URLSearchParams(
+
+            pendingParams
+
+        );
+
+    paramsForFilter.delete(
+
+        "status"
+
+    );
+    paramsForFilter.delete(
+
+        "page"
+
+    );
+
     const hasFilters =
-        pendingParams.toString().length > 0;
+        paramsForFilter.toString().length > 0;
 
     // APPLY
 

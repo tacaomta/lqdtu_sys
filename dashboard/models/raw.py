@@ -71,6 +71,11 @@ class PublicationRaw(models.Model):
         db_index=True
     )
 
+    authors = models.TextField(
+        blank=True,
+        null=True
+    )
+
     openalex_id = models.CharField(
         max_length=255,
         null=True,

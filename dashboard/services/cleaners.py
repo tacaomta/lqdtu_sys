@@ -1,3 +1,5 @@
+import re
+
 import pandas as pd
 from dashboard.services.config_service import get_required_columns
 
@@ -197,3 +199,22 @@ def preprocess_dataframe(df):
     df = df.reset_index(drop=True)
 
     return df, duplicate_count, missing_doi_count
+
+
+def clean_authors(authors_text):
+
+    if not authors_text:
+
+        return ""
+
+    authors_text = re.sub(
+
+        r"\s*\(\d+\)",
+
+        "",
+
+        authors_text
+
+    )
+
+    return authors_text.strip()

@@ -190,11 +190,13 @@ class AuthorLinkRequest(models.Model):
 
         "dashboard.Author",
 
+        null= True,
+
         on_delete=models.CASCADE
 
     )
 
-    publication = models.ManyToManyField(
+    evidence_publications = models.ManyToManyField(
         "dashboard.FactPublication",
         blank=True,
     )

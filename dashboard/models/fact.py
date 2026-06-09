@@ -70,6 +70,11 @@ class FactPublication(models.Model):
         db_index=True
     )
 
+    authors_list = models.TextField(
+        blank=True,
+        null=True
+    )
+
     # =====================================================
     # BUSINESS CLASSIFICATION
     # =====================================================

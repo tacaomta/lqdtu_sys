@@ -1,9 +1,10 @@
 # accounts/views/author_link.py
 
 from django.http import JsonResponse
+import json
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 from dashboard.models.dimensions import Author
 from dashboard.models.fact import FactPublication
@@ -77,7 +78,7 @@ def publication_search_api(request):
 
         .prefetch_related(
 
-            "publicationauthor_set__author"
+            "publication_authors__author"
 
         )
 
@@ -105,7 +106,7 @@ def publication_search_api(request):
 
             pa.author.name
 
-            for pa in publication.publicationauthor_set.all()
+            for pa in publication.publication_authors.all()
 
         ]
 
@@ -134,6 +135,125 @@ def publication_search_api(request):
     return JsonResponse({
 
         "results": results
+
+    })
+
+@login_required
+def create_author_link_request(request):
+
+    if request.method != "POST":
+
+        return JsonResponse(
+
+            {
+
+                "success": False
+
+            },
+
+            status=405
+
+        )
+
+    payload = json.loads(
+
+        request.body
+
+    )
+
+    author_id = payload.get(
+
+        "author_id"
+
+    )
+
+    publication_ids = payload.get(
+
+        "publication_ids",
+
+        []
+
+    )
+
+    if not author_id:
+
+        return JsonResponse({
+
+            "success": False,
+
+            "message": "Thiếu tác giả."
+
+        })
+    
+    exists = (
+
+        AuthorLinkRequest.objects
+
+        .filter(
+
+            user=request.user,
+
+            author_id=author_id,
+
+            status="PENDING"
+
+        )
+
+        .exists()
+
+    )
+
+    if exists:
+
+        return JsonResponse({
+
+            "success": False,
+
+            "message":
+
+                "Bạn đã gửi yêu cầu liên kết với tác giả này."
+
+        })
+
+    author = Author.objects.get(
+
+        id=author_id
+
+    )
+
+    link_request = (
+
+        AuthorLinkRequest.objects.create(
+
+            user=request.user,
+
+            author=author,
+
+            status="PENDING"
+
+        )
+
+    )
+
+    publications = (
+
+        FactPublication.objects.filter(
+
+            id__in=publication_ids
+
+        )
+
+    )
+
+    link_request.evidence_publications.set(
+
+        publications
+
+    )
+
+    return JsonResponse({
+
+        "success": True
 
     })
 
@@ -178,3 +298,55 @@ def author_link_view(request):
         }
 
     )
+
+
+@login_required
+def cancel_author_link_request(
+
+    request,
+
+    request_id
+
+):
+
+    if request.method != "POST":
+
+        return JsonResponse({
+
+            "success": False,
+
+            "message": "Invalid request"
+
+        })
+
+    link_request = get_object_or_404(
+
+        AuthorLinkRequest,
+
+        id=request_id,
+
+        user=request.user
+
+    )
+
+    if link_request.status != "PENDING":
+
+        return JsonResponse({
+
+            "success": False,
+
+            "message":
+
+                "Chỉ được hủy yêu cầu đang chờ duyệt."
+
+        })
+
+    link_request.status = "CANCELLED"
+
+    link_request.save()
+
+    return JsonResponse({
+
+        "success": True
+
+    })

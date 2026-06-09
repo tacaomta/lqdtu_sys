@@ -126,6 +126,16 @@
             </div>
 
             <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.url_name == 'author_link_request_list' %}active{% endif %}"
+                href="{% url 'author_link_request_list' %}{% if querystring %}?{{ querystring }}{% endif %}">
+                <i class="bi bi-person-check me-2"></i> Yêu cầu liên kết
+                {% if config_dirty %}
+                    <span class="badge bg-danger rounded-pill" title="Có yêu cầu chưa được xử lý">!</span>
+                {% endif %}
+              </a>
+            </li>
+
+            <li class="nav-item">
               <a class="nav-link {% if request.resolver_match.url_name == 'settings_view' %}active{% endif %}"
                 href="{% url 'settings_view' %}{% if querystring %}?{{ querystring }}{% endif %}">
                 <i class="bi bi-gear-fill me-2"></i> Cấu hình hệ thống

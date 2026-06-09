@@ -6,6 +6,8 @@ from dashboard.models import (
     FactPublication
 )
 
+from dashboard.services.cleaners import clean_authors
+
 from dashboard.models.dimensions import (
 
     Author,
@@ -270,7 +272,7 @@ def transform_publications(
                     "eid": (
                         raw.eid
                     ),
-
+                    "authors_list": (clean_authors(raw.authors)),  
                     # =============================
                     # BUSINESS
                     # =============================

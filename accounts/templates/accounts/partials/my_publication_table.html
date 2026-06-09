@@ -1,0 +1,116 @@
+{% if author %}
+<div class="text-muted mb-3">
+
+    Hiển thị
+
+    {{ page_obj.start_index }}
+
+    -
+
+    {{ page_obj.end_index }}
+
+    trên
+
+    {{ page_obj.paginator.count }}
+
+    CBKH
+
+</div>
+<table class="table table-hover">
+
+    <thead>
+
+        <tr>
+
+            <th>Năm</th>
+
+            <th>Tiêu đề</th>
+
+            <th>Tác giả</th>            
+
+            <th>Trích dẫn</th>
+
+            <th>DOI</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for publication in page_obj %}
+
+        <tr>
+
+            <td>
+
+                {{ publication.year }}
+
+            </td>
+
+            <td>
+
+                {{ publication.title }}
+
+            </td>
+
+            <td>
+
+                {{ publication.authors_list }}
+
+            </td>
+
+            <td>
+
+                {{ publication.cited_by }}
+
+            </td>
+
+            <td>
+                {% if publication.doi %}
+
+                    <a
+
+                        href="https://doi.org/{{ publication.doi }}"
+
+                        target="_blank"
+
+                        rel="noopener noreferrer"
+
+                        class="text-decoration-none"
+
+                    >
+
+                        <i class="bi bi-box-arrow-up-right me-1"></i>
+
+                        {{ publication.doi }}
+
+                    </a>
+
+                {% else %}
+
+                    <span class="text-muted">
+
+                        -
+
+                    </span>
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+{% endif %}
+{% if author and not publications %}
+<div class="alert alert-info">
+
+    Tác giả hiện chưa có công bố khoa học.
+
+</div>
+{% endif %}
