@@ -15,7 +15,7 @@ from .views import (
     approve_selected_author_link_requests,
     author_link_evidence_api,
     cancel_author_link_request,
-    my_publications
+    my_publications,
 )
 
 urlpatterns = [

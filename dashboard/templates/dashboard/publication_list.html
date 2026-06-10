@@ -1,0 +1,283 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid mt-0 px-4">
+    <div class="card shadow-sm">
+
+        <div class="card-header bg-white">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <h5 class="mb-0">
+
+                    Danh mục công bố khoa học
+
+                </h5>
+
+            </div>
+
+        </div>
+
+        <div class="card-body">
+            <div class="row mb-3">
+
+                <div class="col-md-2">
+
+                    <select
+
+                        id="page-size"
+
+                        class="form-select"
+
+                    >
+
+                        <option value="5">5</option>
+
+                        <option value="10" selected>10</option>
+
+                        <option value="15">15</option>
+
+                        <option value="20">20</option>
+
+                        <option value="30">30</option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-2">
+
+                    <select
+
+                        id="year-filter"
+
+                        class="form-select"
+
+                    >
+
+                        <option value="">
+
+                            Tất cả năm
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <select
+
+                        id="document-type-filter"
+
+                        class="form-select"
+
+                    >
+
+                        <option value="">
+
+                            Tất cả loại tài liệu
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-5">
+
+                    <input
+
+                        id="publication-search"
+
+                        type="text"
+
+                        class="form-control"
+
+                        placeholder="Tìm kiếm theo tiêu đề, tác giả của CBKH"
+
+                    >
+
+                </div>
+
+            </div>
+
+            {% comment %} <div class="mb-3">
+
+                <label>
+
+                    Hiển thị
+
+                </label>
+
+                <select class="form-select w-auto d-inline-block" id="page-size">
+
+                    <option value="5">5</option>
+
+                    <option value="10"selected>10</option>
+
+                    <option value="15">15</option>
+
+                    <option value="20">20</option>
+
+                    <option value="30">30</option>
+
+                </select>
+
+            </div> {% endcomment %}
+
+            <table class="table table-hover">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Năm</th>
+
+                        <th>Loại</th>
+
+                        <th>Tiêu đề</th>
+
+                        <th>Tác giả</th>
+
+                        <th>Trích dẫn</th>
+                
+                        <th>DOI</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="publication-table-body">
+
+                    {% for publication in page_obj %}
+
+                    <tr>
+
+                        <td>
+
+                            {{ publication.year }}
+
+                        </td>
+
+                        <td>
+                            {% if publication.document_type == "Article" %}
+
+                                <span class="badge bg-primary">
+
+                            {% elif publication.document_type == "Review" %}
+
+                                <span class="badge bg-success">
+
+                            {% elif publication.document_type == "Conference Paper" %}
+
+                                <span class="badge bg-warning text-dark">
+
+                            {% else %}
+
+                                <span class="badge bg-secondary">
+
+                            {% endif %}
+
+                                {{ publication.document_type }}
+
+                            </span>
+                        </td>
+
+                        <td>
+
+                            {{ publication.title }}
+
+                        </td>
+
+                        <td>
+
+                            {{ publication.authors_display }}
+
+                        </td>
+
+                        <td>
+
+                            {{ publication.cited_by }}
+
+                        </td>                        
+
+                        <td>
+
+                            {% if publication.doi %}
+
+                                <a
+
+                                    href="https://doi.org/{{ publication.doi }}"
+
+                                    target="_blank"
+
+                                >
+
+                                    DOI
+
+                                </a>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <div class="text-muted" id="publication-summary">
+
+                    Hiển thị
+
+                    {{ page_obj.start_index }}
+
+                    -
+
+                    {{ page_obj.end_index }}
+
+                    trên
+
+                    {{ page_obj.paginator.count }}
+
+                    CBKH
+
+                </div>
+
+            </div>
+
+            <nav>
+
+                <ul
+
+                    id="publication-pagination"
+
+                    class="pagination"
+
+                >
+
+                </ul>
+
+            </nav>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+
+<script src="{% static 'dashboard/js/publication_list.js' %}"></script>
+
+{% endblock %}

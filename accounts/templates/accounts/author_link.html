@@ -56,6 +56,7 @@
                         id="submitLinkRequestBtn"
                         class="btn btn-primary"
                     >
+                    <i class="bi bi-send"></i>
 
                         Gửi yêu cầu
 
@@ -178,8 +179,70 @@
                                 </td>
                                 <td class="text-end">
                                      {% if req.status == "PENDING" %}
-                                        <button type="button" class="btn btn-outline-danger btn-sm cancel-request-btn" data-request-id="{{ req.id }}"><i class="bi bi-x-circle"></i> Hủy yêu cầu</button>
-                                     {% endif %}
+
+                                        <button
+
+                                            type="button"
+
+                                            class="btn btn-outline-danger btn-sm cancel-request-btn"
+
+                                            data-request-id="{{ req.id }}"
+
+                                        >
+
+                                            <i class="bi bi-x-circle"></i>
+
+                                            Hủy yêu cầu
+
+                                        </button>
+
+                                    {% elif req.status == "APPROVED" %}
+
+                                        <button
+
+                                            class="btn btn-outline-success btn-sm"
+
+                                            disabled
+
+                                        >
+
+                                            <i class="bi bi-check-circle"></i>
+
+                                            Đã duyệt
+
+                                        </button>
+
+                                    {% elif req.status == "REJECTED" %}
+
+                                        <button
+
+                                            class="btn btn-outline-danger btn-sm"
+
+                                            disabled
+
+                                        >
+
+                                            <i class="bi bi-ban"></i>
+
+                                            Đã từ chối
+
+                                        </button>
+                                    {% else %}
+                                        <button
+
+                                            class="btn btn-outline-secondary btn-sm"
+
+                                            disabled
+
+                                        >
+
+                                            <i class="bi bi-ban"></i>
+
+                                            Đã hủy
+
+                                        </button>
+
+                                    {% endif %}
                                 </td>
 
                             </tr>

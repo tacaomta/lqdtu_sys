@@ -1,25 +1,59 @@
-{% if author %}
+{% if approved_authors %}
 
 <div class="card shadow-sm border-0 mb-4">
 
     <div class="card-header bg-white">
 
-        <div class="small text-muted">
+        <div class="d-flex justify-content-between align-items-center">
 
-            Tác giả liên kết
+            <div>
+
+                <div class="small text-muted">
+
+                    Tác giả liên kết
+
+                </div>
+
+                <h5 class="mb-0 fw-bold">
+
+                    {{ approved_authors|length }}
+
+                    tác giả đã xác thực liên kết
+
+                </h5>
+
+            </div>
+
+            <span class="badge bg-success">
+
+                Đã chấp nhận
+
+            </span>
 
         </div>
-
-        <h5 class="mb-0 fw-bold">
-            <i class="bi bi-person-badge"></i>
-
-            {{ author.name }}
-
-        </h5>
 
     </div>
 
     <div class="card-body">
+        <div class="mb-3">
+
+            {% for author in approved_authors %}
+
+                <span
+
+                    class="badge rounded-pill bg-light text-dark border me-1 mb-1"
+
+                >
+
+                    <i class="bi bi-person-fill me-1"></i>
+
+                    {{ author.name }}
+
+                </span>
+
+            {% endfor %}
+
+        </div>
 
         <div class="row text-center align-items-center">
 
@@ -124,7 +158,7 @@
 
         <a
 
-            href="{% url 'author_link_request_list' %}"
+            href="{% url 'author_link' %}"
 
             class="btn btn-primary"
 

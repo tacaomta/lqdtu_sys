@@ -7,6 +7,8 @@ from dashboard.models import FactPublication
 from django.db.models import (
     Sum
 )
+from users.models import AuthorLinkRequest
+from dashboard.models.dimensions import Author
 
 from dashboard.services.metrics_service import compute_h_index
 
@@ -27,93 +29,118 @@ def my_publications(
 
     )
 
-    author = (
+    approved_author_ids = (
 
-        profile.author
+        AuthorLinkRequest.objects
 
-        if profile
+        .filter(
 
-        else None
+            user=request.user,
+
+            status="APPROVED"
+
+        )
+
+        .values_list(
+
+            "author_id",
+
+            flat=True
+
+        )
+
+    )
+
+    approved_authors = (
+
+        Author.objects
+
+        .filter(
+
+            id__in=approved_author_ids
+
+        )
+
+        .distinct()
 
     )
 
     publications = []
 
-    if author:
-
+    if len(approved_author_ids)>0:
         publications = (
 
             FactPublication.objects
 
             .filter(
 
-                publication_authors__author=author
+                publication_authors__author_id__in=
+
+                    approved_author_ids
 
             )
 
             .distinct()
-
             .order_by(
 
                 "-year",
                 "-cited_by"
 
             )
-
         )
 
-        paginator = Paginator(
+    paginator = Paginator(
 
-            publications,
+        publications,
 
-            15
+        15
 
-        )
-        page_number = request.GET.get(
+    )
+    page_number = request.GET.get(
 
-            "page",
+        "page",
 
-            1
+        1
 
-        )
-        page_obj = paginator.get_page(
+    )
+    page_obj = paginator.get_page(
 
-            page_number
+        page_number
 
-        )
+    )
 
 
-        citation_count = (
+    citation_count = (
 
-            publications.aggregate(
+        publications.aggregate(
 
-                total=Sum(
+            total=Sum(
 
-                    "cited_by"
-
-                )
-
-            )["total"]
-
-            or 0
-
-        )
-
-        citation_list = [
-
-            citation or 0
-
-            for citation in publications.values_list(
-
-                "cited_by",
-
-                flat=True
+                "cited_by"
 
             )
 
-        ]
+        )["total"]
 
-        h_index = compute_h_index(citation_list)
+        or 0
+
+    )
+
+    citation_list = [
+
+        citation or 0
+
+        for citation in publications.values_list(
+
+            "cited_by",
+
+            flat=True
+
+        )
+
+    ]
+
+    h_index = compute_h_index(citation_list)
 
     return render(
 
@@ -123,7 +150,7 @@ def my_publications(
 
         {
 
-            "author": author,
+            "approved_authors": approved_authors,
 
             "publications": publications,
 

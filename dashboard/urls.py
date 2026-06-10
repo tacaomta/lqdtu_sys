@@ -14,7 +14,10 @@ from .views import (
     field_group_detail,
     save_field_group,
     apply_config,
-    save_citation_groups
+    save_citation_groups,
+    publication_list,
+    publications_api,
+    publication_filter_options_api
 )
 
 urlpatterns = [
@@ -33,5 +36,8 @@ urlpatterns = [
     path("settings/field-group/detail/<str:group_name>/", field_group_detail,name="field_group_detail"),
     path("settings/field-group/save/", save_field_group, name="save_field_group"),
     path("settings/apply-config/", apply_config, name="apply_config"),
-    path("settings/citation-group/save/", save_citation_groups, name="save_citation_groups")
+    path("settings/citation-group/save/", save_citation_groups, name="save_citation_groups"),
+    path("publications/", publication_list, name="publication_list"),
+    path("api/publications/", publications_api, name="publications_api"),
+    path("publications/filter-options/", publication_filter_options_api, name="publication_filter_options_api")
 ]
