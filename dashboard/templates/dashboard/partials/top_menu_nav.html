@@ -1,0 +1,118 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+      <div class="container-fluid">
+        <!-- MOBILE MENU -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"><span class="navbar-toggler-icon"></span></button>
+
+        <!-- MENU -->
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav w-100">
+            <!-- OVERVIEW -->
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.url_name == 'overview' %}active{% endif %}"
+                href="/{% if querystring %}?{{ querystring }}{% endif %}">
+                <i class="bi bi-speedometer2 me-2"></i> Tổng quan
+              </a>
+            </li>
+
+            <!-- FIELDS -->
+            <li class="nav-item">
+              <a class="nav-link {% if '/fields/' in request.path %}active{% endif %}"
+                href="{% url 'fields' %}{% if querystring %}?{{ querystring }}{% endif %}">
+                <i class="bi bi-grid-3x3-gap me-2"></i> Nghiên cứu theo ngành/nhóm ngành
+              </a>
+            </li>
+
+            <!-- CITATIONS -->
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.url_name == 'citations' %}active{% endif %}"
+                href="{% url 'citations' %}{% if querystring %}?{{ querystring }}{% endif %}">
+                <i class="bi bi-bar-chart-line me-2"></i> Trích dẫn nghiên cứu
+              </a>
+            </li>
+
+            <!-- ROLES -->
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.url_name == 'roles' %}active{% endif %}"
+                href="{% url 'roles' %}{% if querystring %}?{{ querystring }}{% endif %}">
+                <i class="bi bi-people me-2"></i> Vai trò tác giả
+              </a>
+            </li>
+
+            <!-- PERFORMANCE -->
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.url_name == 'performance' %}active{% endif %}"
+                href="{% url 'performance' %}{% if querystring %}?{{ querystring }}{% endif %}">
+                <i class="bi bi-graph-up-arrow me-2"></i> Hiệu suất nghiên cứu
+              </a>
+            </li>
+
+            <!-- COLLAB -->
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.url_name == 'collaboration' %}active{% endif %}"
+                href="{% url 'collaboration' %}{% if querystring %}?{{ querystring }}{% endif %}">
+                <i class="bi bi-diagram-3 me-2"></i> Hợp tác nghiên cứu
+              </a>
+            </li>
+
+            {% if request.user|has_role:'Manager' or request.user|has_role:'Admin' %}
+            <div class="etl-menu-group">
+
+                <!-- Upload RAW -->
+
+                <a
+
+                    href="{% url 'upload_csv' %}{% if querystring %}?{{ querystring }}{% endif %}"
+
+                    class="etl-pill {% if request.resolver_match.url_name == 'upload_csv' %}active{% endif %}"
+
+                >
+
+                    <i class="bi bi-cloud-upload"></i>
+
+                    Cập nhật dữ liệu
+
+                </a>
+
+                <!-- Transform -->
+
+                <a
+
+                    href="{% url 'transform_dashboard' %}{% if querystring %}?{{ querystring }}{% endif %}"
+
+                    class="etl-pill {% if request.resolver_match.url_name == 'transform_dashboard' %}active{% endif %}"
+
+                >
+
+                    <i class="bi bi-arrow-repeat"></i>
+
+                    Chuyển đổi dữ liệu
+
+                </a>
+
+            </div>
+
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.url_name == 'author_link_request_list' %}active{% endif %}"
+                href="{% url 'author_link_request_list' %}{% if querystring %}?{{ querystring }}{% endif %}">
+                <i class="bi bi-person-check me-2"></i> Yêu cầu liên kết
+                {% if config_dirty %}
+                    <span class="badge bg-danger rounded-pill" title="Có yêu cầu chưa được xử lý">!</span>
+                {% endif %}
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.url_name == 'settings_view' %}active{% endif %}"
+                href="{% url 'settings_view' %}{% if querystring %}?{{ querystring }}{% endif %}">
+                <i class="bi bi-gear-fill me-2"></i> Cấu hình hệ thống
+                {% if config_dirty %}
+                    <span class="badge bg-danger rounded-pill" title="Đã có thay đổi cấu hình chưa được áp dụng">!</span>
+                {% endif %}
+              </a>
+            </li>
+
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>

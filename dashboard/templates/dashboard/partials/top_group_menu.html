@@ -1,0 +1,362 @@
+{% load role_tags %}
+<div class="container-fluid">
+
+    <button
+
+        class="navbar-toggler"
+
+        type="button"
+
+        data-bs-toggle="collapse"
+
+        data-bs-target="#mainNavbar"
+
+    >
+
+        <span class="navbar-toggler-icon"></span>
+
+    </button>
+
+    <div
+
+        class="show navbar-collapse"
+
+        id="mainNavbar"
+
+    >
+
+        <ul class="navbar-nav w-100">
+
+            <!-- DASHBOARD -->
+
+            <li class="nav-item dropdown">
+
+                <a
+
+                    class="nav-link dropdown-toggle"
+
+                    href="#"
+
+                    role="button"
+
+                    data-bs-toggle="dropdown"
+
+                >
+
+                    <i class="bi bi-speedometer2 me-2"></i>
+
+                    Dashboard
+
+                </a>
+
+                <ul class="dropdown-menu">
+
+                    <li>
+
+                        <a
+
+                            class="dropdown-item"
+
+                            href="/{% if querystring %}?{{ querystring }}{% endif %}"
+
+                        >
+
+                            Tổng quan
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a
+
+                            class="dropdown-item"
+
+                            href="{% url 'fields' %}{% if querystring %}?{{ querystring }}{% endif %}"
+
+                        >
+
+                            Nghiên cứu theo ngành/nhóm ngành
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a
+
+                            class="dropdown-item"
+
+                            href="{% url 'citations' %}{% if querystring %}?{{ querystring }}{% endif %}"
+
+                        >
+
+                            Trích dẫn nghiên cứu
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a
+
+                            class="dropdown-item"
+
+                            href="{% url 'roles' %}{% if querystring %}?{{ querystring }}{% endif %}"
+
+                        >
+
+                            Vai trò tác giả
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a
+
+                            class="dropdown-item"
+
+                            href="{% url 'performance' %}{% if querystring %}?{{ querystring }}{% endif %}"
+
+                        >
+
+                            Hiệu suất nghiên cứu
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a
+
+                            class="dropdown-item"
+
+                            href="{% url 'collaboration' %}{% if querystring %}?{{ querystring }}{% endif %}"
+
+                        >
+
+                            Hợp tác nghiên cứu
+
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </li>
+
+            <!-- RESEARCH -->
+
+            <li class="nav-item dropdown">
+
+                <a
+
+                    class="nav-link dropdown-toggle"
+
+                    href="#"
+
+                    role="button"
+
+                    data-bs-toggle="dropdown"
+
+                >
+
+                    <i class="bi bi-journal-text me-2"></i>
+
+                    Nghiên cứu
+
+                </a>
+
+                <ul class="dropdown-menu">
+
+                    <li>
+
+                        <a
+
+                            class="dropdown-item"
+
+                            href="{% url 'publication_list' %}"
+
+                        >
+
+                            Danh mục CBKH
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a
+
+                            class="dropdown-item"
+
+                            href="{% url 'my_publications' %}"
+
+                        >
+
+                            CBKH của tôi
+
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </li>
+
+            {% if request.user|has_role:'Manager' or request.user|has_role:'Admin' %}
+
+            <!-- DATA MANAGEMENT -->
+
+                <li class="nav-item dropdown">
+
+                    <a
+
+                        class="nav-link dropdown-toggle"
+
+                        href="#"
+
+                        role="button"
+
+                        data-bs-toggle="dropdown"
+
+                    >
+
+                        <i class="bi bi-database me-2"></i>
+
+                        Quản trị dữ liệu
+
+                    </a>
+
+                    <ul class="dropdown-menu">
+
+                        <li>
+
+                            <a
+
+                                class="dropdown-item"
+
+                                href="{% url 'upload_csv' %}{% if querystring %}?{{ querystring }}{% endif %}"
+
+                            >
+
+                                Cập nhật dữ liệu
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a
+
+                                class="dropdown-item"
+
+                                href="{% url 'transform_dashboard' %}{% if querystring %}?{{ querystring }}{% endif %}"
+
+                            >
+
+                                Chuyển đổi dữ liệu
+
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </li>
+
+                <!-- ADMIN -->
+
+                <li class="nav-item dropdown">
+
+                    <a
+
+                        class="nav-link dropdown-toggle"
+
+                        href="#"
+
+                        role="button"
+
+                        data-bs-toggle="dropdown"
+
+                    >
+
+                        <i class="bi bi-shield-lock me-2"></i>
+
+                        Quản trị
+
+                    </a>
+
+                    <ul class="dropdown-menu">
+
+                        <li>
+
+                            <a
+
+                                class="dropdown-item"
+
+                                href="{% url 'author_link_request_list' %}"
+
+                            >
+
+                                Yêu cầu liên kết
+
+                                {% if config_dirty %}
+
+                                    <span class="badge bg-danger rounded-pill ms-2">
+
+                                        !
+
+                                    </span>
+
+                                {% endif %}
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a
+
+                                class="dropdown-item"
+
+                                href="{% url 'settings_view' %}"
+
+                            >
+
+                                Cấu hình hệ thống
+
+                                {% if config_dirty %}
+
+                                    <span class="badge bg-danger rounded-pill ms-2">
+
+                                        !
+
+                                    </span>
+
+                                {% endif %}
+
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </li>
+
+            {% endif %}
+
+        </ul>
+
+    </div>
+
+</div>

@@ -49,6 +49,11 @@ class FactPublication(models.Model):
 
     )
 
+    journal = models.TextField(
+        null=True,
+        blank=True
+    )
+
     field = models.CharField(
         max_length=255,
         null=True,

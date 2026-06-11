@@ -276,6 +276,7 @@ def transform_publications(
                     # =============================
                     # BUSINESS
                     # =============================
+                    "journal": raw.source_title,
 
                     "field_group": (
                         field_group

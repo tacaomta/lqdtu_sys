@@ -48,25 +48,23 @@ document.addEventListener(
 
                     <td>${type}</td>
 
-                    <td>${publication.title}</td>
-
-                    <td>${publication.authors}</td>
-
-                    <td>${publication.citation}</td>
-
                     <td>
-
                         ${publication.doi ?
 
-                            `<a href="https://doi.org/${publication.doi}" target="_blank">DOI</a>`
+                        `<a href="https://doi.org/${publication.doi}" target="_blank">${publication.title}</a>`
 
                             :
 
                             "-"
 
                         }
-
                     </td>
+
+                    <td>${publication.authors}</td>
+
+                    <td>${publication.citation}</td>
+
+                    <td>${publication.journal}</td>
 
                 </tr>
 

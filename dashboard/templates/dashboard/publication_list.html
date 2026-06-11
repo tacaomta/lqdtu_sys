@@ -145,8 +145,8 @@
                         <th>Tác giả</th>
 
                         <th>Trích dẫn</th>
-                
-                        <th>DOI</th>
+
+                        <th>Tạp chí</th>
 
                     </tr>
 
@@ -204,27 +204,13 @@
 
                             {{ publication.cited_by }}
 
-                        </td>                        
-
+                        </td>     
+                        
                         <td>
 
-                            {% if publication.doi %}
+                            {{ publication.journal }}
 
-                                <a
-
-                                    href="https://doi.org/{{ publication.doi }}"
-
-                                    target="_blank"
-
-                                >
-
-                                    DOI
-
-                                </a>
-
-                            {% endif %}
-
-                        </td>
+                        </td>    
 
                     </tr>
 

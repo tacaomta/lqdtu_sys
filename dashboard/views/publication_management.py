@@ -168,7 +168,8 @@ def publications_api(
 
             "document_type":
 
-                publication.document_type
+                publication.document_type,
+            "journal": publication.journal
 
         })
 
