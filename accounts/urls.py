@@ -16,6 +16,9 @@ from .views import (
     author_link_evidence_api,
     cancel_author_link_request,
     my_publications,
+    user_list,
+    toggle_user_status,
+    create_user
 )
 
 urlpatterns = [
@@ -34,5 +37,8 @@ urlpatterns = [
     path("admin/author-link-request/approve-selected/", approve_selected_author_link_requests, name="approve_selected_author_link_requests"),
     path("admin/author-link-request/<int:request_id>/evidence/", author_link_evidence_api, name="author_link_evidence_api"),
     path("author-link-request/<int:request_id>/cancel/", cancel_author_link_request, name="cancel_author_link_request"),
-    path("my-publications/", my_publications, name="my_publications")
+    path("my-publications/", my_publications, name="my_publications"),
+    path("admin/users/", user_list, name="user_list"),
+    path("admin/users/<int:user_id>/toggle-status/", toggle_user_status, name="toggle_user_status"),
+    path("admin/users/create/",create_user, name="create_user")
 ]

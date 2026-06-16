@@ -24,6 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
+
 SECRET_KEY = "django-insecure-67m6@pr+uv_+%6d8q!$gh+82k8e+2^j@25#$ztd42t=2^gc@6c"
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -100,6 +102,7 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT'), # '1433',
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
+            "extra_params": "TrustServerCertificate=yes",
         },
     }
 }

@@ -1,0 +1,36 @@
+services:
+
+  db:
+
+    image: mcr.microsoft.com/mssql/server:2022-latest
+
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+      SA_PASSWORD: "Abcd@2026"
+
+    ports:
+      - "1433:1433"
+
+    volumes:
+      - mssql_data:/var/opt/mssql
+
+  web:
+
+    build: .
+
+    ports:
+      - "8080:8080"
+
+    env_file:
+      - .env
+
+    volumes:
+      - .:/app
+
+    depends_on:
+      - db
+
+volumes:
+
+  mssql_data:
