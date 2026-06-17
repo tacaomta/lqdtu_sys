@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <h4 class="mb-0">
+
+            <i class="bi bi-diagram-2"></i>
+
+            Danh mục Department
+
+        </h4>
+
+        <button
+            class="btn btn-primary"
+            id="btn-create-department" data-bs-toggle="modal" data-bs-target="#createDepartmentModal"
+        >
+
+            <i class="bi bi-plus-circle"></i>
+
+            Tạo Department
+
+        </button>
+
+    </div>
+
+    <div class="card shadow-sm">
+
+        <div class="card-body p-0">
+
+            <table class="table table-hover mb-0">
+
+                <thead>
+
+                    <tr>
+
+                        <th width="80">
+
+                            STT
+
+                        </th>
+
+                        <th>
+
+                            Department
+
+                        </th>
+
+                        <th width="150" class="text-end">
+
+                            Thao tác
+
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for department in departments %}
+
+                    <tr>
+
+                        <td>
+
+                            {{ forloop.counter }}
+
+                        </td>
+
+                        <td>
+
+                            {{ department.name }}
+
+                        </td>
+
+                        <td class="text-end">
+
+                            <button
+                                class="btn btn-outline-primary btn-sm edit-department-btn"
+                                data-id="{{ department.id }}"
+                                data-name="{{ department.name }}"
+                            >
+
+                                <i class="bi bi-pencil"></i>
+
+                            </button>
+
+                            <button
+                                class="btn btn-outline-danger btn-sm delete-department-btn"
+                                data-id="{{ department.id }}"
+                                data-name="{{ department.name }}"
+                            >
+
+                                <i class="bi bi-trash"></i>
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td
+                            colspan="3"
+                            class="text-center text-muted py-4"
+                        >
+
+                            Chưa có dữ liệu
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+{% include "accounts/partials/department_create_modal.html" %}
+
+{% endblock %}
+{% block extra_js %}
+
+<script src="{% static 'accounts/js/departments.js' %}"></script>
+
+{% endblock %}

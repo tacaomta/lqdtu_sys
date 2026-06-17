@@ -18,7 +18,12 @@ from .views import (
     my_publications,
     user_list,
     toggle_user_status,
-    create_user
+    create_user,
+    edit_user,
+    department_list,
+    create_department,
+    update_department,
+    delete_department
 )
 
 urlpatterns = [
@@ -40,5 +45,10 @@ urlpatterns = [
     path("my-publications/", my_publications, name="my_publications"),
     path("admin/users/", user_list, name="user_list"),
     path("admin/users/<int:user_id>/toggle-status/", toggle_user_status, name="toggle_user_status"),
-    path("admin/users/create/",create_user, name="create_user")
+    path("admin/users/create/",create_user, name="create_user"),
+    path("admin/users/<int:user_id>/edit/", edit_user, name="edit_user"),
+    path("admin/departments/", department_list, name="department_list"),
+    path("admin/departments/create/", create_department, name="create_department"),
+    path("admin/departments/<int:department_id>/update/", update_department, name="update_department"),
+    path("admin/departments/<int:department_id>/delete/", delete_department, name="delete_department")
 ]

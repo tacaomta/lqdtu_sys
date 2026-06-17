@@ -240,6 +240,17 @@ def create_user(
         )
 
     )
+    departments = (
+
+        Department.objects
+
+        .order_by(
+
+            "name"
+
+        )
+
+    )
 
     if request.method == "POST":
 
@@ -404,22 +415,24 @@ def create_user(
 
             )
 
-            return redirect(
+            return render(
 
-                "user_list"
+                request,
+
+                "accounts/create_user_form.html",
+
+                {
+
+                    "roles": roles,
+
+                    "departments": departments,
+
+                    "created_successfully": True
+
+                }
 
             )
-    departments = (
-
-        Department.objects
-
-        .order_by(
-
-            "name"
-
-        )
-
-    )
+    
 
     context = {
 
@@ -436,4 +449,108 @@ def create_user(
 
         context
 
+    )
+
+
+@login_required
+def edit_user(request, user_id):
+
+    User = get_user_model()
+
+    user = User.objects.get(id=user_id)
+
+    profile, _ = UserProfile.objects.get_or_create(user=user)
+
+    roles = Role.objects.all().order_by("name")
+
+    departments = Department.objects.all().order_by("name")
+
+    selected_role_ids = list(
+        user.roles.values_list("id", flat=True)
+    )
+
+    if request.method == "POST":
+
+        email = request.POST.get("email", "").strip()
+
+        password = request.POST.get("password", "")
+
+        fullname = request.POST.get("fullname", "").strip()
+
+        department_id = request.POST.get("department_id")
+
+        role_ids = request.POST.getlist("role_id")
+
+        if (
+            email
+            and User.objects.exclude(id=user.id)
+            .filter(email=email)
+            .exists()
+        ):
+
+            messages.error(
+                request,
+                "Email đã tồn tại"
+            )
+
+        elif password and len(password) < 8:
+
+            messages.error(
+                request,
+                "Mật khẩu phải chứa ít nhất 8 ký tự"
+            )
+
+        else:
+
+            user.email = email
+
+            if password:
+                user.set_password(password)
+
+            user.save()
+
+            user.roles.set(
+                Role.objects.filter(
+                    id__in=role_ids
+                )
+            )
+
+            department = None
+
+            if department_id:
+                department = Department.objects.get(
+                    id=department_id
+                )
+
+            profile.fullname = fullname
+
+            profile.department = department
+
+            profile.save()
+
+            selected_role_ids = list(
+                user.roles.values_list(
+                    "id",
+                    flat=True
+                )
+            )
+
+            messages.success(
+                request,
+                "Cập nhật tài khoản thành công"
+            )
+
+    context = {
+        "edit_mode": True,
+        "edit_user": user,
+        "profile": profile,
+        "roles": roles,
+        "departments": departments,
+        "selected_role_ids": selected_role_ids
+    }
+
+    return render(
+        request,
+        "accounts/create_user_form.html",
+        context
     )

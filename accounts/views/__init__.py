@@ -7,3 +7,4 @@ from .author_link import *
 from .author_link_request_list import *
 from .my_publications import *
 from .user_management import *
+from .department_list import *

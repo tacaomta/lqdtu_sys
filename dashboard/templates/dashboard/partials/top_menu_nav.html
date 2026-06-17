@@ -105,7 +105,14 @@
             <li class="nav-item">
               <a class="nav-link {% if request.resolver_match.url_name == 'user_list' %}active{% endif %}"
                 href="{% url 'user_list' %}{% if querystring %}?{{ querystring }}{% endif %}">
-                <i class="bi bi-person-check me-2"></i> Quản lý người dùng
+                <i class="bi bi-person-gear me-2"></i> Quản lý người dùng
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.url_name == 'department_list' %}active{% endif %}"
+                href="{% url 'department_list' %}{% if querystring %}?{{ querystring }}{% endif %}">
+                <i class="bi bi-diagram-2-fill me-2"></i> Danh mục đơn vị
               </a>
             </li>
 
