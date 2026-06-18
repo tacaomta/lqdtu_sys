@@ -1,0 +1,284 @@
+{% load role_tags %}
+<aside id="sidebar" class="sidebar">
+
+    <div class="sidebar-header">
+
+        <div class="logo-icon">
+            <i class="fa-solid fa-chart-line"></i>
+        </div>
+
+        <div class="logo-text">
+            LQDTU
+        </div>
+
+    </div>
+
+    <ul class="sidebar-menu">
+
+        <li class="menu-group-title">
+            Dashboard
+        </li>
+
+        <li>
+
+            <a href="/{% if querystring %}?{{ querystring }}{% endif %}"
+                class="menu-item {% if request.resolver_match.url_name == 'overview' %}active{% endif %}"
+                data-bs-toggle="tooltip"
+                data-bs-placement="right"
+                title="Tổng quan">
+
+                <i class="bi bi-speedometer2"></i>
+
+                <span class="menu-text">
+                    Tổng quan
+                </span>
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="{% url 'fields' %}{% if querystring %}?{{ querystring }}{% endif %}"
+                class="menu-item {% if request.resolver_match.url_name == 'fields' %}active{% endif %}"
+                data-bs-toggle="tooltip"
+                title="Ngành/ nhóm ngành">
+
+                <i class="bi bi-grid-3x3-gap"></i>
+
+                <span class="menu-text">
+                    Ngành/ nhóm ngành
+                </span>
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="{% url 'citations' %}{% if querystring %}?{{ querystring }}{% endif %}"
+                class="menu-item {% if request.resolver_match.url_name == 'citations' %}active{% endif %}"
+                data-bs-toggle="tooltip"
+                title="Trích dẫn nghiên cứu">
+
+                <i class="bi bi-bar-chart-line"></i>
+
+                <span class="menu-text">
+                    Trích dẫn nghiên cứu
+                </span>
+
+            </a>
+
+        </li>
+        <li>
+
+            <a href="{% url 'roles' %}{% if querystring %}?{{ querystring }}{% endif %}"
+                class="menu-item {% if request.resolver_match.url_name == 'roles' %}active{% endif %}"
+                data-bs-toggle="tooltip"
+                title="Vài trò tác giả">
+
+                <i class="bi bi-people"></i>
+
+                <span class="menu-text">
+                    Vai trò tác giả
+                </span>
+
+            </a>
+
+        </li>
+        <li>
+
+            <a href="{% url 'performance' %}{% if querystring %}?{{ querystring }}{% endif %}"
+                class="menu-item {% if request.resolver_match.url_name == 'performance' %}active{% endif %}"
+                data-bs-toggle="tooltip"
+                title="Hiệu suất nghiên cứu">
+
+                <i class="bi bi-graph-up-arrow"></i>
+
+                <span class="menu-text">
+                    Hiệu suất nghiên cứu
+                </span>
+
+            </a>
+
+        </li>
+        <li>
+
+            <a href="{% url 'collaboration' %}{% if querystring %}?{{ querystring }}{% endif %}"
+                class="menu-item {% if request.resolver_match.url_name == 'collaboration' %}active{% endif %}"
+                data-bs-toggle="tooltip"
+                title="Hợp tác nghiên cứu">
+
+                <i class="bi bi-diagram-3"></i>
+
+                <span class="menu-text">
+                    Hợp tác nghiên cứu
+                </span>
+
+            </a>
+
+        </li>
+        {% if request.user|has_role:'Manager' or request.user|has_role:'Admin' %}
+        <li class="menu-group-title">
+            Xử lý dữ liệu
+        </li>
+        <li>
+
+            <a href="{% url 'upload_csv' %}{% if querystring %}?{{ querystring }}{% endif %}"
+                class="menu-item {% if request.resolver_match.url_name == 'upload_csv' %}active{% endif %}"
+                data-bs-toggle="tooltip"
+                title="Cập nhật dữ liệu">
+
+                <i class="bi bi-cloud-upload"></i>
+
+                <span class="menu-text">
+                    Cập nhật dữ liệu
+                </span>
+
+            </a>
+
+        </li>
+        <li>
+
+            <a href="{% url 'transform_dashboard' %}{% if querystring %}?{{ querystring }}{% endif %}"
+                class="menu-item {% if request.resolver_match.url_name == 'transform_dashboard' %}active{% endif %}"
+                data-bs-toggle="tooltip"
+                title="Chuyển đổi dữ liệu">
+
+                <i class="bi bi-arrow-repeat"></i>
+
+                <span class="menu-text">
+                    Chuyển đổi dữ liệu
+                </span>
+
+            </a>
+
+        </li>
+
+        <li class="menu-group-title">
+            Danh mục
+        </li>
+        <li>
+
+            <a href="{% url 'author_link_request_list' %}{% if querystring %}?{{ querystring }}{% endif %}"
+                class="menu-item {% if request.resolver_match.url_name == 'author_link_request_list' %}active{% endif %}"
+                data-bs-toggle="tooltip"
+                title="Yêu cầu liên kết tác giả">
+
+                <i class="bi bi-person-check"></i>
+
+                <span class="menu-text">
+                    Yêu cầu liên kết tác giả
+                </span>
+
+            </a>
+
+        </li>
+        <li>
+
+            <a href="{% url 'publication_list' %}{% if querystring %}?{{ querystring }}{% endif %}"
+                class="menu-item {% if request.resolver_match.url_name == 'publication_list' %}active{% endif %}"
+                data-bs-toggle="tooltip"
+                title="Danh mục CBKH">
+
+                <i class="bi bi-journals"></i>
+
+                <span class="menu-text">
+                    Danh mục CBKH
+                </span>
+
+            </a>
+
+        </li>
+        <li>
+
+            <a href="{% url 'user_list' %}{% if querystring %}?{{ querystring }}{% endif %}"
+                class="menu-item {% if request.resolver_match.url_name == 'user_list' %}active{% endif %}"
+                data-bs-toggle="tooltip"
+                title="Danh mục người dùng">
+
+                <i class="bi bi-person-gear"></i>
+
+                <span class="menu-text">
+                    Danh mục người dùng
+                </span>
+
+            </a>
+
+        </li>
+        <li>
+
+            <a href="{% url 'department_list' %}{% if querystring %}?{{ querystring }}{% endif %}"
+                class="menu-item {% if request.resolver_match.url_name == 'department_list' %}active{% endif %}"
+                data-bs-toggle="tooltip"
+                title="Khoa, Viện, Trung tâm">
+
+                <i class="bi bi-diagram-2-fill"></i>
+
+                <span class="menu-text">
+                    Khoa, Viện, Trung tâm
+                </span>
+
+            </a>
+
+        </li>
+
+        <li class="menu-group-title">
+            Hệ thống
+        </li>
+
+        <li>
+
+            <a href="{% url 'settings_view' %}{% if querystring %}?{{ querystring }}{% endif %}"
+                class="menu-item {% if request.resolver_match.url_name == 'settings_view' %}active{% endif %}"
+                data-bs-toggle="tooltip"
+                title="Cấu hình hệ thống">
+
+                <i class="bi bi-gear-fill"></i>
+
+                <span class="menu-text">
+                    Cấu hình hệ thống
+                </span>
+
+            </a>
+
+        </li>
+        {% if request.user|has_role:'Admin' %}
+        <li>
+
+            <a href="{% url 'sys_logs' %}{% if querystring %}?{{ querystring }}{% endif %}"
+                class="menu-item {% if request.resolver_match.url_name == 'sys_logs' %}active{% endif %}"
+                data-bs-toggle="tooltip"
+                title="Logs">
+
+                <i class="bi bi-file-text"></i>
+
+                <span class="menu-text">
+                    Logs
+                </span>
+
+            </a>
+
+        </li>
+        <li>
+
+            <a href="{% url 'exec_sql' %}{% if querystring %}?{{ querystring }}{% endif %}"
+                class="menu-item {% if request.resolver_match.url_name == 'exec_sql' %}active{% endif %}"
+                data-bs-toggle="tooltip"
+                title="SQL">
+
+                <i class="bi bi-filetype-sql"></i>
+
+                <span class="menu-text">
+                    SQL
+                </span>
+
+            </a>
+
+        </li>
+        {% endif %}
+        {% endif %}
+
+    </ul>
+
+</aside>

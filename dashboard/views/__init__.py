@@ -9,3 +9,4 @@ from .transform import *
 from .import_progress import *
 from .settings import *
 from .publication_management import *
+from .test import *

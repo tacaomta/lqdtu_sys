@@ -17,7 +17,8 @@ from .views import (
     save_citation_groups,
     publication_list,
     publications_api,
-    publication_filter_options_api
+    publication_filter_options_api,
+    test_view
 )
 
 urlpatterns = [
@@ -39,5 +40,8 @@ urlpatterns = [
     path("settings/citation-group/save/", save_citation_groups, name="save_citation_groups"),
     path("publications/", publication_list, name="publication_list"),
     path("api/publications/", publications_api, name="publications_api"),
-    path("publications/filter-options/", publication_filter_options_api, name="publication_filter_options_api")
+    path("publications/filter-options/", publication_filter_options_api, name="publication_filter_options_api"),
+    path('sys_logs/', test_view, name='sys_logs'),
+    path('exec_sql/', test_view, name='exec_sql'),
+    path('test/', test_view, name='test_view'),
 ]

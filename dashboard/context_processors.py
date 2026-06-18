@@ -1,3 +1,4 @@
+from django.urls import resolve
 from dashboard.services.filter_service import get_years
 from dashboard.services.citation_service import (
     get_citation_groups
@@ -17,6 +18,20 @@ def global_filters(request):
     first = request.GET.get("first") == "true"
     corresponding = request.GET.get("corresponding") == "true"
     selected_citations = request.GET.getlist("citations")
+    try:
+        current_url_name = resolve(request.path_info).url_name
+    except Exception:
+        pass
+
+    dashboard_urls = [
+        "overview",
+        "fields",
+        "citations",
+        "roles",
+        "performance",
+        "collaboration",
+    ]
+    dashboard_active = current_url_name in dashboard_urls
     
 
     return {
@@ -46,6 +61,7 @@ def global_filters(request):
         "is_filtering_citations": bool(selected_citations),
         "querystring":
             request.GET.urlencode(),
+        "dashboard_active": dashboard_active,
     }
 
 
