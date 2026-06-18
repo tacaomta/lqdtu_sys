@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-12">
+
+            <div class="card shadow-sm">
+
+                <div class="card-header">
+
+                    <h4 class="mb-0">
+
+                        <i class="bi bi-database-gear"></i>
+
+                        SQL Execute
+
+                    </h4>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div
+                        class="alert alert-warning"
+                    >
+
+                        <strong>Cảnh báo:</strong>
+
+                        Chức năng này chỉ dành cho quản trị viên.
+                        Mọi câu lệnh thực thi sẽ được ghi log.
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label
+                            class="form-label fw-bold"
+                        >
+
+                            SQL Statement
+
+                        </label>
+
+                        <textarea
+                            id="sqlText"
+                            class="form-control"
+                            rows="12"
+                            placeholder="update tbl_author set author_name = 'example_name'"
+                        ></textarea>
+                        <input type="checkbox" id="confirmSql"/>
+
+                    </div>
+
+                    <div>
+
+                        <button
+                            id="executeSqlBtn"
+                            class="btn btn-primary"
+                        >
+
+                            <i class="bi bi-play-fill"></i>
+
+                            Execute
+
+                        </button>
+
+                    </div>
+                    <div id="sqlResult" style="margin-top: 5px;"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'accounts/js/sql_execute.js' %}"></script>
+{% endblock %}

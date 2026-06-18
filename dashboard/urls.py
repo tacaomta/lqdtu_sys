@@ -41,7 +41,5 @@ urlpatterns = [
     path("publications/", publication_list, name="publication_list"),
     path("api/publications/", publications_api, name="publications_api"),
     path("publications/filter-options/", publication_filter_options_api, name="publication_filter_options_api"),
-    path('sys_logs/', test_view, name='sys_logs'),
-    path('exec_sql/', test_view, name='exec_sql'),
     path('test/', test_view, name='test_view'),
 ]

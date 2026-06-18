@@ -14,7 +14,7 @@
                 type="button"
                 id="clear-all-btn"
                 class="filter-action-btn disabled"
-                onclick="clearAllFilters()">
+                onclick="clearAllFilters()" title="Xóa tất cả các bộ lọc">
 
                 <i class="bi bi-eraser-fill"></i>
 
@@ -43,7 +43,7 @@
                             type="button"
                             class="clear-btn {% if not is_filtering_years %}hidden{% endif %}"
                             onclick="clearYears()"
-                            title="Clear filter">
+                            title="Xóa bộ lọc năm công bố">
 
                             <i class="bi bi-eraser"></i>
 
@@ -97,7 +97,7 @@
                             type="button"
                             class="clear-btn {% if not is_filtering_fields %}hidden{% endif %}"
                             onclick="clearFields()"
-                            title="Clear filter">
+                            title="Xóa bộ lọc ngành/nhóm ngành">
 
                             <i class="bi bi-eraser"></i>
 
@@ -148,7 +148,7 @@
                         <button
                             type="button"
                             class="clear-btn {% if not is_filtering_roles %}hidden{% endif %}"
-                            onclick="clearRoles()">
+                            onclick="clearRoles()" title="Xóa bộ lọc vai trò tác giả">
 
                             <i class="bi bi-eraser"></i>
 
@@ -206,7 +206,7 @@
                         <button
                             type="button"
                             class="clear-btn {% if not is_filtering_citations %}hidden{% endif %}"
-                            onclick="clearCitations()">
+                            onclick="clearCitations()" title="Xóa bộ lọc nhóm trích dẫn">
 
                             <i class="bi bi-eraser"></i>
 

@@ -113,7 +113,9 @@
 </footer> {% endcomment %}
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+{% if dashboard_active %}
 <script src="{% static 'dashboard/js/myscript.js' %}"></script>
+{% endif %}
 <script src="{% static 'dashboard/js/dashboard.js' %}"></script>
 
 {% block extra_js %}{% endblock %}
