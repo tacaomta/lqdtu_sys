@@ -418,14 +418,8 @@ document.addEventListener(
                     return
 
                 }
-
-                if (
-
-                    !confirm(
-                        "Xóa log này?"
-                    )
-
-                ) {
+                const confirmed = await showConfirm(`Bạn chắc chắn muốn xóa log này?`);
+                if (!confirmed) {
 
                     return
 
@@ -468,7 +462,7 @@ document.addEventListener(
 
                 catch (error) {
 
-                    console.error(error)
+                    showToast(data.message, 'error');
 
                 }
 
@@ -489,14 +483,8 @@ document.addEventListener(
                 "click",
 
                 async function () {
-
-                    if (
-
-                        !confirm(
-                            "Xóa toàn bộ log?"
-                        )
-
-                    ) {
+                    const confirmed = await showConfirm(`Bạn chắc chắn muốn xóa toàn bộ log`);
+                    if (!confirmed) {
 
                         return
 

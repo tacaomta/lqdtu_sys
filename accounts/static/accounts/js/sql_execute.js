@@ -54,18 +54,13 @@ document.addEventListener(
 
                 if (!confirmed) {
 
-                    alert(
-                        "Vui lòng xác nhận trước khi thực thi."
-                    );
+                    showToast("Vui lòng xác nhận trước khi thực thi", 'error');
 
                     return;
                 }
 
                 if (!sql) {
-
-                    alert(
-                        "SQL không được để trống."
-                    );
+                    showToast("SQL không được để trống.", 'error');
 
                     return;
                 }
@@ -145,6 +140,7 @@ document.addEventListener(
                         </div>
 
                     `;
+                    showToast('Không thể kết nối tới server', 'error');
 
                     console.error(error);
 

@@ -107,6 +107,45 @@
 
 </div>
 
+<div
+    id="toastContainer"
+    class="toast-container position-fixed top-0 end-0 p-3"
+    style="z-index: 9999;"
+>
+</div>
+
+{% include "dashboard/partials/confirm_modal.html" %}
+
+{% if messages %}
+
+<script>
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    function() {
+
+        {% for message in messages %}
+
+        showToast(
+
+            "{{ message|escapejs }}",
+
+            "{{ message.tags }}"
+
+        )
+
+        {% endfor %}
+
+    }
+
+)
+
+</script>
+
+{% endif %}
+
 {% include "dashboard/partials/footer.html" %}
 {% comment %} <footer class="footer">
     © 2026 LQDTU Dashboard
@@ -117,7 +156,8 @@
 <script src="{% static 'dashboard/js/myscript.js' %}"></script>
 {% endif %}
 <script src="{% static 'dashboard/js/dashboard.js' %}"></script>
-
+<script src="{% static 'dashboard/js/toast.js' %}"></script>
+<script src="{% static 'dashboard/js/confirm_modal.js' %}"></script>
 {% block extra_js %}{% endblock %}
 
 </body>

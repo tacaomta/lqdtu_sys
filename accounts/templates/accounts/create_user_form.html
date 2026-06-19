@@ -10,9 +10,6 @@
 
         <div class="row justify-content-center">
 
-            
-
-
             <div class="col-md-6 col-lg-5">
                 <h5 style="text-align: center;">
                     {% if edit_mode %}
@@ -24,25 +21,7 @@
                         TẠO NGƯỜI DÙNG MỚI
 
                     {% endif %}
-                </h5>
-                {% if messages %}
-
-                    {% for message in messages %}
-                        <div class="alert alert-{% if message.tags == 'error' %}danger{% elif message.tags == 'success' %}success{% else %}info{% endif %} alert-dismissible fade show">
-
-                            {{ message }}
-
-                            <button
-                                type="button"
-                                class="btn-close"
-                                data-bs-dismiss="alert">
-                            </button>
-
-                        </div>
-
-                    {% endfor %}
-
-                {% endif %}
+                </h5>                
 
                 <!-- LOGIN CARD -->
 

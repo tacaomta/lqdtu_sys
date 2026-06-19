@@ -16,6 +16,7 @@ from dashboard.forms import (
 from dashboard.services.importer import (
     import_publications
 )
+from dashboard.services.file_validation import file_validate
 
 from dashboard.models.raw import (
     PublicationRaw
@@ -94,6 +95,18 @@ def upload_csv(request):
                 "success": False,
 
                 "message": "Lỗi định dạng file"
+
+            })
+
+
+            # validated here
+            valid, message = file_validate(file, extension)
+            if not valid:
+                return JsonResponse({
+
+                "success": False,
+
+                "message": message
 
             })
 

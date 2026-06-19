@@ -203,11 +203,13 @@ document.addEventListener(
 
                     if (!authorId) {
 
-                        alert(
+                        showToast("Vui lòng chọn tác giả", 'error');
 
-                            "Vui lòng chọn tác giả."
+                        // alert(
 
-                        );
+                        //     "Vui lòng chọn tác giả."
+
+                        // );
 
                         return;
                     }
@@ -220,11 +222,12 @@ document.addEventListener(
 
                     ) {
 
-                        alert(
+                        showToast("Vui lòng chọn ít nhất một công bố minh chứng.", 'error');
+                        // alert(
 
-                            "Vui lòng chọn ít nhất một công bố minh chứng."
+                        //     "Vui lòng chọn ít nhất một công bố minh chứng."
 
-                        );
+                        // );
 
                         return;
                     }
@@ -277,11 +280,7 @@ document.addEventListener(
 
                         ) {
 
-                            alert(
-
-                                "Gửi yêu cầu thành công."
-
-                            );
+                            showToast("Gửi yêu cầu liên kết thành công.", 'success');
 
                             location.reload();
 
@@ -289,13 +288,7 @@ document.addEventListener(
 
                         else {
 
-                            alert(
-
-                                data.message ||
-
-                                "Có lỗi xảy ra."
-
-                            );
+                            showToast("Có lỗi xảy ra, không thể gửi yêu cầu liên kết.", 'error');
 
                         }
 
@@ -309,11 +302,7 @@ document.addEventListener(
 
                         );
 
-                        alert(
-
-                            "Không thể gửi yêu cầu."
-
-                        );
+                        showToast("Yêu cầu liên kết này đã được gửi trước đó", 'error');
 
                     }
 
@@ -394,12 +383,8 @@ document.addEventListener(
                             }
 
                             else {
-
-                                alert(
-
-                                    data.message
-
-                                );
+                                
+                                showToast(data.message, 'error');
 
                             }
 

@@ -116,8 +116,7 @@ document.addEventListener(
                         await response.json();
 
                     if (!data.success) {
-
-                        alert(data.message);
+                        showToast(data.message, 'error');
 
                         return;
 
@@ -166,10 +165,7 @@ document.addEventListener(
 
                         const departmentName = this.dataset.name;
 
-                        const confirmed =
-                            confirm(
-                                `Bạn có chắc muốn xóa Department "${departmentName}"?`
-                            );
+                        const confirmed = await showConfirm(`Bạn có chắc muốn xóa Department "${departmentName}"?`);
 
                         if (!confirmed) {
                             return;
@@ -191,13 +187,12 @@ document.addEventListener(
                             await response.json();
 
                         if (!data.success) {
-
-                            alert(
-                                data.message
-                            );
-
+                            showToast(data.message, 'error');
                             return;
 
+                        }
+                        else{
+                            showToast("Xóa department thành công", 'success');
                         }
 
                         location.reload();

@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from accounts.forms.register_form import RegisterForm
 
 from users.models import UserProfile, Role
+from django.contrib import messages
 
 User = get_user_model()
 

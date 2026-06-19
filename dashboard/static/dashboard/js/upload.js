@@ -139,6 +139,7 @@ const data =
 if (!data.success) {
 
     clearInterval(interval);
+    showToast(data.message, 'error');
     return;
 
 }

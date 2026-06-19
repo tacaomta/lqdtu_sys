@@ -67,11 +67,7 @@ document.addEventListener(
 
                 const userId = btn.dataset.userId;
 
-                const confirmed = confirm(
-
-                    "Xác nhận thay đổi trạng thái tài khoản?"
-
-                );
+                const confirmed = await showConfirm("Bạn chắc chắn muốn từ chối yêu cầu này?");
 
                 if (!confirmed) {
 
@@ -106,12 +102,7 @@ document.addEventListener(
                         await response.json();
 
                     if (!data.success) {
-
-                        alert(
-
-                            data.message
-
-                        );
+                        showToast(data.message, 'error');
 
                         return;
 
@@ -182,7 +173,7 @@ document.addEventListener(
                 }
 
                 catch (error) {
-
+                    showToast(error, 'error');
                     console.error(
 
                         error

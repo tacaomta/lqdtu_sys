@@ -217,19 +217,11 @@ document.addEventListener(
 
                         async function () {
 
-                            const requestId =
+                            const requestId = this.dataset.requestId;
+                            
+                            const confirmed = await showConfirm(`Bạn chắc chắn muốn chấp nhận yêu cầu này?`);
 
-                                this.dataset.requestId;
-
-                            if (
-
-                                !confirm(
-
-                                    "Chấp nhận yêu cầu này?"
-
-                                )
-
-                            ) {
+                            if (!confirmed) {
 
                                 return;
 
@@ -270,6 +262,9 @@ document.addEventListener(
                                 location.reload();
 
                             }
+                            else{
+                                showToast(data.message, "error");
+                            }
 
                         }
 
@@ -302,18 +297,9 @@ document.addEventListener(
 
                                 this.dataset.requestId;
 
-                            if (
-
-                                !confirm(
-
-                                    "Từ chối yêu cầu này?"
-
-                                )
-
-                            ) {
-
+                            const confirmed = await showConfirm(`Bạn chắc chắn muốn từ chối yêu cầu này?`);
+                            if (!confirmed) {
                                 return;
-
                             }
 
                             const response =
