@@ -237,3 +237,46 @@ class AuthorLinkRequest(models.Model):
 
     )
 
+class LoginLog(models.Model):
+
+    username = models.CharField(
+        max_length=150
+    )
+
+    fullname = models.CharField(
+        max_length=200
+    )
+
+    login_time = models.DateTimeField()
+
+    logout_time = models.DateTimeField(
+        null=True,
+        blank=True
+    )
+
+    ip_address = models.CharField(
+        max_length=100,
+        blank=True
+    )
+
+    user_agent = models.TextField(
+        blank=True
+    )
+
+    session_key = models.CharField(
+        max_length=100,
+        blank=True
+    )
+
+    class Meta:
+
+        ordering = ["-login_time"]
+    
+    def __str__(self):
+
+        return (
+            f"{self.username}"
+            f" - "
+            f"{self.login_time}"
+        )
+

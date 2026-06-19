@@ -1,0 +1,235 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="card shadow-sm">
+
+        <div class="card-header">
+
+            <h4 class="mb-2">
+
+                <i class="bi bi-clock-history"></i>
+
+                Nhật ký đăng nhập
+
+            </h4>
+
+            <button id="clearLogsBtn" class="btn btn-danger btn-sm">
+                <i class="bi bi-trash"></i>Xóa toàn bộ
+            </button>
+
+        </div>
+
+        <div class="card-body">
+
+            <div>
+                <div class="row mb-3">
+
+                    <div class="col-md-3">
+
+                        <input
+
+                            id="keyword"
+
+                            class="form-control"
+
+                            placeholder="Username hoặc fullname"
+
+                        >
+
+                    </div>
+
+                    <div class="col-md-2">
+
+                        <input
+
+                            id="startDate"
+
+                            type="date"
+
+                            class="form-control"
+
+                        >
+
+                    </div>
+
+                    <div class="col-md-2">
+
+                        <input
+
+                            id="endDate"
+
+                            type="date"
+
+                            class="form-control"
+
+                        >
+
+                    </div>
+
+                    <div class="col-md-2">
+
+                        <select
+
+                            id="pageSize"
+
+                            class="form-select"
+
+                        >
+
+                            <option value="10">10</option>
+
+                            <option value="20">20</option>
+
+                            <option value="30">30</option>
+
+                            <option value="50">50</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <table
+                    class="table table-bordered table-hover align-middle"
+                >
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Username</th>
+
+                            <th>Họ tên</th>
+
+                            <th>Đăng nhập</th>
+
+                            <th>Đăng xuất</th>
+
+                            <th>IP</th>
+
+                            <th>User Agent</th>
+                            <th width="80" class="text-end">Thao tác</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="loginLogTableBody">
+
+                        {% for log in logs %}
+
+                        <tr>
+
+                            <td>
+                                {{ log.username }}
+                            </td>
+
+                            <td>
+                                {{ log.fullname }}
+                            </td>
+
+                            <td>
+                                {{ log.login_time }}
+                            </td>
+
+                            <td>
+
+                                {% if log.logout_time %}
+
+                                    {{ log.logout_time }}
+
+                                {% else %}
+
+                                    <span class="badge bg-success">
+
+                                        Online
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+                                {{ log.ip_address }}
+                            </td>
+
+                            <td>
+
+                                <small>
+
+                                    {{ log.user_agent|truncatechars:60 }}
+
+                                </small>
+
+                            </td>
+                            <td class="text-end">
+
+                                <button class="btn btn-outline-danger btn-sm delete-log-btn" data-id="{{ log.id }}">
+
+                                    <i class="bi bi-trash"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+                        {% empty %}
+
+                        <tr>
+
+                            <td
+                                colspan="7"
+                                class="text-center text-muted py-4"
+                            >
+
+                                Chưa có dữ liệu
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>               
+
+                </table>
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div class="text-muted small" id="summary">
+
+                    </div>
+
+                </div>
+
+                <nav>
+
+                    <ul
+
+                        id="pagination"
+
+                        class="pagination"
+
+                    >
+
+                    </ul>
+
+                </nav>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'accounts/js/login_logs.js' %}"></script>
+{% endblock %}

@@ -25,7 +25,11 @@ from .views import (
     update_department,
     delete_department,
     sql_execute_view,
-    execute_sql
+    execute_sql,
+    login_log_list,
+    delete_login_log,
+    clear_login_logs,
+    login_log_api
 )
 
 urlpatterns = [
@@ -53,7 +57,10 @@ urlpatterns = [
     path("admin/departments/create/", create_department, name="create_department"),
     path("admin/departments/<int:department_id>/update/", update_department, name="update_department"),
     path("admin/departments/<int:department_id>/delete/", delete_department, name="delete_department"),
-    path('sys_logs/', sql_execute_view, name='sys_logs'),
+    path('admin/login-logs/', login_log_list, name='sys_logs'),
     path('admin/sql-execute/', sql_execute_view, name='exec_sql'),
-    path("admin/sql-execute/run/", execute_sql, name="execute_sql")
+    path("admin/sql-execute/run/", execute_sql, name="execute_sql"),
+    path("admin/login-logs/<int:log_id>/delete/", delete_login_log, name="delete_login_log"),
+    path("admin/login-logs/clear/", clear_login_logs, name="clear_login_logs"),
+    path("admin/login-logs/api/", login_log_api, name="login_log_api")
 ]

@@ -9,3 +9,4 @@ from .my_publications import *
 from .user_management import *
 from .department_list import *
 from .sql_execute import *
+from .logs import *

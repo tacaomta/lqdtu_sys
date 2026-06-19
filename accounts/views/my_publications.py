@@ -65,8 +65,6 @@ def my_publications(
 
     )
 
-    publications = []
-
     if len(approved_author_ids)>0:
         publications = (
 
@@ -88,6 +86,8 @@ def my_publications(
 
             )
         )
+    else:
+        publications = FactPublication.objects.none()
 
     paginator = Paginator(
 
