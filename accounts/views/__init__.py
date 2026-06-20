@@ -10,3 +10,4 @@ from .user_management import *
 from .department_list import *
 from .sql_execute import *
 from .logs import *
+from .author_list import *

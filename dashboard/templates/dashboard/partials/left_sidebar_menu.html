@@ -223,6 +223,23 @@
 
         </li>
 
+        <li>
+
+            <a href="{% url 'author_list' %}{% if querystring %}?{{ querystring }}{% endif %}"
+                class="menu-item {% if request.resolver_match.url_name == 'author_list' %}active{% endif %}"
+                data-bs-toggle="tooltip"
+                title="Danh mục tác giả">
+
+                <i class="bi bi-person-vcard"></i>
+
+                <span class="menu-text">
+                    Danh mục tác giả
+                </span>
+
+            </a>
+
+        </li>
+
         <li class="menu-group-title">
             Hệ thống
         </li>

@@ -100,13 +100,14 @@ def upload_csv(request):
 
 
             # validated here
-            valid, message = file_validate(file, extension)
+            valid, message, required_columns = file_validate(file, extension)
             if not valid:
                 return JsonResponse({
 
                 "success": False,
 
-                "message": message
+                "message": message,
+                "required_columns": list(required_columns)
 
             })
 

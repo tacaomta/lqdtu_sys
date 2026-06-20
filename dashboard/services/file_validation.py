@@ -20,20 +20,20 @@ def file_validate(file, extension):
                 nrows=5
             )
         
-        columns = {str(col).strip().lower() for col in df.columns}
+        columns = {str(col).strip() for col in df.columns}        
         if len(df.columns) == 0:
-            return False, "File không chứa dữ liệu"
+            return False, "File không chứa dữ liệu", required_columns
         
         if df.empty:
-            return False, "File không có bản ghi"
+            return False, "File không có bản ghi", required_columns
 
         missing_columns = (required_columns - columns)
         if missing_columns:
-            return False, "Thiếu các cột bắt buộc: " + ", ".join(sorted(missing_columns))
+            return False, "Thiếu các cột bắt buộc: " + ", ".join(sorted(missing_columns)), required_columns
         
-        return True, "File hợp lệ"
+        return True, "File hợp lệ", required_columns
 
     except Exception:
-        return False, "Không thể đọc file"
+        return False, "Không thể đọc file", required_columns
     finally:
         file.seek(0)

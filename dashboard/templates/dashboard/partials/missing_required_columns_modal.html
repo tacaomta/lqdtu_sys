@@ -1,0 +1,112 @@
+<div
+    class="modal fade"
+    id="missingColumnsModal"
+    tabindex="-1"
+>
+
+    <div
+        class="modal-dialog modal-xl"
+    >
+
+        <div
+            class="modal-content"
+        >
+
+            <div
+                class="modal-header"
+            >
+
+                <h5
+                    class="modal-title"
+                >
+                <i class="bi bi-file-spreadsheet"></i>
+
+                    Hướng dẫn định dạng file excel/csv
+
+                </h5>
+
+                <button
+
+                    type="button"
+
+                    class="btn-close"
+
+                    data-bs-dismiss="modal"
+
+                ></button>
+
+            </div>
+
+            <div
+                class="modal-body"
+            >
+
+                <div
+                    class="alert alert-danger"
+                >
+
+                    <strong>
+
+                        Lỗi:
+
+                    </strong>
+
+                    <span
+                        id="missingColumns"
+                    ></span>
+
+                </div>
+
+                <hr>
+
+                <h6>
+
+                    Cấu trúc file yêu cầu chứa thông tin của các cột bắt buộc như sau
+
+                </h6>
+
+                <div
+                    class="table-responsive"
+                >
+
+                    <table
+
+                        class="table table-bordered table-sm"
+
+                    >
+
+                        <thead>
+
+                            <tr
+
+                                id="requiredColumnsHeader"
+
+                            >
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr
+
+                                id="requiredColumnsExample"
+
+                            >
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

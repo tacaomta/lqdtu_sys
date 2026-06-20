@@ -4,6 +4,116 @@ document.addEventListener(
 
     () => {
 
+        function showMissingColumnsModal(
+            data
+        ) {
+
+            document
+                .getElementById(
+                    "missingColumns"
+                )
+                .innerHTML = data.message;
+
+            const headerRow =
+
+                document.getElementById(
+                    "requiredColumnsHeader"
+                )
+
+            headerRow.innerHTML = ""
+
+            data.required_columns.forEach(
+
+                column => {
+
+                    headerRow.innerHTML +=
+
+                        `<th>${column}</th>`
+
+                }
+
+            )
+            const exampleMap = {
+
+                title:
+                    "Deep Learning for GRN",
+
+                authors:
+                    "Nguyen Van A; Tran Van B",
+
+                year:
+                    "2025",
+
+                doi:
+                    "10.1016/j.xxx.2025.001",
+
+                source_title:
+                    "Expert Systems",
+
+                document_type:
+                    "Article",
+
+                citations:
+                    "15",
+
+                affiliation:
+                    "Le Quy Don Technical University"
+
+            }
+            const exampleRow =
+
+                document.getElementById(
+                    "requiredColumnsExample"
+                )
+
+            exampleRow.innerHTML = ""
+
+            data.required_columns.forEach(
+
+                column => {
+
+                    const key =
+
+                        column
+                            .toLowerCase()
+                            .replaceAll(
+                                " ",
+                                "_"
+                            )
+
+                    exampleRow.innerHTML +=
+
+                        `<td>
+
+                    ${exampleMap[key]
+
+                        ||
+
+                        "Example"
+
+                        }
+
+                </td>`
+
+                }
+
+            )
+            const modal =
+
+                new bootstrap.Modal(
+
+                    document.getElementById(
+
+                        "missingColumnsModal"
+
+                    )
+
+                )
+
+            modal.show()
+
+        }
+
         // =================================================
         // FORM
         // =================================================
@@ -533,8 +643,25 @@ form.addEventListener(
                     errorDiv.style.display = "block";
                     
                 }
+                console.log(data.required_columns);
+                if (data.required_columns)
+                {
+                    statusText.innerHTML = `
 
-                statusText.innerHTML = `
+                            <span class="text-danger">
+
+                                ${data.message}
+
+                            </span> <a href="#" id="showMissingColumns" class="ms-2" title="Xem cấu trúc file yêu cầu"><i class="bi bi-info-circle-fill"></i></a>
+
+                        `;
+                    document.getElementById("showMissingColumns").addEventListener("click", function(e){
+                        e.preventDefault();
+                        showMissingColumnsModal(data)
+                    });
+                }
+                else{
+                    statusText.innerHTML = `
 
                             <span class="text-danger">
 
@@ -543,6 +670,9 @@ form.addEventListener(
                             </span>
 
                         `;
+                }
+
+                
 
                 uploadBtn.disabled = false;
 

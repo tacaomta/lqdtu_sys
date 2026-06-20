@@ -29,7 +29,9 @@ from .views import (
     login_log_list,
     delete_login_log,
     clear_login_logs,
-    login_log_api
+    login_log_api,
+    author_list,
+    author_list_api
 )
 
 urlpatterns = [
@@ -62,5 +64,7 @@ urlpatterns = [
     path("admin/sql-execute/run/", execute_sql, name="execute_sql"),
     path("admin/login-logs/<int:log_id>/delete/", delete_login_log, name="delete_login_log"),
     path("admin/login-logs/clear/", clear_login_logs, name="clear_login_logs"),
-    path("admin/login-logs/api/", login_log_api, name="login_log_api")
+    path("admin/login-logs/api/", login_log_api, name="login_log_api"),
+    path("admin/authors/", author_list, name="author_list"),
+    path("admin/authors/api/", author_list_api, name="author_list_api")
 ]
