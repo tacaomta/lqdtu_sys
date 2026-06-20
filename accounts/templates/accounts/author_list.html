@@ -16,24 +16,25 @@
 
         <div class="card-body">
             <div class="row mb-3">
-
                 <div class="col-md-4">
+                    <div class="input-group shadow-sm">
+                        <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                        <input
 
-                    <input
+                            type="text"
 
-                        type="text"
+                            id="keyword"
 
-                        id="keyword"
+                            class="form-control"
 
-                        class="form-control"
+                            placeholder="Tên tác giả, trường hoặc quốc gia"
 
-                        placeholder="Tên tác giả, trường hoặc quốc gia"
-
-                    >
+                        >
+                    </div>
 
                 </div>
                 <div class="col-md-2">
-
+                    <div class="input-group">
                         <select
 
                             id="pageSize"
@@ -51,6 +52,8 @@
                             <option value="50">50</option>
 
                         </select>
+                        <label class="input-group-text" for="pageSize">bản ghi/trang</label>
+                    </div>
 
                 </div>
 
@@ -84,7 +87,7 @@
                 </tbody>
 
             </table>
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center mb-1">
 
                 <div class="text-muted small" id="summary">
 
@@ -110,5 +113,6 @@
 </div>
 {% endblock %}
 {% block extra_js %}
+<script src="{% static 'accounts/js/tbl_meta.js' %}"></script>
 <script src="{% static 'accounts/js/author_list.js' %}"></script>
 {% endblock %}

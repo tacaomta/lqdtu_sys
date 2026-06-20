@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="card shadow-sm">
+        <div class="card-header">
+
+            <i class="bi bi-buildings me-2"></i>
+
+            Danh mục cơ sở hợp tác
+
+        </div>
+
+        <div class="card-body">
+            <div class="row mb-3">
+
+                {% include "accounts/partials/search_nav.html" %}
+
+            </div>
+            <table class="table table-bordered table-hover"> 
+                <thead> 
+                    <tr> 
+                        <th class="text-center" style="width:80px">STT</th> 
+                        <th>Tên trường</th> 
+                        <th>Quốc gia</th> 
+                        <th class="text-center">Số tác giả</th> 
+                    </tr> 
+                </thead> 
+                <tbody id="universityTableBody"></tbody> 
+            </table>
+            <div class="d-flex justify-content-between align-items-center mb-1">
+
+                <div class="text-muted small" id="summary">
+
+                </div>
+
+            </div>
+
+            <nav>
+
+                <ul
+
+                    id="pagination"
+
+                    class="pagination"
+
+                >
+
+                </ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'accounts/js/tbl_meta.js' %}"></script>
+<script src="{% static 'accounts/js/university_list.js' %}"></script>
+{% endblock %}

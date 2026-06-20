@@ -240,6 +240,23 @@
 
         </li>
 
+        <li>
+
+            <a href="{% url 'university_list' %}{% if querystring %}?{{ querystring }}{% endif %}"
+                class="menu-item {% if request.resolver_match.url_name == 'university_list' %}active{% endif %}"
+                data-bs-toggle="tooltip"
+                title="Danh mục cơ sở hợp tác">
+
+                <i class="bi bi-buildings"></i>
+
+                <span class="menu-text">
+                    Danh mục cơ sở hợp tác
+                </span>
+
+            </a>
+
+        </li>
+
         <li class="menu-group-title">
             Hệ thống
         </li>

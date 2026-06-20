@@ -6,41 +6,25 @@ document.addEventListener(
         let currentPage = 1;
         const pageSize = 20;
 
-        async function loadAuthors(page = 1) {
+        async function loadUniversities(page = 1) {
 
             const keyword = document.getElementById("keyword").value;
-            const pageSize =
-                document.getElementById(
-                    "pageSize"
-                ).value;
-
-            const response = await fetch(
-                `/accounts/admin/authors/api/?page=${currentPage}&page_size=${pageSize}&keyword=${encodeURIComponent(keyword)}`
-            );
-
+            const pageSize = document.getElementById("pageSize").value;
+            const response = await fetch(`/accounts/admin/universities/api/?page=${currentPage}&page_size=${pageSize}&keyword=${encodeURIComponent(keyword)}`);
             const data = await response.json();
 
-            const tbody = document.getElementById("authorTableBody");
+            const tbody = document.getElementById("universityTableBody");
             tbody.innerHTML = "";
 
-            data.records.forEach((author, index) => {
-                const stt =
+            data.records.forEach((u, index) => {
+                const stt = ((currentPage - 1) * pageSize) + index + 1;
 
-                    ((currentPage - 1) * pageSize)
-
-                    +
-
-                    index
-
-                    +
-
-                    1;
                 tbody.innerHTML += `
                     <tr>
-                        <td>${stt}</td>
-                        <td>${author.name}</td>
-                        <td>${author.university || ""}</td>
-                        <td>${author.country || ""}</td>
+                        <td class="text-center">${stt}</td>
+                        <td>${u.name}</td>
+                        <td>${u.country}</td>
+                        <td class="text-center">${u.author_count}</td>
                     </tr>
                     `;
             });
@@ -49,10 +33,8 @@ document.addEventListener(
             renderPagination(data);
         }
 
-        document.getElementById("keyword").addEventListener("keyup", function (e) {
-            if (e.key === "Enter") {
-                loadAuthors(1);
-            }
+        document.getElementById("keyword").addEventListener("keyup", function(e) {
+            if (e.key === "Enter") loadUniversities();
         });
 
         document.addEventListener(
@@ -77,13 +59,14 @@ document.addEventListener(
 
                     );
 
-                    loadAuthors();
+                    loadUniversities();
 
                 }
 
             }
 
         );
+
         document
             .getElementById(
                 "pageSize"
@@ -92,7 +75,7 @@ document.addEventListener(
 
                 "change",
 
-                () => loadAuthors()
+                () => loadUniversities()
 
             );
 
@@ -104,11 +87,10 @@ document.addEventListener(
 
                 "keyup",
 
-                () => loadAuthors()
+                () => loadUniversities()
 
             );
 
-        loadAuthors();
-
+        loadUniversities();
     }
-)
+);
