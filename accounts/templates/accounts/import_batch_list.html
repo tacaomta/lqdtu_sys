@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="card">
+
+    <div class="card-header">
+
+        <i class="bi bi bi-clock-history me-2"></i>
+
+        Lịch sử cập nhật dữ liệu
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered table-hover align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th style="width:80px">STT</th>
+
+                        <th>Tên file</th>
+
+                        <th>Ngày upload</th>
+
+                        <th>Người upload</th>
+
+                        <th>Trạng thái</th>
+
+                        <th class="text-end">Tổng dòng</th>
+
+                        <th class="text-end">Insert</th>
+
+                        <th class="text-end">Update</th>
+
+                        <th class="text-end">Error</th>
+
+                        <th style="width:80px" class="text-center">Chi tiết</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for batch in batches %}
+
+                    <tr>
+
+                        <td>
+
+                            {{ forloop.counter }}
+
+                        </td>
+
+                        <td>
+
+                            {{ batch.filename }}
+
+                        </td>
+
+                        <td>
+
+                            {{ batch.uploaded_at|date:"d/m/Y H:i" }}
+
+                        </td>
+
+                        <td>
+
+                            {{ batch.uploaded_by.username|default:"-" }}
+
+                        </td>
+
+                        <td>
+
+                            {% if batch.status == "COMPLETED" %}
+
+                                <span class="badge bg-success">
+
+                                    Completed
+
+                                </span>
+
+                            {% elif batch.status == "PROCESSING" %}
+
+                                <span class="badge bg-warning text-dark">
+
+                                    Processing
+
+                                </span>
+
+                            {% elif batch.status == "FAILED" %}
+
+                                <span class="badge bg-danger">
+
+                                    Failed
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-secondary">
+
+                                    Pending
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td class="text-end">
+
+                            {{ batch.total_rows }}
+
+                        </td>
+
+                        <td class="text-end">
+
+                            {{ batch.inserted_count }}
+
+                        </td>
+
+                        <td class="text-end">
+
+                            {{ batch.updated_count }}
+
+                        </td>
+
+                        <td class="text-end">
+
+                            {{ batch.error_message }}
+
+                        </td>
+
+                        <td class="text-center">
+                            <button
+                                class="btn btn-sm btn-outline-primary view-batch-btn"
+
+                                data-bs-toggle="modal"
+                                data-bs-target="#batchDetailModal"
+
+                                data-id="{{ batch.id }}"
+                                data-filename="{{ batch.filename }}"
+                                data-source="{{ batch.original_filename }}"
+                                data-status="{{ batch.status }}"
+                                data-filesize="{{ batch.file_size }}"
+                                data-uploaded="{{ batch.uploaded_at|date:'d/m/Y H:i:s' }}"
+                                data-started="{{ batch.started_at|date:'d/m/Y H:i:s' }}"
+                                data-finished="{{ batch.finished_at|date:'d/m/Y H:i:s' }}"
+                                data-total="{{ batch.total_rows }}"
+                                data-inserted="{{ batch.inserted_count }}"
+                                data-updated="{{ batch.updated_count }}"
+
+                                data-existing="{{ batch.existing_doi_count }}"
+                                data-newdoi="{{ batch.new_doi_count }}"
+                                data-missingdoi="{{ batch.doi_missing_count }}"
+                                data-duplicated="{{ batch.duplicated_count }}"
+                                data-enrichedsuccess="{{ batch.enriched_success }}"
+                                data-enrichedfailed="{{ batch.enriched_failed }}"
+
+                                data-log="{{ batch.error_message|default:'' }}"
+                            >
+                                <i class="bi bi-eye"></i>
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="10" class="text-center text-muted">
+
+                            Chưa có dữ liệu
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+{% include "accounts/partials/import_batch_log_modal.html" %}
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'accounts/js/import_batch_logs.js' %}"></script>
+{% endblock %}

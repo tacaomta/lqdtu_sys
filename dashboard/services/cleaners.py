@@ -75,23 +75,12 @@ def remove_duplicates(df):
     # ONLY VALID DOI
     # ==========================================
 
-    valid_doi_mask = (
+    valid_doi_mask = (df["DOI"].notna() & (df["DOI"].astype(str).str.strip() != ""))
 
-        df["DOI"].notna()
+    valid_df = df[valid_doi_mask]
 
-        &
-
-        (df["DOI"].astype(str).str.strip() != "")
-
-    )
-
-    valid_df = df[
-        valid_doi_mask
-    ]
-
-    missing_df = df[
-        ~valid_doi_mask
-    ]
+    # missing_df = df[~valid_doi_mask]
+    missing_df = df[df["DOI"].isna() | (df["DOI"].astype(str).str.strip() == "")]
 
     # ==========================================
     # DUPLICATED DOI

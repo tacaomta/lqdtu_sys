@@ -1,0 +1,185 @@
+<div class="modal fade" id="batchDetailModal" tabindex="-1">
+
+    <div class="modal-dialog modal-xl">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+
+                    Chi tiết Import Batch
+
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                ></button>
+
+            </div>
+
+            <div class="modal-body">
+                <div class="card mb-3">
+
+                    <div class="card-header">
+                        <i class="bi bi-filetype-exe"></i>
+                        Thông tin file
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <table class="table table-sm">
+
+                            <tr>
+                                <th>Tên file</th>
+                                <td id="m_filename"></td>
+                            </tr>
+
+                            <tr>
+                                <th>Đường dẫn gốc</th>
+                                <td id="m_source" style="word-wrap:break-word"></td>
+                            </tr>
+
+                            <tr>
+                                <th>File size</th>
+                                <td id="m_filesize"></td>
+                            </tr>
+
+                            <tr>
+                                <th>Trạng thái</th>
+                                <td id="m_status"></td>
+                            </tr>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+                <div class="card mb-3">
+
+                    <div class="card-header">
+                        <i class="bi bi-alarm"></i>
+                        Timeline
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <table class="table table-sm">
+
+                            <tr>
+                                <th>Uploaded</th>
+                                <td id="m_uploaded"></td>
+                            </tr>
+
+                            <tr>
+                                <th>Started</th>
+                                <td id="m_started"></td>
+                            </tr>
+
+                            <tr>
+                                <th>Finished</th>
+                                <td id="m_finished"></td>
+                            </tr>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+                <div class="card mb-3">
+
+                    <div class="card-header">
+                        <i class="bi bi-bar-chart"></i>
+                        Thống kê xử lý
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="row text-center">
+
+                            <div class="col">
+                                <h4 id="m_total"></h4>
+                                <small>Total</small>
+                            </div>
+
+                            <div class="col">
+                                <h4 id="m_existing_doi"></h4>
+                                <small>Exist DOI</small>
+                            </div>
+
+                            <div class="col">
+                                <h4 id="m_new_doi"></h4>
+                                <small>New DOI</small>
+                            </div>
+
+                            <div class="col">
+                                <h4 id="m_missing_doi"></h4>
+                                <small>Missing DOI</small>
+                            </div>
+
+                            <div class="col">
+                                <h4 id="m_duplicated"></h4>
+                                <small>Duplicated</small>
+                            </div>
+
+                            <div class="col">
+                                <h4 id="m_inserted"></h4>
+                                <small>Inserted</small>
+                            </div>
+
+                            <div class="col">
+                                <h4 id="m_updated"></h4>
+                                <small>Updated</small>
+                            </div>
+
+                            <div class="col">
+                                <h4 id="m_enriched_success"></h4>
+                                <small>Enriched success</small>
+                            </div>
+
+                            <div class="col">
+                                <h4 id="m_enriched_failed"></h4>
+                                <small>Enriched failed</small>
+                            </div>                    
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="card">
+
+                    <div class="card-header">
+                        <i class="bi bi-envelope-exclamation"></i>
+                        Error message
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <textarea
+                            id="m_log"
+                            class="form-control text-danger"
+                            rows="8"
+                            readonly
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

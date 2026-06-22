@@ -290,6 +290,8 @@ def import_publications(batch_id):
 
         inserted_count = 0
 
+        skipped_count = 0
+
         updated_count = 0
 
         existing_doi_count = 0
@@ -318,7 +320,7 @@ def import_publications(batch_id):
             # SKIP EMPTY DOI
             # =================================================
 
-            if not doi or str(doi).strip() == "":
+            if not doi or str(doi).strip() =="" or pd.isna(doi):
 
                 skipped_count += 1
 

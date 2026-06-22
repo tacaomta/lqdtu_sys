@@ -256,6 +256,24 @@
             </a>
 
         </li>
+        {%if request.user|has_role:'Admin' %}
+        <li>
+
+            <a href="{% url 'import_batch_list' %}{% if querystring %}?{{ querystring }}{% endif %}"
+                class="menu-item {% if request.resolver_match.url_name == 'import_batch_list' %}active{% endif %}"
+                data-bs-toggle="tooltip"
+                title="Nhật ký cập nhật dữ liệu">
+
+                <i class="bi bi-clock-history"></i>
+
+                <span class="menu-text">
+                    Nhật ký cập nhật dữ liệu
+                </span>
+
+            </a>
+
+        </li>
+        {% endif %}
 
         <li class="menu-group-title">
             Hệ thống

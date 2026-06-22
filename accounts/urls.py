@@ -33,7 +33,8 @@ from .views import (
     author_list,
     author_list_api,
     university_list,
-    university_list_api
+    university_list_api,
+    import_batch_list
 )
 
 urlpatterns = [
@@ -71,5 +72,5 @@ urlpatterns = [
     path("admin/authors/api/", author_list_api, name="author_list_api"),
     path("admin/universities/", university_list, name="university_list"),
     path("admin/universities/api/", university_list_api, name="university_list_api"),
-
+    path("admin/import-batches/", import_batch_list, name="import_batch_list")
 ]
