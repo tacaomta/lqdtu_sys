@@ -909,12 +909,61 @@ document.addEventListener(
 
         renderInternationalNetwork(30);
 
+        const domesticBins = JSON.parse(document.getElementById("domesticBins").textContent);
+        const domesticCounts = JSON.parse(document.getElementById("domesticCounts").textContent);
+
+        const internationalBins = JSON.parse(document.getElementById("internationalBins").textContent);
+        const internationalCounts = JSON.parse(document.getElementById("internationalCounts").textContent);
+
+        const countryBins = JSON.parse(document.getElementById("countryBins").textContent);
+        const countryCounts = JSON.parse(document.getElementById("countryCounts").textContent);
+
+        const totalBins = JSON.parse(document.getElementById("totalBins").textContent);
+        const totalCounts = JSON.parse(document.getElementById("totalCounts").textContent);
+
+        createBarChart({
+
+            canvasId: "colab-domestic-chart",
+            labels: domesticBins,
+            values: domesticCounts,
+            label: "Số CKH",
+            horizontal: false,
+            custom_color: DASHBOARD_COLORS[0]
+        });
+
+        createBarChart({
+
+            canvasId: "colab-international-chart",
+            labels: internationalBins,
+            values: internationalCounts,
+            label: "Số CBKH",
+            horizontal: false,
+            custom_color: DASHBOARD_COLORS[0]
+        });
+
+        createBarChart({
+
+            canvasId: "colab-country-chart",
+            labels: countryBins,
+            values: countryCounts,
+            label: "Số CBKH",
+            horizontal: false,
+            custom_color: DASHBOARD_COLORS[0]
+        });
+
+        createBarChart({
+
+            canvasId: "total-colab-chart",
+            labels: totalBins,
+            values: totalCounts,
+            label: "Số CBKH",
+            horizontal: false,
+            custom_color: DASHBOARD_COLORS[0]
+        });
+
 
 
         
-
-
-
 
     }
 

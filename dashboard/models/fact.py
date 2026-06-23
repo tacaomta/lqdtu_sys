@@ -140,6 +140,20 @@ class FactPublication(models.Model):
         )
     )
 
+    colab_domestic_count = models.IntegerField(
+        default=0
+    )
+    colab_international_count = models.IntegerField(
+        default=0
+    )
+    colab_country_count = models.IntegerField(
+        default=0
+    )
+    total_colab_count = models.IntegerField(
+        default=0
+    )
+
+
     # =====================================================
     # TRACKING
     # =====================================================

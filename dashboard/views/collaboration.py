@@ -15,6 +15,7 @@ from dashboard.services.collaboration.field_collaboration_chart import(
     get_field_collaboration_chart_data
 )
 from dashboard.services.config_service import is_dirty
+from dashboard.services.collaboration.histogram_colab import build_histogram_data
 
 @login_required
 def collaboration_view(request):
@@ -82,6 +83,14 @@ def collaboration_view(request):
     ) = get_field_collaboration_chart_data(qs, FIELD_GROUP_ORDER, publication_university_country_map, publication_citation_map)
     
    # domestic_university_ranking, international_university_ranking, country_ranking = get_rankings_list(publication_ids, publication_university_country_map)
+
+    domesticBins, domesticCounts = build_histogram_data(qs, "colab_domestic_count")
+
+    internationalBins, internationalCounts = build_histogram_data(qs, "colab_international_count")
+
+    countryBins, countryCounts = build_histogram_data(qs, "colab_country_count")
+
+    totalBins, totalCounts = build_histogram_data(qs, "total_colab_count")
     
     context = {
         "has_data": has_data,
@@ -176,7 +185,16 @@ def collaboration_view(request):
         "domestic_network_edges": domestic_network["edges"],
         "internaltional_network_nodes":
             international_network["nodes"], 
-        "internaltional_network_edges": international_network["edges"]
+        "internaltional_network_edges": international_network["edges"],
+
+        "domesticBins": domesticBins,
+        "domesticCounts": domesticCounts,
+        "internationalBins": internationalBins,
+        "internationalCounts": internationalCounts,
+        "countryBins": countryBins,
+        "countryCounts": countryCounts,
+        "totalBins": totalBins,
+        "totalCounts": totalCounts
     }
 
     return render(request, "dashboard/collaboration.html", context=context)

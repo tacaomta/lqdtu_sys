@@ -260,7 +260,7 @@
 
             </div>
 
-        </div>
+        </div> 
 
         <div class="row mt-4">
 
@@ -610,6 +610,96 @@
 
         <div class="row mt-4">
 
+            <div class="col-3">
+
+                <div class="dashboard-chart-card">
+
+                    <h5 class="mb-4">
+
+                        CBKH nhóm theo số CSHT trong nước
+
+                    </h5>
+
+                    <div class="chart-wrapper">
+
+                        <canvas id="colab-domestic-chart">
+
+                        </canvas>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-3">
+
+                <div class="dashboard-chart-card">
+
+                    <h5 class="mb-4">
+
+                        CBKH nhóm theo số CSHT ngoài nước
+
+                    </h5>
+
+                    <div class="chart-wrapper">
+
+                        <canvas id="colab-international-chart">
+
+                        </canvas>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-3">
+
+                <div class="dashboard-chart-card">
+
+                    <h5 class="mb-4">
+
+                        CBKH nhóm số quốc gia hợp tác
+
+                    </h5>
+
+                    <div class="chart-wrapper">
+
+                        <canvas id="colab-country-chart">
+
+                        </canvas>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-3">
+
+                <div class="dashboard-chart-card">
+
+                    <h5 class="mb-4">
+
+                        CBKH nhóm số HT trong và ngoài nước
+
+                    </h5>
+
+                    <div class="chart-wrapper">
+
+                        <canvas id="total-colab-chart">
+
+                        </canvas>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row mt-4">
+
             <div class="col-md-6">
 
                 <div class="dashboard-chart-card" style="height: 900px;">
@@ -735,6 +825,17 @@
 {{ internaltional_network_nodes|json_script:"internaltional_network_nodes" }}
 {{ internaltional_network_edges|json_script:"internaltional_network_edges" }}
 
+{{ domesticBins|json_script:"domesticBins" }}
+{{ domesticCounts|json_script:"domesticCounts" }}
+
+{{ internationalBins|json_script:"internationalBins" }}
+{{ internationalCounts|json_script:"internationalCounts" }}
+
+{{ countryBins|json_script:"countryBins" }}
+{{ countryCounts|json_script:"countryCounts" }}
+
+{{ totalBins|json_script:"totalBins" }}
+{{ totalCounts|json_script:"totalCounts" }}
 
 {% endblock %}
 

@@ -295,6 +295,7 @@ def save_dimensions(
     )
 
     results = []
+    colab_statistic = []
 
     for item in parsed_items:
 
@@ -325,6 +326,7 @@ def save_dimensions(
             )
 
         )
+        colab_statistic.append({"university": university_name if university_name else "", "country": item['country']})
 
         university_obj = (
 
@@ -370,7 +372,7 @@ def save_dimensions(
 
             })
 
-    return results
+    return results, colab_statistic
 
 
 # =========================================================
