@@ -95,11 +95,11 @@ WSGI_APPLICATION = "lqdtu.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': os.getenv('DB_NAME'), #'lqdtu_db',
-        'USER': os.getenv('DB_USER'),# sa,
-        'PASSWORD': os.getenv('DB_PASSWORD'), #'Abc@123',
-        'HOST': os.getenv('DB_HOST'), #'.\\sqlexpress',  # hoặc IP server
-        'PORT': os.getenv('DB_PORT'), # '1433',
+        'NAME': os.getenv('DB_NAME'), 
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'), 
+        'HOST': os.getenv('DB_HOST'), 
+        'PORT': os.getenv('DB_PORT'), 
         'OPTIONS': {
             'driver': 'ODBC Driver 18 for SQL Server',
             "extra_params": "TrustServerCertificate=yes",
